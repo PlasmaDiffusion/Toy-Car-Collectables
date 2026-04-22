@@ -1,0 +1,363 @@
+[
+  {
+    "id": "hw-1969-mustang-boss-redline",
+    "name": "1969 Ford Mustang Boss 429",
+    "brand": "Hot Wheels",
+    "productionYear": 1969,
+    "modelYear": 1969,
+    "scale": "1:64",
+    "condition": "Mint in Box",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 285,
+    "images": [
+      "/images/cars/hw-mustang.svg",
+      "/images/cars/hw-mustang-alt.svg"
+    ],
+    "description": "First-year Hot Wheels Redline issue in Antifreeze yellow. Base still has the original rivets intact. The blister card is unpunched with brilliant colors and zero creasing. One of the most sought-after Redline Mustangs in this condition.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-001",
+    "featured": true,
+    "categoryIds": ["era-1950s-60s", "brand-hot-wheels", "scale-164", "type-muscle", "condition-mib"],
+    "tags": ["redline", "mustang", "1969", "antifreeze", "unpunched card"]
+  },
+  {
+    "id": "matchbox-1970-challenger",
+    "name": "1970 Dodge Challenger",
+    "brand": "Matchbox",
+    "productionYear": 1971,
+    "modelYear": 1970,
+    "scale": "1:64",
+    "condition": "Excellent",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 48,
+    "images": [
+      "/images/cars/matchbox-challenger.svg"
+    ],
+    "description": "Matchbox Superfast #1 from the 1971 range in metallic red. The wheels show minimal play wear and the chrome is intact. Comes in the original Superfast box with only minor corner wear. A solid mid-grade example.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-002",
+    "featured": false,
+    "categoryIds": ["era-1970s", "brand-matchbox", "scale-164", "type-muscle"],
+    "tags": ["superfast", "challenger", "dodge", "muscle", "1971"]
+  },
+  {
+    "id": "corgi-1966-aston-db5",
+    "name": "1966 Aston Martin DB5 — James Bond",
+    "brand": "Corgi",
+    "productionYear": 1966,
+    "modelYear": 1964,
+    "scale": "1:43",
+    "condition": "Near Mint",
+    "vehicleType": "Movie & TV",
+    "material": "Diecast",
+    "price": 320,
+    "images": [
+      "/images/cars/corgi-aston.svg"
+    ],
+    "description": "Corgi #261 James Bond Aston Martin DB5 in silver birch with all working features: ejector seat, revolving number plates, extending bumper rams, and passenger-seat ejector intact. Original box with both inserts. A truly exceptional survivor example from the Goldfinger era.",
+    "facebookMarketplaceUrl": null,
+    "featured": true,
+    "categoryIds": ["era-1950s-60s", "brand-corgi", "scale-143", "type-movie-tv", "condition-mib"],
+    "tags": ["james bond", "aston martin", "goldfinger", "spy car", "corgi 261", "near mint"]
+  },
+  {
+    "id": "jl-1968-toronado",
+    "name": "1968 Oldsmobile Toronado Custom",
+    "brand": "Johnny Lightning",
+    "productionYear": 1969,
+    "modelYear": 1968,
+    "scale": "1:64",
+    "condition": "Good",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 95,
+    "images": [
+      "/images/cars/jl-toronado.svg"
+    ],
+    "description": "Topper Toys Johnny Lightning Custom Toronado in plum purple. A legitimate 1969 Topper original — one of the first eight Customs released. The paint shows expected play wear but no chips through to metal. Wheels still spin freely.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-004",
+    "featured": false,
+    "categoryIds": ["era-1950s-60s", "brand-johnny-lightning", "scale-164", "type-muscle"],
+    "tags": ["topper", "johnny lightning", "1969 original", "toronado", "custom", "plum"]
+  },
+  {
+    "id": "hw-1979-firebird-ta",
+    "name": "1979 Pontiac Firebird T/A",
+    "brand": "Hot Wheels",
+    "productionYear": 1979,
+    "modelYear": 1979,
+    "scale": "1:64",
+    "condition": "Near Mint",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 38,
+    "images": [
+      "/images/cars/hw-firebird.svg"
+    ],
+    "description": "Hot Wheels Flying Colors Firebird in black with the iconic gold Screaming Chicken hood graphic fully intact. Blackwall wheels with no flat spots. One of the strongest graphics in the Flying Colors run and an evergreen favourite.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-005",
+    "featured": true,
+    "categoryIds": ["era-1970s", "brand-hot-wheels", "scale-164", "type-muscle"],
+    "tags": ["firebird", "trans am", "pontiac", "flying colors", "blackwall", "screaming chicken"]
+  },
+  {
+    "id": "hw-2003-ferrari-360",
+    "name": "2003 Ferrari 360 Modena",
+    "brand": "Hot Wheels",
+    "productionYear": 2003,
+    "modelYear": 1999,
+    "scale": "1:18",
+    "condition": "Mint in Box",
+    "vehicleType": "Sports Car",
+    "material": "Diecast",
+    "price": 145,
+    "images": [
+      "/images/cars/hw-ferrari.svg"
+    ],
+    "description": "Hot Wheels 100% series Ferrari 360 Modena in rosso corsa red. Opening hood, doors, and engine cover. Real Riders rubber tyres. Limited to 25,000 pieces worldwide. Sealed in the premium box — never displayed.",
+    "facebookMarketplaceUrl": null,
+    "featured": false,
+    "categoryIds": ["era-2000s-plus", "brand-hot-wheels", "scale-118", "type-sports", "condition-mib"],
+    "tags": ["ferrari", "360 modena", "1:18", "100% series", "real riders", "limited"]
+  },
+  {
+    "id": "dinky-1957-jaguar-xk120",
+    "name": "1957 Jaguar XK 120",
+    "brand": "Dinky Toys",
+    "productionYear": 1957,
+    "modelYear": 1949,
+    "scale": "1:43",
+    "condition": "Good",
+    "vehicleType": "Sports Car",
+    "material": "Diecast",
+    "price": 75,
+    "images": [
+      "/images/cars/dinky-jaguar.svg"
+    ],
+    "description": "Dinky #157 Jaguar XK 120 Coupe in cream with red seats. Chassis in dark blue. Light rub marks to the sides and a few small chips visible under magnification, but overall a solid display piece. A genuine 1950s British classic.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-007",
+    "featured": false,
+    "categoryIds": ["era-1950s-60s", "brand-dinky", "scale-143", "type-sports"],
+    "tags": ["jaguar", "xk120", "dinky", "1957", "british", "pre-war style"]
+  },
+  {
+    "id": "matchbox-1964-mercedes-230sl",
+    "name": "1964 Mercedes-Benz 230SL",
+    "brand": "Matchbox",
+    "productionYear": 1964,
+    "modelYear": 1963,
+    "scale": "1:64",
+    "condition": "Near Mint",
+    "vehicleType": "Sports Car",
+    "material": "Diecast",
+    "price": 60,
+    "images": [
+      "/images/cars/matchbox-challenger.svg"
+    ],
+    "description": "Matchbox Regular Wheels #27 Mercedes-Benz 230SL in white with grey interior and yellow tinted windows. Original grey plastic wheels. Produced in the Lesney era during the early 1960s golden period. Comes in a Matchbox type D box with strong colours.",
+    "facebookMarketplaceUrl": null,
+    "featured": false,
+    "categoryIds": ["era-1950s-60s", "brand-matchbox", "scale-164", "type-sports"],
+    "tags": ["mercedes", "230sl", "lesney", "regular wheels", "1964", "german"]
+  },
+  {
+    "id": "hw-1971-el-camino",
+    "name": "1971 Chevrolet El Camino",
+    "brand": "Hot Wheels",
+    "productionYear": 1971,
+    "modelYear": 1971,
+    "scale": "1:64",
+    "condition": "Excellent",
+    "vehicleType": "Truck & Van",
+    "material": "Diecast",
+    "price": 110,
+    "images": [
+      "/images/cars/hw-firebird.svg"
+    ],
+    "description": "Hot Wheels Spoilers series El Camino in spectraflame orange. Redline wheels still show orange pinstripe. A surprisingly hard El Camino to find in this grade — the orange spectraflame is prone to fading but this example is vibrant.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-009",
+    "featured": false,
+    "categoryIds": ["era-1970s", "brand-hot-wheels", "scale-164"],
+    "tags": ["el camino", "chevrolet", "spoilers", "spectraflame", "redline", "1971"]
+  },
+  {
+    "id": "majorette-1983-porsche-911",
+    "name": "1983 Porsche 911 SC",
+    "brand": "Majorette",
+    "productionYear": 1983,
+    "modelYear": 1978,
+    "scale": "1:64",
+    "condition": "Excellent",
+    "vehicleType": "Sports Car",
+    "material": "Diecast",
+    "price": 22,
+    "images": [
+      "/images/cars/majorette-porsche.svg"
+    ],
+    "description": "Majorette #211 Porsche 911 SC in silver with opening doors and detailed engine compartment visible through the rear window. The French label is still readable on the base. A great entry-level piece from the 1980s European collector scene.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-010",
+    "featured": false,
+    "categoryIds": ["era-1980s", "brand-majorette", "scale-164", "type-sports"],
+    "tags": ["porsche", "911", "majorette", "french", "1983", "opening doors"]
+  },
+  {
+    "id": "hw-1995-treasure-camaro",
+    "name": "1995 Hot Wheels Treasure Hunt '67 Camaro",
+    "brand": "Hot Wheels",
+    "productionYear": 1995,
+    "modelYear": 1967,
+    "scale": "1:64",
+    "condition": "Mint in Box",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 475,
+    "images": [
+      "/images/cars/hw-treasure-camaro.svg"
+    ],
+    "description": "First-generation Treasure Hunt series '67 Camaro — #9 of 12. The gold Treasure Hunt logo on the base is crisp. Card is unpunched with no yellowing or creasing. A defining piece of the modern Hot Wheels collector era and extremely difficult to find unpunched.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-011",
+    "featured": true,
+    "categoryIds": ["era-1990s", "brand-hot-wheels", "scale-164", "type-muscle", "condition-mib"],
+    "tags": ["treasure hunt", "camaro", "1967", "1995", "limited", "first series", "unpunched"]
+  },
+  {
+    "id": "jl-2001-barracuda-white-lightning",
+    "name": "2001 Plymouth Barracuda '70 White Lightning",
+    "brand": "Johnny Lightning",
+    "productionYear": 2001,
+    "modelYear": 1970,
+    "scale": "1:64",
+    "condition": "Mint in Box",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 55,
+    "images": [
+      "/images/cars/jl-toronado.svg"
+    ],
+    "description": "Johnny Lightning White Lightning variant '70 Plymouth Barracuda in the chase chrome finish. Sealed in the original blister pack. White Lightning variants were randomly inserted 1-per-case in the Johnny Lightning Muscle Cars USA series.",
+    "facebookMarketplaceUrl": null,
+    "featured": false,
+    "categoryIds": ["era-2000s-plus", "brand-johnny-lightning", "scale-164", "type-muscle", "condition-mib"],
+    "tags": ["barracuda", "plymouth", "white lightning", "chrome", "chase", "2001"]
+  },
+  {
+    "id": "corgi-1968-batmobile",
+    "name": "1968 Batman Batmobile",
+    "brand": "Corgi",
+    "productionYear": 1968,
+    "modelYear": 1966,
+    "scale": "1:43",
+    "condition": "Good",
+    "vehicleType": "Movie & TV",
+    "material": "Diecast",
+    "price": 195,
+    "images": [
+      "/images/cars/corgi-batmobile.svg"
+    ],
+    "description": "Corgi #267 Batmobile from the Adam West TV series. Original black body with the red jet exhaust and gold trim all present. Chains and bat-ray projector intact. The box shows heavy wear and is split at one corner — model itself is a solid Grade 3.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-013",
+    "featured": true,
+    "categoryIds": ["era-1950s-60s", "brand-corgi", "scale-143", "type-movie-tv"],
+    "tags": ["batmobile", "batman", "corgi 267", "tv series", "adam west", "1968"]
+  },
+  {
+    "id": "hw-1975-hot-bird",
+    "name": "1975 Hot Wheels Hot Bird",
+    "brand": "Hot Wheels",
+    "productionYear": 1975,
+    "modelYear": 1975,
+    "scale": "1:64",
+    "condition": "Excellent",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 42,
+    "images": [
+      "/images/cars/hw-firebird.svg"
+    ],
+    "description": "Hot Wheels Blackwall era Hot Bird in tan with the Firebird tampo in excellent condition. The spoiler is present and unbroken — a common failure point for this casting. Blackwall wheels show minimal play use.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-014",
+    "featured": false,
+    "categoryIds": ["era-1970s", "brand-hot-wheels", "scale-164", "type-muscle"],
+    "tags": ["hot bird", "firebird", "blackwall", "1975", "tan", "tampo"]
+  },
+  {
+    "id": "hw-2010-charger-daytona",
+    "name": "2010 Dodge Charger Daytona '69",
+    "brand": "Hot Wheels",
+    "productionYear": 2010,
+    "modelYear": 1969,
+    "scale": "1:64",
+    "condition": "Near Mint",
+    "vehicleType": "Race Car",
+    "material": "Diecast",
+    "price": 18,
+    "images": [
+      "/images/cars/matchbox-challenger.svg"
+    ],
+    "description": "Hot Wheels '69 Dodge Charger Daytona from the 2010 mainline in orange with the signature nose cone and rear wing. Spectraflame finish and Real Riders tyres on this premium release. A must for Mopar and NASCAR history fans.",
+    "facebookMarketplaceUrl": null,
+    "featured": false,
+    "categoryIds": ["era-2000s-plus", "brand-hot-wheels", "scale-164"],
+    "tags": ["charger", "daytona", "dodge", "mopar", "nascar", "nose cone", "1969"]
+  },
+  {
+    "id": "hw-1988-camaro-iroc",
+    "name": "1988 Chevrolet Camaro IROC-Z",
+    "brand": "Hot Wheels",
+    "productionYear": 1988,
+    "modelYear": 1988,
+    "scale": "1:64",
+    "condition": "Near Mint",
+    "vehicleType": "Muscle Car",
+    "material": "Diecast",
+    "price": 28,
+    "images": [
+      "/images/cars/hw-treasure-camaro.svg"
+    ],
+    "description": "Hot Wheels 1988 mainline IROC-Z in bright red with the iconic '80s side tampos fully intact. Ultra-hots wheels in near-perfect condition. A great snapshot of the 1980s American muscle scene.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-016",
+    "featured": false,
+    "categoryIds": ["era-1980s", "brand-hot-wheels", "scale-164", "type-muscle"],
+    "tags": ["camaro", "iroc-z", "1988", "ultra-hots", "red", "tampo"]
+  },
+  {
+    "id": "matchbox-1982-rolls-royce",
+    "name": "1982 Rolls-Royce Silver Spirit",
+    "brand": "Matchbox",
+    "productionYear": 1982,
+    "modelYear": 1980,
+    "scale": "1:64",
+    "condition": "Good",
+    "vehicleType": "Classic",
+    "material": "Diecast",
+    "price": 15,
+    "images": [
+      "/images/cars/matchbox-challenger.svg"
+    ],
+    "description": "Matchbox #39 Rolls-Royce Silver Spirit in silver with a tan interior. Light play wear and a small scuff to the rear quarter — easily overlooked at arm's length. A classic British luxury car from the Superfast era.",
+    "facebookMarketplaceUrl": null,
+    "featured": false,
+    "categoryIds": ["era-1980s", "brand-matchbox", "scale-164"],
+    "tags": ["rolls-royce", "silver spirit", "matchbox", "luxury", "british", "1982"]
+  },
+  {
+    "id": "hw-1993-ferrari-testarossa",
+    "name": "1993 Ferrari Testarossa",
+    "brand": "Hot Wheels",
+    "productionYear": 1993,
+    "modelYear": 1984,
+    "scale": "1:64",
+    "condition": "Excellent",
+    "vehicleType": "Sports Car",
+    "material": "Diecast",
+    "price": 32,
+    "images": [
+      "/images/cars/hw-ferrari.svg"
+    ],
+    "description": "Hot Wheels 1993 mainline Ferrari Testarossa in red with detailed side strake tampo. Ultra-hots wheels and gold chrome windows. A popular casting that captures the Testarossa's iconic wedge profile beautifully.",
+    "facebookMarketplaceUrl": "https://www.facebook.com/marketplace/item/example-018",
+    "featured": false,
+    "categoryIds": ["era-1990s", "brand-hot-wheels", "scale-164", "type-sports"],
+    "tags": ["ferrari", "testarossa", "1993", "red", "ultra-hots", "miami vice"]
+  }
+]

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#1a1d27"/>
+  <ellipse cx="200" cy="172" rx="148" ry="8" fill="#000" opacity="0.5"/>
+  <!-- Classic open-top roadster long hood -->
+  <path d="M58,150 L58,120 Q72,90 110,84 L155,80 Q185,72 222,68 L285,70 Q318,74 338,95 L348,120 L348,150 Z" fill="#e8e0c0"/>
+  <!-- No roof — open car -->
+  <!-- Cockpit area (open) -->
+  <path d="M158,80 L172,55 L218,53 L232,68 L222,68 Q185,72 158,80 Z" fill="#c8b890" opacity="0.6"/>
+  <rect x="163" y="58" width="65" height="18" rx="4" fill="#1a2a44" opacity="0.8"/>
+  <!-- Long bonnet vents -->
+  <line x1="260" y1="78" x2="320" y2="82" stroke="#bbb" stroke-width="2"/>
+  <line x1="260" y1="84" x2="320" y2="88" stroke="#bbb" stroke-width="2"/>
+  <line x1="260" y1="90" x2="320" y2="94" stroke="#bbb" stroke-width="2"/>
+  <!-- XK120 distinctive grille -->
+  <ellipse cx="340" cy="108" rx="10" ry="18" fill="#888" stroke="#ccc" stroke-width="1"/>
+  <ellipse cx="340" cy="108" rx="7" ry="14" fill="#555"/>
+  <!-- Flowing fenders (front) -->
+  <path d="M300,85 Q335,80 348,95 L348,120 Q335,105 308,105 Z" fill="#d8d0b0"/>
+  <!-- Wheels with wire style spokes -->
+  <circle cx="118" cy="150" r="27" fill="#1a1d27"/>
+  <circle cx="118" cy="150" r="23" fill="#2a2a2a"/>
+  <circle cx="118" cy="150" r="15" fill="#bbb"/>
+  <!-- Wire spoke effect -->
+  <line x1="118" y1="135" x2="118" y2="165" stroke="#888" stroke-width="1.5"/>
+  <line x1="103" y1="150" x2="133" y2="150" stroke="#888" stroke-width="1.5"/>
+  <line x1="107" y1="139" x2="129" y2="161" stroke="#888" stroke-width="1"/>
+  <line x1="129" y1="139" x2="107" y2="161" stroke="#888" stroke-width="1"/>
+  <circle cx="118" cy="150" r="5" fill="#ccc"/>
+  <circle cx="290" cy="150" r="27" fill="#1a1d27"/>
+  <circle cx="290" cy="150" r="23" fill="#2a2a2a"/>
+  <circle cx="290" cy="150" r="15" fill="#bbb"/>
+  <line x1="290" y1="135" x2="290" y2="165" stroke="#888" stroke-width="1.5"/>
+  <line x1="275" y1="150" x2="305" y2="150" stroke="#888" stroke-width="1.5"/>
+  <line x1="279" y1="139" x2="301" y2="161" stroke="#888" stroke-width="1"/>
+  <line x1="301" y1="139" x2="279" y2="161" stroke="#888" stroke-width="1"/>
+  <circle cx="290" cy="150" r="5" fill="#ccc"/>
+  <!-- Headlights (round Lucas style) -->
+  <circle cx="340" cy="125" r="6" fill="#ffe88a" opacity="0.9"/>
+  <circle cx="340" cy="125" r="4" fill="#fff" opacity="0.8"/>
+  <!-- Taillights -->
+  <circle cx="63" cy="130" r="5" fill="#ff3020"/>
+  <text x="200" y="192" text-anchor="middle" fill="#888" font-family="sans-serif" font-size="11">1957 Jaguar XK 120 Coupe — Dinky #157</text>
+</svg>

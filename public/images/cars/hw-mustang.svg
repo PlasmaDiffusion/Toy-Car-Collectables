@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#1a1d27"/>
+  <!-- Ground shadow -->
+  <ellipse cx="200" cy="172" rx="155" ry="8" fill="#000" opacity="0.5"/>
+  <!-- Body -->
+  <path d="M60,150 L60,115 Q80,80 130,75 L185,68 Q210,55 240,55 L295,60 Q330,65 345,85 L360,115 L360,150 Z" fill="#e8a020"/>
+  <!-- Roof -->
+  <path d="M130,75 L160,50 Q200,38 240,40 L280,48 L295,60 L240,55 Q210,55 185,68 Z" fill="#d4901a"/>
+  <!-- Windshield -->
+  <path d="M155,52 L172,75 L220,73 L240,52 Z" fill="#88ccee" opacity="0.7"/>
+  <!-- Rear window -->
+  <path d="M252,52 L265,63 L290,60 L285,50 Z" fill="#88ccee" opacity="0.7"/>
+  <!-- Side windows -->
+  <path d="M175,75 L188,60 L245,56 L258,65 L255,75 Z" fill="#88ccee" opacity="0.6"/>
+  <!-- Wheel arches -->
+  <circle cx="120" cy="150" r="30" fill="#1a1d27"/>
+  <circle cx="290" cy="150" r="30" fill="#1a1d27"/>
+  <!-- Wheels -->
+  <circle cx="120" cy="150" r="26" fill="#2a2a2a"/>
+  <circle cx="120" cy="150" r="18" fill="#888"/>
+  <circle cx="120" cy="150" r="8" fill="#c8a020"/>
+  <circle cx="290" cy="150" r="26" fill="#2a2a2a"/>
+  <circle cx="290" cy="150" r="18" fill="#888"/>
+  <circle cx="290" cy="150" r="8" fill="#c8a020"/>
+  <!-- Headlights -->
+  <ellipse cx="355" cy="125" rx="8" ry="5" fill="#ffe88a" opacity="0.9"/>
+  <!-- Taillights -->
+  <rect x="60" y="115" width="6" height="20" rx="2" fill="#ff3020"/>
+  <!-- Bumpers -->
+  <path d="M60,140 L55,145 L60,150" stroke="#aaa" stroke-width="3" fill="none"/>
+  <path d="M360,140 L365,145 L360,150" stroke="#aaa" stroke-width="3" fill="none"/>
+  <!-- Stripes -->
+  <path d="M200,57 L200,148" stroke="#fff" stroke-width="2" opacity="0.2"/>
+  <!-- Label -->
+  <text x="200" y="192" text-anchor="middle" fill="#888" font-family="sans-serif" font-size="11">1969 Ford Mustang Boss 429 — Hot Wheels Redline</text>
+</svg>

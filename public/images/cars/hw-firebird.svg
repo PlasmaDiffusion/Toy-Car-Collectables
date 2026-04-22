@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#1a1d27"/>
+  <ellipse cx="200" cy="172" rx="155" ry="8" fill="#000" opacity="0.5"/>
+  <!-- Long low fastback body -->
+  <path d="M50,150 L50,120 Q65,88 110,82 L160,78 Q195,62 235,58 L290,60 Q325,65 348,90 L358,120 L358,150 Z" fill="#111"/>
+  <!-- Fastback roof line -->
+  <path d="M110,82 L135,50 Q180,36 235,38 L280,46 L290,60 L235,58 Q195,62 160,78 Z" fill="#0a0a0a"/>
+  <!-- Windshield -->
+  <path d="M140,52 L162,80 L215,76 L235,50 Z" fill="#88ccee" opacity="0.65"/>
+  <!-- Gold Screaming Chicken hood graphic -->
+  <ellipse cx="218" cy="110" rx="40" ry="22" fill="#c8880a" opacity="0.85"/>
+  <path d="M218,92 L200,108 L210,112 L200,128 L218,115 L236,128 L226,112 L236,108 Z" fill="#ff9900" opacity="0.9"/>
+  <!-- Spoiler -->
+  <rect x="44" y="118" width="12" height="25" rx="2" fill="#222"/>
+  <path d="M50,118 L50,108 L75,108 L75,118 Z" fill="#333"/>
+  <!-- Wheels -->
+  <circle cx="115" cy="150" r="28" fill="#1a1d27"/>
+  <circle cx="115" cy="150" r="24" fill="#2a2a2a"/>
+  <circle cx="115" cy="150" r="16" fill="#555"/>
+  <circle cx="115" cy="150" r="6" fill="#999"/>
+  <circle cx="295" cy="150" r="28" fill="#1a1d27"/>
+  <circle cx="295" cy="150" r="24" fill="#2a2a2a"/>
+  <circle cx="295" cy="150" r="16" fill="#555"/>
+  <circle cx="295" cy="150" r="6" fill="#999"/>
+  <!-- Headlights -->
+  <rect x="350" y="118" width="10" height="6" rx="2" fill="#ffe88a" opacity="0.85"/>
+  <!-- Taillights -->
+  <rect x="48" y="120" width="8" height="16" rx="2" fill="#ff3020"/>
+  <text x="200" y="192" text-anchor="middle" fill="#888" font-family="sans-serif" font-size="11">1979 Pontiac Firebird T/A — Hot Wheels Flying Colors</text>
+</svg>

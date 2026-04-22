@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#0a0a14"/>
+  <ellipse cx="200" cy="172" rx="165" ry="8" fill="#000" opacity="0.6"/>
+  <!-- Batmobile body — long, low, dramatic -->
+  <path d="M35,150 L35,118 Q48,88 88,80 L140,72 Q175,58 215,55 L295,58 Q335,65 355,90 L368,118 L368,150 Z" fill="#111118"/>
+  <!-- Cockpit canopy -->
+  <path d="M148,72 L165,48 Q195,35 228,35 L258,40 L272,58 L215,55 Q175,58 148,72 Z" fill="#1a1a28"/>
+  <ellipse cx="210" cy="52" rx="40" ry="14" fill="#1a2a44" opacity="0.7"/>
+  <!-- Bat wings on fin -->
+  <path d="M35,118 L35,105 Q45,90 60,90 L80,92 L75,110 L50,115 Z" fill="#1a1a20"/>
+  <path d="M365,115 L368,118 L360,145 L345,140 L355,120 Z" fill="#1a1a20"/>
+  <!-- Jet exhaust at rear -->
+  <path d="M35,130 L28,135 L35,140" fill="none" stroke="#ff4400" stroke-width="3"/>
+  <circle cx="26" cy="135" r="5" fill="#ff6600" opacity="0.8"/>
+  <circle cx="24" cy="135" r="3" fill="#ffcc00" opacity="0.9"/>
+  <!-- Bat hood ornament -->
+  <path d="M315,68 L305,60 L310,55 L320,58 L330,55 L335,60 L325,68 Z" fill="#333"/>
+  <!-- Gold trim on sides -->
+  <path d="M88,80 L140,72 L215,55 L295,58" stroke="#c8a030" stroke-width="2" fill="none" opacity="0.7"/>
+  <!-- Wheels — large and rugged -->
+  <circle cx="118" cy="150" r="30" fill="#080808"/>
+  <circle cx="118" cy="150" r="26" fill="#1a1a1a"/>
+  <circle cx="118" cy="150" r="18" fill="#333"/>
+  <circle cx="118" cy="150" r="8" fill="#555"/>
+  <circle cx="310" cy="150" r="30" fill="#080808"/>
+  <circle cx="310" cy="150" r="26" fill="#1a1a1a"/>
+  <circle cx="310" cy="150" r="18" fill="#333"/>
+  <circle cx="310" cy="150" r="8" fill="#555"/>
+  <!-- Headlights — eerie glow -->
+  <ellipse cx="362" cy="116" rx="7" ry="5" fill="#88aaff" opacity="0.8"/>
+  <ellipse cx="362" cy="126" rx="5" ry="4" fill="#88aaff" opacity="0.5"/>
+  <!-- Chain weapon (decorative) -->
+  <path d="M120,140 Q140,130 160,135 Q180,140 200,132" stroke="#888" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+  <text x="200" y="192" text-anchor="middle" fill="#556" font-family="sans-serif" font-size="11">1968 Batman Batmobile — Corgi #267</text>
+</svg>

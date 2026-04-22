@@ -1,0 +1,164 @@
+[
+  {
+    "id": "era-1950s-60s",
+    "name": "1950s & 1960s",
+    "slug": "era-1950s-60s",
+    "type": "era",
+    "description": "The golden age of die-cast. Lesney, Dinky, and early Corgi pieces that started it all.",
+    "imageUrl": "/images/cars/dinky-jaguar.svg",
+    "count": 4
+  },
+  {
+    "id": "era-1970s",
+    "name": "1970s",
+    "slug": "era-1970s",
+    "type": "era",
+    "description": "Hot Wheels Redlines, Matchbox Superfast, and muscle-car mania in miniature.",
+    "imageUrl": "/images/cars/hw-firebird.svg",
+    "count": 5
+  },
+  {
+    "id": "era-1980s",
+    "name": "1980s",
+    "slug": "era-1980s",
+    "type": "era",
+    "description": "Neon, cassette decks, and a wave of European diecast from Majorette and Siku.",
+    "imageUrl": "/images/cars/majorette-porsche.svg",
+    "count": 3
+  },
+  {
+    "id": "era-1990s",
+    "name": "1990s",
+    "slug": "era-1990s",
+    "type": "era",
+    "description": "Treasure Hunts, Real Riders, and the collector's-series boom.",
+    "imageUrl": "/images/cars/hw-treasure-camaro.svg",
+    "count": 3
+  },
+  {
+    "id": "era-2000s-plus",
+    "name": "2000s & Newer",
+    "slug": "era-2000s-plus",
+    "type": "era",
+    "description": "Premium lines, licensed replicas, and limited-edition modern releases.",
+    "imageUrl": "/images/cars/hw-ferrari.svg",
+    "count": 3
+  },
+  {
+    "id": "brand-hot-wheels",
+    "name": "Hot Wheels",
+    "slug": "brand-hot-wheels",
+    "type": "brand",
+    "description": "The world's best-selling toy car brand. Redlines, Flying Colors, Treasure Hunts, and beyond.",
+    "imageUrl": "/images/cars/hw-mustang.svg",
+    "count": 8
+  },
+  {
+    "id": "brand-matchbox",
+    "name": "Matchbox",
+    "slug": "brand-matchbox",
+    "type": "brand",
+    "description": "Lesney originals and Superfast era pieces — British heritage at 1:64.",
+    "imageUrl": "/images/cars/matchbox-challenger.svg",
+    "count": 3
+  },
+  {
+    "id": "brand-corgi",
+    "name": "Corgi",
+    "slug": "brand-corgi",
+    "type": "brand",
+    "description": "Renowned for detailed interiors, opening features, and iconic movie tie-ins.",
+    "imageUrl": "/images/cars/corgi-aston.svg",
+    "count": 2
+  },
+  {
+    "id": "brand-johnny-lightning",
+    "name": "Johnny Lightning",
+    "slug": "brand-johnny-lightning",
+    "type": "brand",
+    "description": "Topper Toys originals and the 1990s revival collector lines.",
+    "imageUrl": "/images/cars/jl-toronado.svg",
+    "count": 2
+  },
+  {
+    "id": "brand-dinky",
+    "name": "Dinky Toys",
+    "slug": "brand-dinky",
+    "type": "brand",
+    "description": "Meccano's legendary British die-casts, sought after by serious collectors worldwide.",
+    "imageUrl": "/images/cars/dinky-jaguar.svg",
+    "count": 1
+  },
+  {
+    "id": "brand-majorette",
+    "name": "Majorette",
+    "slug": "brand-majorette",
+    "type": "brand",
+    "description": "French flair in miniature — excellent detail and robust construction.",
+    "imageUrl": "/images/cars/majorette-porsche.svg",
+    "count": 1
+  },
+  {
+    "id": "scale-164",
+    "name": "1:64 Scale",
+    "slug": "scale-164",
+    "type": "scale",
+    "description": "The classic pocket-size format — the standard for Hot Wheels and Matchbox.",
+    "imageUrl": "/images/cars/hw-mustang.svg",
+    "count": 11
+  },
+  {
+    "id": "scale-143",
+    "name": "1:43 Scale",
+    "slug": "scale-143",
+    "type": "scale",
+    "description": "Mid-size prestige format favoured by Corgi and Dinky for incredible detail.",
+    "imageUrl": "/images/cars/corgi-aston.svg",
+    "count": 3
+  },
+  {
+    "id": "scale-118",
+    "name": "1:18 Scale",
+    "slug": "scale-118",
+    "type": "scale",
+    "description": "Display-grade replicas with opening hoods, doors, and fine interior detail.",
+    "imageUrl": "/images/cars/hw-ferrari.svg",
+    "count": 2
+  },
+  {
+    "id": "type-muscle",
+    "name": "Muscle Cars",
+    "slug": "type-muscle",
+    "type": "vehicleType",
+    "description": "Mustangs, Camaros, Challengers, Chargers — American horsepower frozen in metal.",
+    "imageUrl": "/images/cars/hw-mustang.svg",
+    "count": 7
+  },
+  {
+    "id": "type-sports",
+    "name": "Sports Cars",
+    "slug": "type-sports",
+    "type": "vehicleType",
+    "description": "Ferraris, Porsches, Aston Martins — European precision at collectible scale.",
+    "imageUrl": "/images/cars/majorette-porsche.svg",
+    "count": 4
+  },
+  {
+    "id": "type-movie-tv",
+    "name": "Movie & TV Cars",
+    "slug": "type-movie-tv",
+    "type": "vehicleType",
+    "description": "Batmobiles, Bond cars, and screen icons immortalised as die-cast.",
+    "imageUrl": "/images/cars/corgi-batmobile.svg",
+    "count": 2
+  },
+  {
+    "id": "condition-mib",
+    "name": "Mint in Box",
+    "slug": "condition-mib",
+    "type": "condition",
+    "description": "Unplayed-with, original packaging intact. The pinnacle of collector condition.",
+    "imageUrl": "/images/cars/hw-mustang.svg",
+    "count": 4
+  }
+]

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#1a1d27"/>
+  <ellipse cx="200" cy="172" rx="145" ry="8" fill="#000" opacity="0.5"/>
+  <!-- 911 distinctive round-roofed body -->
+  <path d="M62,150 L62,120 Q75,92 112,86 L158,82 Q192,70 228,66 L282,68 Q315,72 334,92 L344,120 L344,150 Z" fill="#d0d8e0"/>
+  <!-- Curved 911 roof (no sharp angles) -->
+  <path d="M112,86 L128,55 Q170,40 228,40 L268,46 L282,68 L228,66 Q192,70 158,82 Z" fill="#b8c0c8"/>
+  <!-- Windshield (very slanted) -->
+  <path d="M136,58 L155,84 L214,82 L232,56 Z" fill="#88ccee" opacity="0.7"/>
+  <!-- Rear engine lid louvres -->
+  <line x1="68" y1="90" x2="68" y2="118" stroke="#b0b8c0" stroke-width="2"/>
+  <line x1="74" y1="88" x2="74" y2="116" stroke="#b0b8c0" stroke-width="2"/>
+  <line x1="80" y1="88" x2="80" y2="116" stroke="#b0b8c0" stroke-width="2"/>
+  <!-- Whale tail / spoiler (rear) -->
+  <path d="M62,108 L55,104 L55,112 L62,112 Z" fill="#c0c8d0"/>
+  <!-- Fender flares -->
+  <ellipse cx="118" cy="140" rx="28" ry="12" fill="#c8d0d8" opacity="0.4"/>
+  <ellipse cx="285" cy="140" rx="28" ry="12" fill="#c8d0d8" opacity="0.4"/>
+  <!-- Wheels (Fuchs style) -->
+  <circle cx="118" cy="150" r="27" fill="#1a1d27"/>
+  <circle cx="118" cy="150" r="23" fill="#1a1a1a"/>
+  <circle cx="118" cy="150" r="15" fill="#888"/>
+  <!-- Fuchs petal effect -->
+  <path d="M118,135 L124,148 L118,150 L112,148 Z" fill="#555"/>
+  <path d="M131,143 L120,150 L118,156 L116,150 L105,143 Z" fill="#555" opacity="0.7"/>
+  <circle cx="118" cy="150" r="6" fill="#aaa"/>
+  <circle cx="285" cy="150" r="27" fill="#1a1d27"/>
+  <circle cx="285" cy="150" r="23" fill="#1a1a1a"/>
+  <circle cx="285" cy="150" r="15" fill="#888"/>
+  <path d="M285,135 L291,148 L285,150 L279,148 Z" fill="#555"/>
+  <path d="M298,143 L287,150 L285,156 L283,150 L272,143 Z" fill="#555" opacity="0.7"/>
+  <circle cx="285" cy="150" r="6" fill="#aaa"/>
+  <!-- Round headlights (911 signature) -->
+  <circle cx="337" cy="110" r="8" fill="#ffe88a" opacity="0.9"/>
+  <circle cx="337" cy="110" r="5" fill="#fff" opacity="0.7"/>
+  <circle cx="337" cy="124" r="6" fill="#ffe88a" opacity="0.5"/>
+  <!-- Taillights -->
+  <rect x="60" y="115" width="7" height="22" rx="3" fill="#ff3020"/>
+  <text x="200" y="192" text-anchor="middle" fill="#888" font-family="sans-serif" font-size="11">1983 Porsche 911 SC — Majorette #211</text>
+</svg>

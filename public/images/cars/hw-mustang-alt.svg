@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#1a1d27"/>
+  <ellipse cx="200" cy="172" rx="155" ry="8" fill="#000" opacity="0.5"/>
+  <!-- Rear three-quarter view -->
+  <path d="M40,150 L40,120 Q55,85 95,80 L155,75 Q185,68 220,65 L290,68 Q320,72 340,90 L355,120 L355,150 Z" fill="#d4901a"/>
+  <path d="M95,80 L115,52 Q160,38 220,40 L270,45 L290,68 L220,65 Q185,68 155,75 Z" fill="#c07010"/>
+  <path d="M130,54 L148,78 L205,74 L225,52 Z" fill="#88ccee" opacity="0.7"/>
+  <circle cx="105" cy="150" r="28" fill="#1a1d27"/>
+  <circle cx="285" cy="150" r="28" fill="#1a1d27"/>
+  <circle cx="105" cy="150" r="24" fill="#2a2a2a"/>
+  <circle cx="105" cy="150" r="16" fill="#777"/>
+  <circle cx="105" cy="150" r="6" fill="#c8a020"/>
+  <circle cx="285" cy="150" r="24" fill="#2a2a2a"/>
+  <circle cx="285" cy="150" r="16" fill="#777"/>
+  <circle cx="285" cy="150" r="6" fill="#c8a020"/>
+  <rect x="40" y="112" width="6" height="22" rx="2" fill="#ff3020"/>
+  <text x="200" y="192" text-anchor="middle" fill="#888" font-family="sans-serif" font-size="11">1969 Ford Mustang Boss 429 — Rear View</text>
+</svg>

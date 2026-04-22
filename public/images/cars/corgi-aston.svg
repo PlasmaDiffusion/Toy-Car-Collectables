@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <rect width="400" height="200" fill="#1a1d27"/>
+  <ellipse cx="200" cy="172" rx="150" ry="8" fill="#000" opacity="0.5"/>
+  <!-- Elegant long-bonnet GT body -->
+  <path d="M55,150 L55,118 Q70,88 108,82 L155,78 Q190,62 228,58 L288,62 Q318,68 338,90 L350,118 L350,150 Z" fill="#c0c8d0"/>
+  <!-- Roof -->
+  <path d="M108,82 L128,54 Q170,40 228,40 L270,46 L288,62 L228,58 Q190,62 155,78 Z" fill="#a8b0b8"/>
+  <!-- Windshield -->
+  <path d="M135,56 L155,80 L210,76 L228,54 Z" fill="#88ccee" opacity="0.7"/>
+  <!-- Rear window -->
+  <path d="M242,50 L258,62 L280,60 L272,48 Z" fill="#88ccee" opacity="0.65"/>
+  <!-- Side windows -->
+  <path d="M160,78 L172,62 L238,56 L250,66 L245,78 Z" fill="#88ccee" opacity="0.55"/>
+  <!-- Bonnet vents -->
+  <rect x="260" y="84" width="25" height="3" rx="1" fill="#888"/>
+  <rect x="260" y="90" width="25" height="3" rx="1" fill="#888"/>
+  <!-- Wheels -->
+  <circle cx="120" cy="150" r="28" fill="#1a1d27"/>
+  <circle cx="120" cy="150" r="24" fill="#2a2a2a"/>
+  <circle cx="120" cy="150" r="16" fill="#aaa"/>
+  <circle cx="120" cy="150" r="7" fill="#ccc"/>
+  <circle cx="298" cy="150" r="28" fill="#1a1d27"/>
+  <circle cx="298" cy="150" r="24" fill="#2a2a2a"/>
+  <circle cx="298" cy="150" r="16" fill="#aaa"/>
+  <circle cx="298" cy="150" r="7" fill="#ccc"/>
+  <!-- Headlights (quad) -->
+  <ellipse cx="343" cy="118" rx="6" ry="4" fill="#ffe88a" opacity="0.9"/>
+  <ellipse cx="343" cy="126" rx="6" ry="4" fill="#ffe88a" opacity="0.7"/>
+  <!-- Taillights -->
+  <rect x="54" y="118" width="6" height="10" rx="1" fill="#ff3020"/>
+  <rect x="54" y="130" width="6" height="8" rx="1" fill="#ff6040"/>
+  <!-- Ejector seat bump on roof -->
+  <rect x="190" y="40" width="20" height="6" rx="3" fill="#909898"/>
+  <!-- Number plate -->
+  <rect x="62" y="145" width="22" height="7" rx="1" fill="#fff"/>
+  <text x="73" y="151" text-anchor="middle" fill="#333" font-family="sans-serif" font-size="5">BMT 216A</text>
+  <text x="200" y="192" text-anchor="middle" fill="#888" font-family="sans-serif" font-size="11">1966 Aston Martin DB5 — Corgi #261 James Bond</text>
+</svg>

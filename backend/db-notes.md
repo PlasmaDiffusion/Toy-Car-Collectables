@@ -16,7 +16,7 @@ This document compares the most realistic options across PostgreSQL, MongoDB, an
 
 ## TL;DR Recommendation
 
-**Start on Supabase free tier.** It is genuinely production-grade, commercially licensed (PostgreSQL under MIT/Apache), and free until you grow. If your dataset or traffic grows, upgrade to their $25/month Pro plan — that is cheaper than any other managed option at comparable reliability.
+**Start on Neon free tier.** It is PostgreSQL 16, always-on (never pauses), commercially usable, and free until you grow. When you're ready to go fully public, upgrade to Neon's $19/month Launch plan or Supabase Pro ($25/month) for automated backups and an uptime SLA.
 
 If you strongly prefer a document model, **MongoDB Atlas M0** is the free-forever equivalent for MongoDB, also commercially usable.
 
@@ -24,7 +24,6 @@ If you strongly prefer a document model, **MongoDB Atlas M0** is the free-foreve
 
 ## Option 1 — Supabase (PostgreSQL)
 
-**Best overall pick for this project.**
 
 | Property | Detail |
 |---|---|
@@ -33,15 +32,18 @@ If you strongly prefer a document model, **MongoDB Atlas M0** is the free-foreve
 | Free tier | 500 MB storage, 2 projects, 50,000 monthly active users, unlimited API calls, 7-day log retention |
 | Free tier commercial use? | **Yes.** Supabase explicitly allows commercial projects on free tier. |
 | Paid tier | $25/month Pro (8 GB DB, daily backups, no project pausing) |
-| Reliability | Hosted on AWS; 99.9% SLA on Pro. Free tier pauses after 1 week of inactivity — use Pro for production. |
+| Reliability | Hosted on AWS; 99.9% SLA on Pro. **Free tier pauses after 1 week of inactivity and requires a manual admin "Restore" click in the dashboard to come back online — it does NOT auto-resume on incoming traffic.** Do not use the free tier for production. |
 | Connection | Standard PostgreSQL connection string — drop it into `DATABASE_URL` |
 | Extras | Built-in REST API (PostgREST), Auth, Storage, Realtime — useful if you add user accounts |
 
-**Verdict:** Free tier is enough to launch and prove the business. Upgrade to Pro ($25/month) before you go live publicly so the project never pauses. That's the lowest-cost production-ready path.
+**Verdict:** Free tier is not safe for production — your storefront goes dark after a week of low traffic and won't recover until you manually restore it in the dashboard. Use the Pro plan ($25/month) if you want Supabase; otherwise start on Neon's free tier instead.
 
 ---
 
 ## Option 2 — Neon (Serverless PostgreSQL)
+
+**Best overall pick for this project.**
+
 
 | Property | Detail |
 |---|---|
@@ -54,7 +56,7 @@ If you strongly prefer a document model, **MongoDB Atlas M0** is the free-foreve
 | Connection | Standard PostgreSQL + `?sslmode=require` |
 | Extras | Branching (great for staging/dev environments) |
 
-**Verdict:** Neon's free tier doesn't pause, which gives it an edge over Supabase free for production. But the cold-start latency on first request can be noticeable. A good second choice.
+**Verdict:** Neon's free tier doesn't pause, which gives it an edge over Supabase free for production. But the cold-start latency on first request can be noticeable.
 
 ---
 
@@ -186,8 +188,8 @@ If you strongly prefer a document model, **MongoDB Atlas M0** is the free-foreve
 
 | Provider | Engine | Free Tier | Free Forever? | Commercial OK? | Paid Entry |
 |---|---|---|---|---|---|
-| **Supabase** | PostgreSQL | 500 MB | Yes (pauses inactive) | Yes | $25/month |
-| **Neon** | PostgreSQL | 0.5 GB | Yes (no pause) | Yes | $19/month |
+| **Neon** | PostgreSQL | 0.5 GB | Yes, no pause | Yes | $19/month |
+| **Supabase** | PostgreSQL | 500 MB | Yes, but **manual unpause required** | Yes | $25/month |
 | **Railway** | PostgreSQL | ~$5 credit | No (credit-based) | Yes | ~$5–10/month |
 | **Render** | PostgreSQL | 90-day trial | No | Yes | $7/month |
 | **AWS RDS** | PostgreSQL/MySQL | 1 year only | No | Yes | ~$15/month |
@@ -200,8 +202,8 @@ If you strongly prefer a document model, **MongoDB Atlas M0** is the free-foreve
 
 ## Recommended Progression
 
-1. **Launch:** Supabase free tier (PostgreSQL) — zero cost, production-ready schemas, easy connection string
-2. **Go live publicly:** Upgrade to Supabase Pro ($25/month) — eliminates project pausing, adds daily backups and SLA
+1. **Launch:** Neon free tier (PostgreSQL) — zero cost, always-on, no manual unpause required, standard connection string
+2. **Go live publicly:** Upgrade to Neon Launch ($19/month) or Supabase Pro ($25/month) — both add automated daily backups and an uptime SLA
 3. **If traffic grows significantly:** Migrate to AWS RDS db.t3.small (~$34/month) or Aurora Serverless for auto-scaling
 
 The Flask + SQLAlchemy code in this repo works identically across all PostgreSQL-compatible options above — switching is just a `DATABASE_URL` change.

@@ -3,8 +3,9 @@
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 import { TextureLoader } from "three";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import type { Scale } from "@/types";
+import SliderScale from "@/components/SliderScale";
 
 // Real-world approximate length in metres for each scale,
 // assuming a "standard" car body ~4.5 m long.
@@ -17,10 +18,16 @@ const SCALE_LENGTHS_M: Record<Scale, number> = {
   Other: 0.08,
 };
 
-// Width ≈ 55 % of length, height ≈ 40 % of length (typical car proportions)
-function getDimensions(scale: Scale) {
-  const l = SCALE_LENGTHS_M[scale];
+// Convert Three.js metres → real-world cm/inches at a given multiplier
+function getDimensions(scale: Scale, multiplier: number) {
+  const l = SCALE_LENGTHS_M[scale] * multiplier;
   return { w: l, h: l * 0.4, d: l * 0.55 };
+}
+
+interface Vector3 {
+  x: number;
+  y: number;
+  z: number;
 }
 
 interface BoxFaces {
@@ -36,9 +43,10 @@ interface BoxFaces {
 interface CarBoxMeshProps {
   faces: BoxFaces;
   scale: Scale;
+  multipliers: Vector3;
 }
 
-function CarBoxMesh({ faces, scale }: CarBoxMeshProps) {
+function CarBoxMesh({ faces, scale, multipliers }: CarBoxMeshProps) {
   // Load all 6 textures. Order must match BoxGeometry face order:
   // +X (right), -X (left), +Y (top), -Y (bottom), +Z (front), -Z (back)
   const textures = useLoader(TextureLoader, [
@@ -50,11 +58,16 @@ function CarBoxMesh({ faces, scale }: CarBoxMeshProps) {
     faces.back,
   ]);
 
-  const { w, h, d } = getDimensions(scale);
+  const { w, h, d } = getDimensions(scale, 1);
+  const [fw, fh, fd] = [
+    w * multipliers.x,
+    h * multipliers.y,
+    d * multipliers.z,
+  ];
 
   return (
     <mesh castShadow receiveShadow>
-      <boxGeometry args={[w, h, d]} />
+      <boxGeometry args={[fw, fh, fd]} />
       {textures.map((tex, i) => (
         <meshStandardMaterial key={i} attach={`material-${i}`} map={tex} />
       ))}
@@ -84,6 +97,11 @@ function buildFaces(images: string[]): BoxFaces {
 
 export default function CarBox3D({ images, scale, className }: CarBox3DProps) {
   const faces = buildFaces(images);
+  const [scaleMultipliers, setScaleMultipliers] = useState<Vector3>({
+    x: 1,
+    y: 1,
+    z: 1,
+  });
 
   return (
     <div className={className}>
@@ -96,7 +114,11 @@ export default function CarBox3D({ images, scale, className }: CarBox3DProps) {
         <directionalLight position={[1, 2, 2]} intensity={1.2} castShadow />
 
         <Suspense fallback={null}>
-          <CarBoxMesh faces={faces} scale={scale} />
+          <CarBoxMesh
+            faces={faces}
+            scale={scale}
+            multipliers={scaleMultipliers}
+          />
           <ContactShadows
             position={[0, -0.06, 0]}
             opacity={0.45}
@@ -115,8 +137,16 @@ export default function CarBox3D({ images, scale, className }: CarBox3DProps) {
         />
       </Canvas>
 
+      <div className="mt-4">
+        <SliderScale
+          scale={scale}
+          multipliers={scaleMultipliers}
+          onChange={setScaleMultipliers}
+        />
+      </div>
+
       <p className="mt-2 text-center text-[11px] text-gray-500">
-        Drag to rotate · Scroll to zoom · Scale {scale}
+        Drag to rotate · Scroll to zoom
       </p>
     </div>
   );

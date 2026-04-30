@@ -72,12 +72,13 @@ export default function ImagePanel({ car }: Props) {
             scale={car.scale}
             className="h-80 w-full"
           />
-          <div className="border-t border-surface-border bg-surface px-4 py-3">
-            <p className="text-xs text-gray-500">
+          <div className="border-t border-surface-border bg-surface my-80">
+            <p className="text-xs leading-relaxed text-gray-500">
               <span className="font-semibold text-gray-300">Note: </span>
-              The 3D box is built from this listing&apos;s photos mapped onto each face.
-              Add more angles (front, back, top, sides, bottom) to the listing for a
-              better preview. Scale is approximate based on {car.scale}.
+              The 3D box is built from this listing&apos;s photos mapped onto
+              each face. Add more angles (front, back, top, sides, bottom) to
+              the listing for a better preview. Scale is approximate based on{" "}
+              {car.scale}.
             </p>
           </div>
         </div>

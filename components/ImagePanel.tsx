@@ -15,7 +15,7 @@ export default function ImagePanel({ car }: Props) {
   return (
     <div className="space-y-4">
       {/* Tab switcher */}
-      <div className="flex gap-1 rounded-xl border border-surface-border bg-surface-card p-1 w-fit">
+      <div className="flex flex-wrap gap-1 rounded-xl border border-surface-border bg-surface-card p-1 w-fit">
         {(["photos", "3d"] as const).map((t) => (
           <button
             key={t}
@@ -29,6 +29,21 @@ export default function ImagePanel({ car }: Props) {
             {t === "photos" ? "📷 Photos" : "🎲 3D Preview"}
           </button>
         ))}
+        <button
+          onClick={() =>
+            alert(
+              "AR preview coming soon — requires a WebXR-capable device (Android Chrome or iOS with WebXR Viewer)."
+            )
+          }
+          className="rounded-lg px-4 py-1.5 text-sm font-semibold transition text-gray-400 hover:text-white flex items-center gap-1.5"
+          title="View in your real environment using AR"
+        >
+          <span>📱</span>
+          <span>Real Life AR Preview</span>
+          <span className="rounded-full bg-brand-900 border border-brand-700 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-400 leading-none">
+            Soon
+          </span>
+        </button>
       </div>
 
       {tab === "photos" ? (

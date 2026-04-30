@@ -35,7 +35,7 @@ function toDim(metres: number): Dims {
   return { cm: cm.toFixed(1), inches: (cm / 2.54).toFixed(1) };
 }
 
-//This component lets a adjust the scale multiplier for the 3D box preview, either uniformly or per-axis. It also shows the resulting real-world dimensions based on the selected scale and multipliers.
+//This component lets a user adjust the length, width, and height multipliers for the 3D box preview, either uniformly or separately per axis. It also calculates and displays the resulting real-world dimensions based on the selected scale and multipliers.
 export default function SliderScale({
   scale,
   multipliers,

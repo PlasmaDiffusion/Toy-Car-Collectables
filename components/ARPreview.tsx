@@ -152,46 +152,56 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
         </Canvas>
       </div>
 
-      {/* Launch screen — hidden once session is active */}
-      {!sessionActive && (
-        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 p-8 text-center">
-          <div className="text-6xl">📱</div>
-          <div>
-            <h2 className="text-2xl font-extrabold text-white">
-              Real Life AR Preview
-            </h2>
-            <p className="mt-2 text-sm text-gray-400">
-              Point your camera at a flat surface — the car will appear at true{" "}
-              <span className="text-brand-400">{scale}</span> scale.
-            </p>
-          </div>
-          <div className="w-full max-w-sm">
-            <SliderScale
-              scale={scale}
-              multipliers={multipliers}
-              onChange={setMultipliers}
-            />
-          </div>
-          {error && <p className="text-sm text-red-400">{error}</p>}
-          <button
-            onClick={startAR}
-            className="rounded-xl bg-brand-600 px-8 py-4 text-base font-bold text-white shadow-lg shadow-brand-900/50 hover:bg-brand-500"
-          >
-            Start AR
-          </button>
+      {/* Launch screen — always in DOM, hidden via CSS once session starts.
+          dom-overlay requires elements to exist in the DOM tree before the
+          XR session begins, so we can't conditionally mount/unmount these. */}
+      <div
+        className="relative z-10 flex h-full flex-col items-center justify-center gap-6 p-8 text-center transition-opacity duration-200"
+        style={{
+          opacity: sessionActive ? 0 : 1,
+          pointerEvents: sessionActive ? "none" : "auto",
+        }}
+      >
+        <div className="text-6xl">📱</div>
+        <div>
+          <h2 className="text-2xl font-extrabold text-white">
+            Real Life AR Preview
+          </h2>
+          <p className="mt-2 text-sm text-gray-400">
+            Point your camera at a flat surface — the car will appear at true{" "}
+            <span className="text-brand-400">{scale}</span> scale.
+          </p>
         </div>
-      )}
-
-      {/* Size controls overlay during active session */}
-      {sessionActive && (
-        <div className="absolute bottom-6 left-4 right-4 z-20">
+        <div className="w-full max-w-sm">
           <SliderScale
             scale={scale}
             multipliers={multipliers}
             onChange={setMultipliers}
           />
         </div>
-      )}
+        {error && <p className="text-sm text-red-400">{error}</p>}
+        <button
+          onClick={startAR}
+          className="rounded-xl bg-brand-600 px-8 py-4 text-base font-bold text-white shadow-lg shadow-brand-900/50 hover:bg-brand-500"
+        >
+          Start AR
+        </button>
+      </div>
+
+      {/* Size controls overlay during active session — always in DOM, shown via CSS */}
+      <div
+        className="absolute bottom-6 left-4 right-4 z-20 transition-opacity duration-200"
+        style={{
+          opacity: sessionActive ? 1 : 0,
+          pointerEvents: sessionActive ? "auto" : "none",
+        }}
+      >
+        <SliderScale
+          scale={scale}
+          multipliers={multipliers}
+          onChange={setMultipliers}
+        />
+      </div>
     </div>
   );
 }

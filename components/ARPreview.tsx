@@ -122,7 +122,10 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
         className="absolute inset-0"
         style={{
           opacity: sessionActive ? 1 : 0,
-          pointerEvents: sessionActive ? "auto" : "none",
+          // The XR session receives input directly from the OS — the canvas
+          // must never intercept DOM pointer events or it will block the
+          // SliderScale overlay sitting on top of it.
+          pointerEvents: "none",
         }}
       >
         <Canvas
@@ -172,7 +175,7 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
 
       {/* Size controls overlay during active session */}
       {sessionActive && (
-        <div className="absolute bottom-6 left-4 right-4 z-10">
+        <div className="absolute bottom-6 left-4 right-4 z-20">
           <SliderScale
             scale={scale}
             multipliers={multipliers}

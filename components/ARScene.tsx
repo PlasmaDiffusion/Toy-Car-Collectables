@@ -34,6 +34,17 @@ function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
   const ref = useRef<Mesh>(null);
   const l = SCALE_LENGTHS_M[scale];
 
+  // Mirror mutable props into refs so useFrame always reads the latest values
+  // without being affected by stale closures.
+  const multipliersRef = useRef(multipliers);
+  const hitMatrixRef = useRef(hitMatrix);
+  useEffect(() => {
+    multipliersRef.current = multipliers;
+  }, [multipliers]);
+  useEffect(() => {
+    hitMatrixRef.current = hitMatrix;
+  }, [hitMatrix]);
+
   // Load all 6 textures, falling back to first image
   const get = (i: number) => images[i] ?? images[0];
   const textures = useLoader(TextureLoader, [
@@ -48,17 +59,14 @@ function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
 
   useFrame(() => {
     if (!ref.current) return;
-    if (hitMatrix) {
-      ref.current.position.setFromMatrixPosition(hitMatrix);
+    const hm = hitMatrixRef.current;
+    if (hm) {
+      ref.current.position.setFromMatrixPosition(hm);
       ref.current.visible = true;
     }
-    // Apply scale every frame so slider changes are immediately reflected.
-    // Using mesh.scale (not geometry args) because args only apply on mount.
-    ref.current.scale.set(
-      l * multipliers.x,
-      l * 0.4 * multipliers.y,
-      l * 0.55 * multipliers.z
-    );
+    // Read from ref so we always get the latest slider values.
+    const m = multipliersRef.current;
+    ref.current.scale.set(l * m.x, l * 0.4 * m.y, l * 0.55 * m.z);
   });
 
   return (
@@ -75,10 +83,16 @@ function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
 // Reticle that follows the hit-test surface
 function Reticle({ hitMatrix }: { hitMatrix: Matrix4 | null }) {
   const ref = useRef<Mesh>(null);
+  const hitMatrixRef = useRef(hitMatrix);
+  useEffect(() => {
+    hitMatrixRef.current = hitMatrix;
+  }, [hitMatrix]);
+
   useFrame(() => {
     if (!ref.current) return;
-    if (hitMatrix) {
-      ref.current.position.setFromMatrixPosition(hitMatrix);
+    const hm = hitMatrixRef.current;
+    if (hm) {
+      ref.current.position.setFromMatrixPosition(hm);
       ref.current.visible = true;
     }
   });

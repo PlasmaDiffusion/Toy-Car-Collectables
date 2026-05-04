@@ -26,6 +26,7 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
   // so the context can be made XR-compatible via gl.xr.setSession().
   const glRef = useRef<WebGLRenderer | null>(null);
   const sessionRef = useRef<XRSession | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!navigator.xr) {
@@ -45,7 +46,10 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
       const session = await navigator.xr!.requestSession("immersive-ar", {
         requiredFeatures: ["hit-test"],
         optionalFeatures: ["dom-overlay", "local", "local-floor"],
-      });
+        // Passing domOverlay.root tells ARCore which element to composite
+        // on top of the camera feed — without this the whole DOM disappears.
+        ...(overlayRef.current ? { domOverlay: { root: overlayRef.current } } : {}),
+      } as XRSessionInit);
       sessionRef.current = session;
       session.addEventListener("end", () => {
         sessionRef.current = null;
@@ -97,7 +101,7 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
   if (supported === null) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black">
+    <div ref={overlayRef} className={`fixed inset-0 z-50 ${sessionActive ? "" : "bg-black"}`}>
       {/* Close always visible */}
       <button
         onClick={closeAR}

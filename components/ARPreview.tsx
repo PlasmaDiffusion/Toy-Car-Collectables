@@ -48,7 +48,9 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
         optionalFeatures: ["dom-overlay", "local", "local-floor"],
         // Passing domOverlay.root tells ARCore which element to composite
         // on top of the camera feed — without this the whole DOM disappears.
-        ...(overlayRef.current ? { domOverlay: { root: overlayRef.current } } : {}),
+        ...(overlayRef.current
+          ? { domOverlay: { root: overlayRef.current } }
+          : {}),
       } as XRSessionInit);
       sessionRef.current = session;
       session.addEventListener("end", () => {
@@ -101,7 +103,10 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
   if (supported === null) return null;
 
   return (
-    <div ref={overlayRef} className={`fixed inset-0 z-50 ${sessionActive ? "" : "bg-black"}`}>
+    <div
+      ref={overlayRef}
+      className={`fixed inset-0 z-50 ${sessionActive ? "" : "bg-black"}`}
+    >
       {/* Close always visible */}
       <button
         onClick={closeAR}

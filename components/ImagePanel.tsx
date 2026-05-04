@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import CarBox3D from "@/components/CarBox3D";
+import ARPreview from "@/components/ARPreview";
 import type { ToyCarProduct } from "@/types";
 
 interface Props {
@@ -11,9 +12,18 @@ interface Props {
 
 export default function ImagePanel({ car }: Props) {
   const [tab, setTab] = useState<"photos" | "3d">("photos");
+  const [arOpen, setArOpen] = useState(false);
 
   return (
     <div className="space-y-4">
+      {arOpen && (
+        <ARPreview
+          images={car.images}
+          scale={car.scale}
+          onClose={() => setArOpen(false)}
+        />
+      )}
+
       {/* Tab switcher */}
       <div className="flex flex-wrap gap-1 rounded-xl border border-surface-border bg-surface-card p-1 w-fit">
         {(["photos", "3d"] as const).map((t) => (
@@ -30,19 +40,15 @@ export default function ImagePanel({ car }: Props) {
           </button>
         ))}
         <button
-          onClick={() =>
-            alert(
-              "AR preview coming soon — requires a WebXR-capable device (Android Chrome or iOS with WebXR Viewer)."
-            )
-          }
+          onClick={() => setArOpen(true)}
           className="rounded-lg px-4 py-1.5 text-sm font-semibold transition text-gray-400 hover:text-white flex items-center gap-1.5"
           title="View in your real environment using AR"
         >
-          <span>📱</span>
-          <span>Real Life AR Preview</span>
-          <span className="rounded-full bg-brand-900 border border-brand-700 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-400 leading-none">
-            Soon
-          </span>
+          {/* AR glasses icon */}
+          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-[1.5]" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2 12c0-1.5.7-2.8 1.8-3.6C5 7.5 6.5 7 8 7c1.8 0 3.2.7 4 1.8.8-1.1 2.2-1.8 4-1.8 1.5 0 3 .5 4.2 1.4C21.3 9.2 22 10.5 22 12v1a2 2 0 01-2 2h-2.5a2 2 0 01-2-2v-.5a1.5 1.5 0 00-3 0V13a2 2 0 01-2 2H8a2 2 0 01-2-2v-1z" />
+          </svg>
+          <span>Real Life AR</span>
         </button>
       </div>
 

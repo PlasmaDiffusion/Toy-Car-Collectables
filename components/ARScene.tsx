@@ -102,10 +102,15 @@ export default function ARScene({ images, scale, multipliers }: ARSceneProps) {
     if (!session) return;
     sessionRef.current = session;
 
-    // Asks for a coordinate space relative to the device's camera/viewpoint
-    session.requestReferenceSpace("viewer").then((viewerSpace) => {
-      // Every frame, cast a ray from the camera forward to be able to tell where it hits a real surface
-      session.requestHitTestSource?.({ space: viewerSpace })?.then((source) => {
+    // "viewer" is preferred for hit-test (ray from camera centre) but some
+    // Android devices (e.g. Galaxy A23) only support "local". Try viewer first.
+    const getHitTestSpace = () =>
+      session.requestReferenceSpace("viewer").catch(() =>
+        session.requestReferenceSpace("local")
+      );
+
+    getHitTestSpace().then((space) => {
+      session.requestHitTestSource?.({ space })?.then((source) => {
         hitTestSourceRef.current = source;
       });
     });

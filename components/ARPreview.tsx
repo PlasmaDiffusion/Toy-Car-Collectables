@@ -17,24 +17,34 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
   const [supported, setSupported] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [sessionActive, setSessionActive] = useState(false);
-  const [multipliers, setMultipliers] = useState<ScaleMultipliers>({ x: 1, y: 1, z: 1 });
+  const [multipliers, setMultipliers] = useState<ScaleMultipliers>({
+    x: 1,
+    y: 1,
+    z: 1,
+  });
   // We need the WebGL renderer to exist BEFORE requesting the XR session,
   // so the context can be made XR-compatible via gl.xr.setSession().
   const glRef = useRef<WebGLRenderer | null>(null);
   const sessionRef = useRef<XRSession | null>(null);
 
   useEffect(() => {
-    if (!navigator.xr) { setSupported(false); return; }
+    if (!navigator.xr) {
+      setSupported(false);
+      return;
+    }
     navigator.xr.isSessionSupported("immersive-ar").then(setSupported);
   }, []);
 
   const startAR = async () => {
     const gl = glRef.current;
-    if (!gl) { setError("Renderer not ready — please wait a moment and try again."); return; }
+    if (!gl) {
+      setError("Renderer not ready — please wait a moment and try again.");
+      return;
+    }
     try {
       const session = await navigator.xr!.requestSession("immersive-ar", {
         requiredFeatures: ["hit-test"],
-        optionalFeatures: ["dom-overlay"],
+        optionalFeatures: ["dom-overlay", "local", "local-floor"],
       });
       sessionRef.current = session;
       session.addEventListener("end", () => {
@@ -44,7 +54,9 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
       });
       // Three.js internally calls makeXRCompatible() here, then wires up the session.
       gl.xr.enabled = true;
-      await (gl.xr.setSession as (s: XRSession) => Promise<void>)(session as any);
+      await (gl.xr.setSession as (s: XRSession) => Promise<void>)(
+        session as any
+      );
       setSessionActive(true);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Failed to start AR");
@@ -68,8 +80,13 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
             <strong className="text-white">iOS WebXR Viewer</strong> on a device
             with ARCore / ARKit support.
           </p>
-          <p className="text-xs text-gray-500">Try opening this page on your phone.</p>
-          <button onClick={onClose} className="mt-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-500">
+          <p className="text-xs text-gray-500">
+            Try opening this page on your phone.
+          </p>
+          <button
+            onClick={onClose}
+            className="mt-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-500"
+          >
             Close
           </button>
         </div>
@@ -87,14 +104,27 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
         className="absolute right-4 top-4 z-10 rounded-full bg-black/60 p-2 text-white backdrop-blur-sm"
         aria-label="Close AR"
       >
-        <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current stroke-2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        <svg
+          viewBox="0 0 24 24"
+          className="h-5 w-5 fill-none stroke-current stroke-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </button>
 
       {/* Canvas is ALWAYS mounted so the WebGL context exists before we call requestSession.
           It's invisible until the XR session is active. */}
-      <div className="absolute inset-0" style={{ opacity: sessionActive ? 1 : 0, pointerEvents: sessionActive ? "auto" : "none" }}>
+      <div
+        className="absolute inset-0"
+        style={{
+          opacity: sessionActive ? 1 : 0,
+          pointerEvents: sessionActive ? "auto" : "none",
+        }}
+      >
         <Canvas
           gl={{ alpha: true, premultipliedAlpha: false, antialias: false }}
           camera={{ fov: 70 }}
@@ -115,14 +145,20 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
         <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 p-8 text-center">
           <div className="text-6xl">📱</div>
           <div>
-            <h2 className="text-2xl font-extrabold text-white">Real Life AR Preview</h2>
+            <h2 className="text-2xl font-extrabold text-white">
+              Real Life AR Preview
+            </h2>
             <p className="mt-2 text-sm text-gray-400">
               Point your camera at a flat surface — the car will appear at true{" "}
               <span className="text-brand-400">{scale}</span> scale.
             </p>
           </div>
           <div className="w-full max-w-sm">
-            <SliderScale scale={scale} multipliers={multipliers} onChange={setMultipliers} />
+            <SliderScale
+              scale={scale}
+              multipliers={multipliers}
+              onChange={setMultipliers}
+            />
           </div>
           {error && <p className="text-sm text-red-400">{error}</p>}
           <button
@@ -137,7 +173,11 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
       {/* Size controls overlay during active session */}
       {sessionActive && (
         <div className="absolute bottom-6 left-4 right-4 z-10">
-          <SliderScale scale={scale} multipliers={multipliers} onChange={setMultipliers} />
+          <SliderScale
+            scale={scale}
+            multipliers={multipliers}
+            onChange={setMultipliers}
+          />
         </div>
       )}
     </div>

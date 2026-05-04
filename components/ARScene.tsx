@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useLoader, useFrame, useThree } from "@react-three/fiber";
-import { TextureLoader, Mesh, Matrix4, MeshBasicMaterial } from "three";
+import { TextureLoader, Mesh, Matrix4 } from "three";
 import type { MutableRefObject } from "react";
 import { Suspense } from "react";
 import type { Scale } from "@/types";
@@ -36,18 +36,11 @@ function CarMesh({ images, scale, hitMatrixRef, multipliers }: CarMeshProps) {
   const l = SCALE_LENGTHS_M[scale];
 
   const multipliersRef = useRef(multipliers);
-  useEffect(() => {
-    multipliersRef.current = multipliers;
-  }, [multipliers]);
+  useEffect(() => { multipliersRef.current = multipliers; }, [multipliers]);
 
   const get = (i: number) => images[i] ?? images[0];
   const textures = useLoader(TextureLoader, [
-    get(4),
-    get(5),
-    get(2),
-    get(3),
-    get(0),
-    get(1),
+    get(4), get(5), get(2), get(3), get(0), get(1),
     // right, left, top, bottom, front, back
   ]);
 
@@ -75,32 +68,22 @@ function CarMesh({ images, scale, hitMatrixRef, multipliers }: CarMeshProps) {
 
 // Reticle reads the same hitMatrixRef — no prop/state delay, shows up on the
 // very first frame that has a hit result, before textures have finished loading.
-function Reticle({
-  hitMatrixRef,
-}: {
-  hitMatrixRef: MutableRefObject<Matrix4 | null>;
-}) {
+function Reticle({ hitMatrixRef }: { hitMatrixRef: MutableRefObject<Matrix4 | null> }) {
   const ref = useRef<Mesh>(null);
-  const matRef = useRef<MeshBasicMaterial>(null);
 
-  useFrame(({ clock }) => {
-    if (!ref.current || !matRef.current) return;
+  useFrame(() => {
+    if (!ref.current) return;
     const hm = hitMatrixRef.current;
     if (hm) {
       ref.current.position.setFromMatrixPosition(hm);
-      matRef.current.opacity = 1; // solid white = surface locked
-    } else {
-      ref.current.position.set(0, -0.5, -1); // float ahead while searching
-      // Pulse opacity to signal "scanning…"
-      matRef.current.opacity = 0.3 + 0.2 * Math.sin(clock.elapsedTime * 4);
+      ref.current.visible = true;
     }
-    ref.current.visible = true;
   });
 
   return (
     <mesh ref={ref} rotation={[-Math.PI / 2, 0, 0]} visible={false}>
       <ringGeometry args={[0.03, 0.04, 32]} />
-      <meshBasicMaterial ref={matRef} color="white" opacity={0.4} transparent />
+      <meshBasicMaterial color="white" />
     </mesh>
   );
 }
@@ -125,9 +108,9 @@ export default function ARScene({ images, scale, multipliers }: ARSceneProps) {
 
     // "viewer" preferred; fall back to "local" for devices like Galaxy A23
     const getHitTestSpace = () =>
-      session
-        .requestReferenceSpace("viewer")
-        .catch(() => session.requestReferenceSpace("local"));
+      session.requestReferenceSpace("viewer").catch(() =>
+        session.requestReferenceSpace("local")
+      );
 
     getHitTestSpace().then((space) => {
       session.requestHitTestSource?.({ space })?.then((source) => {
@@ -135,9 +118,7 @@ export default function ARScene({ images, scale, multipliers }: ARSceneProps) {
       });
     });
 
-    return () => {
-      hitTestSourceRef.current?.cancel();
-    };
+    return () => { hitTestSourceRef.current?.cancel(); };
   }, [gl]);
 
   useFrame((state) => {

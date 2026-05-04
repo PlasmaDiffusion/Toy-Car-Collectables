@@ -112,7 +112,7 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
 
       {/* Launch screen — hidden once session is active */}
       {!sessionActive && (
-        <div className="flex h-full flex-col items-center justify-center gap-6 p-8 text-center">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-6 p-8 text-center">
           <div className="text-6xl">📱</div>
           <div>
             <h2 className="text-2xl font-extrabold text-white">Real Life AR Preview</h2>

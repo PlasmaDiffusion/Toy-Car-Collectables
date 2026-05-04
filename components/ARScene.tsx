@@ -33,11 +33,6 @@ interface CarMeshProps {
 function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
   const ref = useRef<Mesh>(null);
   const l = SCALE_LENGTHS_M[scale];
-  const [w, h, d] = [
-    l * multipliers.x,
-    l * 0.4 * multipliers.y,
-    l * 0.55 * multipliers.z,
-  ];
 
   // Load all 6 textures, falling back to first image
   const get = (i: number) => images[i] ?? images[0];
@@ -47,19 +42,29 @@ function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
     get(2),
     get(3),
     get(0),
-    get(1), // right, left, top, bottom, front, back
+    get(1),
+    // right, left, top, bottom, front, back
   ]);
 
   useFrame(() => {
-    if (ref.current && hitMatrix) {
+    if (!ref.current) return;
+    if (hitMatrix) {
       ref.current.position.setFromMatrixPosition(hitMatrix);
       ref.current.visible = true;
     }
+    // Apply scale every frame so slider changes are immediately reflected.
+    // Using mesh.scale (not geometry args) because args only apply on mount.
+    ref.current.scale.set(
+      l * multipliers.x,
+      l * 0.4 * multipliers.y,
+      l * 0.55 * multipliers.z
+    );
   });
 
   return (
     <mesh ref={ref} visible={false} castShadow>
-      <boxGeometry args={[w, h, d]} />
+      {/* Unit box — actual size is controlled via mesh.scale above */}
+      <boxGeometry args={[1, 1, 1]} />
       {textures.map((tex, i) => (
         <meshStandardMaterial key={i} attach={`material-${i}`} map={tex} />
       ))}
@@ -71,7 +76,8 @@ function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
 function Reticle({ hitMatrix }: { hitMatrix: Matrix4 | null }) {
   const ref = useRef<Mesh>(null);
   useFrame(() => {
-    if (ref.current && hitMatrix) {
+    if (!ref.current) return;
+    if (hitMatrix) {
       ref.current.position.setFromMatrixPosition(hitMatrix);
       ref.current.visible = true;
     }
@@ -105,9 +111,9 @@ export default function ARScene({ images, scale, multipliers }: ARSceneProps) {
     // "viewer" is preferred for hit-test (ray from camera centre) but some
     // Android devices (e.g. Galaxy A23) only support "local". Try viewer first.
     const getHitTestSpace = () =>
-      session.requestReferenceSpace("viewer").catch(() =>
-        session.requestReferenceSpace("local")
-      );
+      session
+        .requestReferenceSpace("viewer")
+        .catch(() => session.requestReferenceSpace("local"));
 
     getHitTestSpace().then((space) => {
       session.requestHitTestSource?.({ space })?.then((source) => {

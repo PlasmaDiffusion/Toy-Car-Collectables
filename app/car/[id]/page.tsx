@@ -5,8 +5,10 @@ import { getCarById, getCars } from "@/lib/api";
 import CarCard from "@/components/CarCard";
 import ImagePanel from "@/components/ImagePanel";
 
-// SSR: always fresh.
-// ISR alternative: export const revalidate = 60;
+
+// app/car/[id]/page.tsx  — listings rarely change so use ISR with a 5-minute revalidation time to reduce Neon query load while keeping data reasonably fresh. If a listing is updated on Facebook Marketplace, it will be reflected here within 5 minutes.
+export const revalidate = 300;
+
 
 interface Props {
   params: Promise<{ id: string }>;

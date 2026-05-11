@@ -9,8 +9,8 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-// SSR — re-fetches from Neon on every request
-export const dynamic = "force-dynamic";
+// ISR — revalidate every 5 minutes; Vercel serves cached HTML between rebuilds
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

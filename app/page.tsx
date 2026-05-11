@@ -4,8 +4,8 @@ import { getFeaturedCars, getCategories } from "@/lib/api";
 import CarCard from "@/components/CarCard";
 import CategoryCard from "@/components/CategoryCard";
 
-// SSR: renders fresh on every request.
-// ISR alternative: export const revalidate = 60;
+// ISR — revalidate every 5 minutes; Vercel serves cached HTML between rebuilds
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "DieCast Vault — Toy Car Collectibles Marketplace",
@@ -75,13 +75,15 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <dl className="grid grid-cols-2 divide-x divide-surface-border md:grid-cols-4">
             {[
-              { stat: "18+",   label: "Curated listings" },
-              { stat: "6",     label: "Iconic brands" },
+              { stat: "18+", label: "Curated listings" },
+              { stat: "6", label: "Iconic brands" },
               { stat: "1950s", label: "Oldest era covered" },
-              { stat: "Free",  label: "Facebook Marketplace links" },
+              { stat: "Free", label: "Facebook Marketplace links" },
             ].map(({ stat, label }) => (
               <div key={label} className="px-6 py-5 text-center">
-                <dt className="text-xl font-extrabold text-white sm:text-2xl">{stat}</dt>
+                <dt className="text-xl font-extrabold text-white sm:text-2xl">
+                  {stat}
+                </dt>
                 <dd className="mt-0.5 text-xs text-gray-500">{label}</dd>
               </div>
             ))}
@@ -93,10 +95,17 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-7 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-extrabold text-white">Featured Listings</h2>
-            <p className="mt-1 text-sm text-gray-500">Hand-picked collector highlights</p>
+            <h2 className="text-2xl font-extrabold text-white">
+              Featured Listings
+            </h2>
+            <p className="mt-1 text-sm text-gray-500">
+              Hand-picked collector highlights
+            </p>
           </div>
-          <Link href="/shop" className="text-sm font-medium text-brand-400 hover:text-brand-300">
+          <Link
+            href="/shop"
+            className="text-sm font-medium text-brand-400 hover:text-brand-300"
+          >
             View all →
           </Link>
         </div>
@@ -110,7 +119,9 @@ export default async function HomePage() {
       {/* ── Shop by era ──────────────────────────────────────── */}
       <section className="bg-surface-card border-y border-surface-border">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <h2 className="mb-7 text-2xl font-extrabold text-white">Shop by Era</h2>
+          <h2 className="mb-7 text-2xl font-extrabold text-white">
+            Shop by Era
+          </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {eraCategories.map((cat) => (
               <CategoryCard key={cat.id} category={cat} />
@@ -121,7 +132,9 @@ export default async function HomePage() {
 
       {/* ── Shop by type ─────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="mb-7 text-2xl font-extrabold text-white">Shop by Vehicle Type</h2>
+        <h2 className="mb-7 text-2xl font-extrabold text-white">
+          Shop by Vehicle Type
+        </h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {typeCategories.map((cat) => (
             <CategoryCard key={cat.id} category={cat} />
@@ -132,7 +145,9 @@ export default async function HomePage() {
       {/* ── How it works ─────────────────────────────────────── */}
       <section className="border-t border-surface-border bg-surface-card">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-extrabold text-white">How DieCast Vault Works</h2>
+          <h2 className="text-2xl font-extrabold text-white">
+            How DieCast Vault Works
+          </h2>
           <p className="mt-2 text-sm text-gray-500">
             We curate — Facebook Marketplace handles the sale.
           </p>
@@ -154,12 +169,17 @@ export default async function HomePage() {
                 body: "Click 'View on Facebook' to go directly to the Marketplace listing.",
               },
             ].map((step) => (
-              <div key={step.title} className="flex flex-col items-center gap-3">
+              <div
+                key={step.title}
+                className="flex flex-col items-center gap-3"
+              >
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-surface text-3xl">
                   {step.icon}
                 </span>
                 <h3 className="font-semibold text-white">{step.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-500">{step.body}</p>
+                <p className="text-sm leading-relaxed text-gray-500">
+                  {step.body}
+                </p>
               </div>
             ))}
           </div>

@@ -6,7 +6,6 @@ import CarCard from "@/components/CarCard";
 import FilterSidebar from "@/components/FilterSidebar";
 
 // SSR: renders fresh on every request (reflects URL filter params immediately).
-// ISR alternative: export const revalidate = 60;
 
 interface Props {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

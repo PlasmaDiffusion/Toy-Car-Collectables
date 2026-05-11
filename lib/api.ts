@@ -1,40 +1,72 @@
 /**
- * Mock API layer.
+ * lib/api.ts — Neon PostgreSQL data layer
  *
- * All functions simulate async server fetches so the signatures are identical
- * to what a real REST/GraphQL call would look like. Swap the import source
- * when you wire up a real backend — no page/component code needs to change.
- *
- * SSR note: these are called inside `async` Server Components, which means
- * Next.js re-fetches them on every request. If you want ISR instead, add
- *   { next: { revalidate: 60 } }
- * to each fetch() call (or export `revalidate = 60` from the page file).
+ * All functions are async Server-Component-safe.
+ * The SQL client is HTTP-based (no persistent connections) — safe for
+ * Next.js serverless / edge runtimes.
  */
 
+import { sql } from "@/lib/db";
 import type { ToyCarProduct, Category, FilterState } from "@/types";
 
-// Resolve relative to this file so it works at build time and runtime
-import carsRaw from "@/data/cars.json";
-import categoriesRaw from "@/data/categories.json";
+// ---------------------------------------------------------------------------
+// Row → TypeScript mappers
+// ---------------------------------------------------------------------------
 
-const allCars = carsRaw as ToyCarProduct[];
-const allCategories = categoriesRaw as Category[];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToCar(row: any): ToyCarProduct {
+  return {
+    id: row.id,
+    name: row.name,
+    brand: row.brand,
+    description: row.description,
+    productionYear: row.production_year,
+    modelYear: row.model_year,
+    scale: row.scale,
+    condition: row.condition,
+    vehicleType: row.vehicle_type,
+    material: row.material,
+    price: row.price !== null ? Number(row.price) : null,
+    images: row.images ?? [],
+    tags: row.tags ?? [],
+    featured: row.featured,
+    facebookMarketplaceUrl: row.facebook_marketplace_url ?? null,
+    categoryIds: row.category_ids ?? [],
+  };
+}
 
-/** Simulate a small network delay in dev so loading states are visible. */
-const delay = (ms = 40) =>
-  process.env.NODE_ENV === "development"
-    ? new Promise((r) => setTimeout(r, ms))
-    : Promise.resolve();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToCategory(row: any): Category {
+  return {
+    id: row.id,
+    name: row.name,
+    slug: row.slug,
+    type: row.type,
+    description: row.description,
+    imageUrl: row.image_url,
+    count: row.count,
+  };
+}
 
 // ---------------------------------------------------------------------------
 // Cars
 // ---------------------------------------------------------------------------
 
 export async function getCars(filters?: FilterState): Promise<ToyCarProduct[]> {
-  await delay();
+  // Pull cars + their category IDs in one query via array_agg
+  const rows = await sql`
+    SELECT
+      c.*,
+      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+    FROM cars c
+    LEFT JOIN car_categories cc ON cc.car_id = c.id
+    GROUP BY c.id
+    ORDER BY c.name
+  `;
 
-  let results = [...allCars];
+  let results = rows.map(rowToCar);
 
+  // Apply filters in JS (dataset is small — avoids complex dynamic SQL)
   if (filters?.query) {
     const q = filters.query.toLowerCase();
     results = results.filter(
@@ -45,61 +77,71 @@ export async function getCars(filters?: FilterState): Promise<ToyCarProduct[]> {
         c.description.toLowerCase().includes(q)
     );
   }
-
-  if (filters?.brand) {
+  if (filters?.brand)
     results = results.filter(
       (c) => c.brand.toLowerCase() === filters.brand!.toLowerCase()
     );
-  }
-
-  if (filters?.era) {
-    const eraCategory = allCategories.find(
-      (cat) => cat.type === "era" && cat.slug === filters.era
-    );
-    if (eraCategory) {
-      results = results.filter((c) => c.categoryIds.includes(eraCategory.id));
-    }
-  }
-
-  if (filters?.scale) {
+  if (filters?.scale)
     results = results.filter((c) => c.scale === filters.scale);
-  }
-
-  if (filters?.condition) {
+  if (filters?.condition)
     results = results.filter((c) => c.condition === filters.condition);
-  }
-
-  if (filters?.vehicleType) {
+  if (filters?.vehicleType)
     results = results.filter((c) => c.vehicleType === filters.vehicleType);
-  }
-
-  if (filters?.material) {
+  if (filters?.material)
     results = results.filter((c) => c.material === filters.material);
-  }
-
-  if (filters?.minPrice !== undefined) {
+  if (filters?.minPrice !== undefined)
     results = results.filter(
       (c) => c.price !== null && c.price >= filters.minPrice!
     );
-  }
-
-  if (filters?.maxPrice !== undefined) {
+  if (filters?.maxPrice !== undefined)
     results = results.filter(
       (c) => c.price !== null && c.price <= filters.maxPrice!
     );
-  }
 
   return results;
 }
 
 export async function getFeaturedCars(): Promise<ToyCarProduct[]> {
-  await delay();
-  return allCars.filter((c) => c.featured);
+  const rows = await sql`
+    SELECT
+      c.*,
+      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+    FROM cars c
+    LEFT JOIN car_categories cc ON cc.car_id = c.id
+    WHERE c.featured = TRUE
+    GROUP BY c.id
+    ORDER BY c.name
+  `;
+  return rows.map(rowToCar);
 }
 
 export async function getCarById(id: string): Promise<ToyCarProduct | null> {
-  await delay();
-  return allCars.find((c) => c.id === id) ?? null;
+  const rows = await sql`
+    SELECT
+      c.*,
+      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+    FROM cars c
+    LEFT JOIN car_categories cc ON cc.car_id = c.id
+    WHERE c.id = ${id}
+    GROUP BY c.id
+  `;
+  return rows.length > 0 ? rowToCar(rows[0]) : null;
+}
+
+export async function getCarsByCategory(
+  categoryId: string
+): Promise<ToyCarProduct[]> {
+  const rows = await sql`
+    SELECT
+      c.*,
+      COALESCE(array_agg(cc2.category_id) FILTER (WHERE cc2.category_id IS NOT NULL), '{}') AS category_ids
+    FROM cars c
+    JOIN car_categories cc  ON cc.car_id  = c.id AND cc.category_id = ${categoryId}
+    LEFT JOIN car_categories cc2 ON cc2.car_id = c.id
+    GROUP BY c.id
+    ORDER BY c.name
+  `;
+  return rows.map(rowToCar);
 }
 
 // ---------------------------------------------------------------------------
@@ -107,43 +149,29 @@ export async function getCarById(id: string): Promise<ToyCarProduct | null> {
 // ---------------------------------------------------------------------------
 
 export async function getCategories(type?: string): Promise<Category[]> {
-  await delay();
-  if (type) {
-    return allCategories.filter((c) => c.type === type);
-  }
-  return allCategories;
+  const rows = type
+    ? await sql`SELECT * FROM categories WHERE type = ${type} ORDER BY name`
+    : await sql`SELECT * FROM categories ORDER BY name`;
+  return rows.map(rowToCategory);
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
-  await delay();
-  return allCategories.find((c) => c.slug === slug) ?? null;
-}
-
-export async function getCarsByCategory(
-  categoryId: string
-): Promise<ToyCarProduct[]> {
-  await delay();
-  return allCars.filter((c) => c.categoryIds.includes(categoryId));
+  const rows = await sql`SELECT * FROM categories WHERE slug = ${slug} LIMIT 1`;
+  return rows.length > 0 ? rowToCategory(rows[0]) : null;
 }
 
 // ---------------------------------------------------------------------------
-// Search suggestions (for autocomplete)
+// Search suggestions
 // ---------------------------------------------------------------------------
 
 export async function getSearchSuggestions(query: string): Promise<string[]> {
-  await delay(20);
   if (!query || query.length < 2) return [];
-
-  const q = query.toLowerCase();
-  const suggestions = new Set<string>();
-
-  for (const car of allCars) {
-    if (car.name.toLowerCase().includes(q)) suggestions.add(car.name);
-    if (car.brand.toLowerCase().includes(q)) suggestions.add(car.brand);
-    for (const tag of car.tags) {
-      if (tag.includes(q)) suggestions.add(tag);
-    }
-  }
-
-  return Array.from(suggestions).slice(0, 8);
+  const q = `%${query.toLowerCase()}%`;
+  const rows = await sql`
+    SELECT DISTINCT name AS suggestion FROM cars WHERE LOWER(name) LIKE ${q}
+    UNION
+    SELECT DISTINCT brand FROM cars WHERE LOWER(brand) LIKE ${q}
+    LIMIT 8
+  `;
+  return rows.map((r) => r.suggestion as string);
 }

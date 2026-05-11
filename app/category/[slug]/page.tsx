@@ -26,22 +26,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const typeLabel: Record<string, string> = {
-  era:         "Era",
-  brand:       "Brand",
-  scale:       "Scale",
+  era: "Era",
+  brand: "Brand",
+  scale: "Scale",
   vehicleType: "Type",
-  condition:   "Condition",
-  material:    "Material",
+  condition: "Condition",
+  material: "Material",
 };
 
 export default async function CategoryPage({ params }: Props) {
   const { slug } = await params;
-  const [category, cars] = await Promise.all([
-    getCategoryBySlug(slug),
-    getCategoryBySlug(slug).then((cat) =>
-      cat ? getCarsByCategory(cat.id) : []
-    ),
-  ]);
+  const category = await getCategoryBySlug(slug);
+  const cars = category ? await getCarsByCategory(category.id) : [];
 
   if (!category) notFound();
 
@@ -49,9 +45,13 @@ export default async function CategoryPage({ params }: Props) {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <Link href="/" className="hover:text-white">Home</Link>
+        <Link href="/" className="hover:text-white">
+          Home
+        </Link>
         <span>/</span>
-        <Link href="/shop" className="hover:text-white">Shop</Link>
+        <Link href="/shop" className="hover:text-white">
+          Shop
+        </Link>
         <span>/</span>
         <span className="text-gray-300">{category.name}</span>
       </nav>
@@ -73,7 +73,9 @@ export default async function CategoryPage({ params }: Props) {
           <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-brand-400">
             {typeLabel[category.type] ?? category.type}
           </div>
-          <h1 className="text-3xl font-extrabold text-white">{category.name}</h1>
+          <h1 className="text-3xl font-extrabold text-white">
+            {category.name}
+          </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-gray-400">
             {category.description}
           </p>
@@ -100,11 +102,15 @@ export default async function CategoryPage({ params }: Props) {
 function EmptyState({ categoryName }: { categoryName: string }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-surface-border bg-surface-card py-20 text-center">
-      <span className="text-5xl" aria-hidden>🔍</span>
+      <span className="text-5xl" aria-hidden>
+        🔍
+      </span>
       <h2 className="mt-4 text-lg font-semibold text-white">
         No listings in {categoryName} yet
       </h2>
-      <p className="mt-1 text-sm text-gray-500">Check back soon, or browse all cars.</p>
+      <p className="mt-1 text-sm text-gray-500">
+        Check back soon, or browse all cars.
+      </p>
       <Link
         href="/shop"
         className="mt-6 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-500"

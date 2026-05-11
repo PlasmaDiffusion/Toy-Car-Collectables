@@ -2,17 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCategoryBySlug, getCarsByCategory, getCategories } from "@/lib/api";
+import { getCategoryBySlug, getCarsByCategory } from "@/lib/api";
 import CarCard from "@/components/CarCard";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  const categories = await getCategories();
-  return categories.map((cat) => ({ slug: cat.slug }));
-}
+// SSR — re-fetches from Neon on every request
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

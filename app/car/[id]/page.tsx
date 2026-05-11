@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCarById, getCars } from "@/lib/api";
 import CarCard from "@/components/CarCard";
-import CarBox3D from "@/components/CarBox3D";
 import ImagePanel from "@/components/ImagePanel";
 
 // SSR: always fresh.

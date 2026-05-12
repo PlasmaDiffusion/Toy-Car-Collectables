@@ -99,6 +99,36 @@ async function main() {
   await sql`CREATE INDEX IF NOT EXISTS idx_cars_featured     ON cars(featured)`;
   await sql`CREATE INDEX IF NOT EXISTS idx_cars_vehicle_type ON cars(vehicle_type)`;
 
+  await sql`
+    DO $$ BEGIN
+      CREATE TYPE login_provider_enum AS ENUM ('google', 'facebook', 'email');
+    EXCEPTION WHEN duplicate_object THEN NULL; END $$
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS users (
+      id             TEXT PRIMARY KEY,
+      username       TEXT NOT NULL UNIQUE,
+      email          TEXT NOT NULL UNIQUE,
+      login_provider login_provider_enum NOT NULL,
+      avatar_url     TEXT,
+      is_admin       BOOLEAN NOT NULL DEFAULT FALSE,
+      created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS wishlist_cars (
+      user_id  TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      car_id   TEXT NOT NULL REFERENCES cars(id) ON DELETE CASCADE,
+      added_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (user_id, car_id)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS idx_wishlist_cars_user_id ON wishlist_cars(user_id)`;
+
   console.log("✅ Schema ready.");
 
   // --- Seed categories ---
@@ -165,6 +195,42 @@ async function main() {
     }
   }
   console.log("✅ Cars seeded.");
+
+  // --- Seed test user + wishlist ---
+  console.log("🌱 Seeding test user…");
+  await sql`
+    INSERT INTO users (id, username, email, login_provider, avatar_url, is_admin)
+    VALUES (
+      'user-test-001',
+      'collector_scott',
+      'scott@example.com',
+      'email',
+      NULL,
+      TRUE
+    )
+    ON CONFLICT (id) DO UPDATE SET
+      username       = EXCLUDED.username,
+      email          = EXCLUDED.email,
+      login_provider = EXCLUDED.login_provider,
+      is_admin       = EXCLUDED.is_admin,
+      updated_at     = NOW()
+  `;
+
+  const wishlistCars = [
+    "hw-1969-mustang-boss-redline",
+    "corgi-1966-aston-db5",
+    "hw-1979-firebird-ta",
+    "hw-2003-ferrari-360",
+  ];
+  for (const carId of wishlistCars) {
+    await sql`
+      INSERT INTO wishlist_cars (user_id, car_id)
+      VALUES ('user-test-001', ${carId})
+      ON CONFLICT DO NOTHING
+    `;
+  }
+  console.log(`✅ Test user seeded with ${wishlistCars.length} wishlist cars.`);
+
   console.log("🎉 Done! Database is ready.");
 }
 

@@ -48,3 +48,32 @@ CREATE INDEX IF NOT EXISTS idx_cars_scale      ON cars(scale);
 CREATE INDEX IF NOT EXISTS idx_cars_condition  ON cars(condition);
 CREATE INDEX IF NOT EXISTS idx_cars_featured   ON cars(featured);
 CREATE INDEX IF NOT EXISTS idx_cars_vehicle_type ON cars(vehicle_type);
+
+-- ── Users ────────────────────────────────────────────────────────────────────
+
+CREATE TYPE login_provider_enum AS ENUM ('google', 'facebook', 'email');
+
+CREATE TABLE IF NOT EXISTS users (
+  id               TEXT PRIMARY KEY,               -- e.g. UUID or OAuth sub
+  username         TEXT NOT NULL UNIQUE,
+  email            TEXT NOT NULL UNIQUE,
+  login_provider   login_provider_enum NOT NULL,
+  avatar_url       TEXT,
+  is_admin         BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
+-- ── Wishlist ─────────────────────────────────────────────────────────────────
+-- A user can save many cars; a car can be saved by many users.
+
+CREATE TABLE IF NOT EXISTS wishlist_cars (
+  user_id   TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  car_id    TEXT NOT NULL REFERENCES cars(id) ON DELETE CASCADE,
+  added_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (user_id, car_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_wishlist_cars_user_id ON wishlist_cars(user_id);

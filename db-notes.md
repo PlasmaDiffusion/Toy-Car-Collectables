@@ -207,3 +207,18 @@ If you strongly prefer a document model, **MongoDB Atlas M0** is the free-foreve
 3. **If traffic grows significantly:** Migrate to AWS RDS db.t3.small (~$34/month) or Aurora Serverless for auto-scaling
 
 The Flask + SQLAlchemy code in this repo works identically across all PostgreSQL-compatible options above — switching is just a `DATABASE_URL` change.
+
+
+## 0Auth Linking With Google and Facebook logins
+
+1 — Google OAuth (takes ~2 min)
+
+Go to console.cloud.google.com → APIs & Services → Credentials → Create OAuth 2.0 Client
+Authorised redirect URI: http://localhost:3000/api/auth/callback/google
+Paste client_id and client_secret into .env.local
+2 — Facebook OAuth (takes ~5 min)
+
+Go to developers.facebook.com → Create App → Consumer
+Add Facebook Login product → Valid OAuth Redirect: http://localhost:3000/api/auth/callback/facebook
+Paste App ID and App Secret into .env.local
+3 — Run the seed (to create the new users + wishlist_cars tables in Neon)

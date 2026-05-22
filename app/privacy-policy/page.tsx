@@ -31,10 +31,10 @@ export default function PrivacyPolicyPage() {
         <p>
           To request deletion of your account and associated data, email{" "}
           <a
-            href="mailto:ScottCooperDeveloper@gmail.com"
+            href="mailto:MarkECooperJ2@hotmail.com"
             className="text-brand-500 hover:underline"
           >
-            ScottCooperDeveloper@gmail.com
+            MarkECooperJ2@hotmail.com
           </a>
           . We will process your request within 30 days.
         </p>

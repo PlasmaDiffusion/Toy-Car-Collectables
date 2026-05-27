@@ -42,6 +42,12 @@ export default function AuthButton() {
           {user?.name?.[0]?.toUpperCase() ?? "U"}
         </div>
       )}
+      <Link
+        href="/account"
+        className="text-xs text-gray-400 hover:text-white"
+      >
+        Account
+      </Link>
       <form action={handleSignOut}>
         <button
           type="submit"

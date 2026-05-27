@@ -15,27 +15,16 @@
  */
 
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
-import Facebook from "next-auth/providers/facebook";
 import PostgresAdapter from "@auth/pg-adapter";
 import { Pool } from "pg";
+import { authConfig } from "@/auth.config";
 
 // Re-use a single Pool across invocations (important for serverless)
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: PostgresAdapter(pool),
-
-  providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-    }),
-    Facebook({
-      clientId: process.env.AUTH_FACEBOOK_ID!,
-      clientSecret: process.env.AUTH_FACEBOOK_SECRET!,
-    }),
-  ],
 
   session: { strategy: "jwt" },
 
@@ -59,11 +48,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 
-  pages: {
-    signIn: "/auth/signin",
-  },
-
-  // On user creation, set a default username based on their name or email (e.g. "fred" for "fred@gmail.com"
+  // On user creation, set a default username based on their name or email (e.g. "fred" for "fred@gmail.com")
   events: {
     async createUser({ user }) {
       if (!user) return;

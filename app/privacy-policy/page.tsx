@@ -19,10 +19,10 @@ export default function PrivacyPolicyPage() {
           use it, and your rights regarding that data.
         </p>
         <p>
-          We collect your name, email address, and profile picture when you
-          sign in with Google or Facebook. This data is used solely to
-          authenticate your account and save products you&apos;re interested in
-          to your wishlist.
+          We collect your name, email address, and profile picture when you sign
+          in with Google or Facebook. This data is used solely to authenticate
+          your account and save products you&apos;re interested in to your
+          wishlist.
         </p>
         <p>
           We do not sell your data to third parties. We do not share your

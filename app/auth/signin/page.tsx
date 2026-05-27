@@ -1,6 +1,26 @@
 import { signIn } from "@/auth";
 
-export default function SignInPage() {
+const AUTH_ERRORS: Record<string, string> = {
+  OAuthAccountNotLinked:
+    "An account already exists with that email address. Please sign in with the provider you used originally.",
+  OAuthSignin:
+    "There was a problem starting the sign-in flow. Please try again.",
+  OAuthCallback: "There was a problem completing sign-in. Please try again.",
+  OAuthCreateAccount: "Could not create your account. Please try again.",
+  Callback: "Something went wrong during sign-in. Please try again.",
+  Configuration:
+    "There is a server configuration error. Please contact support.",
+  Default: "An unexpected error occurred. Please try again.",
+};
+
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
+  const errorMessage = error ? AUTH_ERRORS[error] ?? AUTH_ERRORS.Default : null;
+
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-2xl border border-surface-border bg-surface-card p-8 text-center">
@@ -13,6 +33,12 @@ export default function SignInPage() {
         <p className="mt-1 text-sm text-gray-500">
           Save cars to your wishlist and track listings.
         </p>
+
+        {errorMessage && (
+          <div className="mt-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            {errorMessage}
+          </div>
+        )}
 
         <div className="mt-8 flex flex-col gap-3">
           {/* Google */}

@@ -67,7 +67,7 @@ export default function WishlistButton({
         <HeartIcon filled={initialWishlisted} className="h-3.5 w-3.5" />
       </button>
       {/* Tooltip */}
-      <span className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900 px-2 py-0.5 text-[10px] text-gray-200 opacity-0 ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
+      <span className="pointer-events-none absolute bottom-full mb-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900 px-2 py-0.5 text-[11px] text-gray-200 opacity-0 ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
         {initialWishlisted ? "Un-wishlist" : "Wishlist"}
       </span>
     </div>

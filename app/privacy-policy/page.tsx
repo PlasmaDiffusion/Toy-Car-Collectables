@@ -36,14 +36,16 @@ export default function PrivacyPolicyPage() {
           facilitate sales directly — all listings link to Facebook Marketplace.
         </p>
         <p>
-          To request deletion of your account and associated data, email{" "}
+          To delete your account, when you're signed in, click account in the top right, then hit the delete button at the bottom of the page and follow the instructions.
+        </p>
+        <p>
+          For any further questions, email{" "}
           <a
-            href="mailto:ScottCooperDeveloper@gmail.com"
+            href="mailto:MarkECooperJ2@hotmail.com"
             className="text-brand-500 hover:underline"
           >
-            ScottCooperDeveloper@gmail.com
-          </a>
-          . We will process your request within 30 days.
+            MarkECooperJ2@hotmail.com
+          </a>.
         </p>
       </div>
     </main>

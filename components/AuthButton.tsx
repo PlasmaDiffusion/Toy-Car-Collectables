@@ -44,14 +44,14 @@ export default function AuthButton() {
       )}
       <Link
         href="/account"
-        className="text-xs text-gray-400 hover:text-white"
+        className="text-sm text-gray-400 hover:text-white"
       >
         Account
       </Link>
       <form action={handleSignOut}>
         <button
           type="submit"
-          className="text-xs text-gray-500 hover:text-white"
+          className="text-sm text-gray-500 hover:text-white"
         >
           Sign out
         </button>

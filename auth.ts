@@ -62,4 +62,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
+
+  // On user creation, set a default username based on their name or email (e.g. "fred" for "fred@gmail.com"
+  events: {
+    async createUser({ user }) {
+      if (!user) return;
+      const base = (user.name ?? user.email?.split("@")[0] ?? "user")
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .slice(0, 50);
+      await pool.query(
+        `UPDATE users SET username = $1 WHERE id = $2 AND (username IS NULL OR username = '')`,
+        [base, user.id]
+      );
+    },
+  },
 });

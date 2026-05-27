@@ -77,3 +77,53 @@ CREATE TABLE IF NOT EXISTS wishlist_cars (
 );
 
 CREATE INDEX IF NOT EXISTS idx_wishlist_cars_user_id ON wishlist_cars(user_id);
+
+-- ── Auth.js Tables ─────────────────────────────────────────────────────────────
+
+-- Alter users table to match Auth.js expectations
+ALTER TABLE users 
+  ADD COLUMN IF NOT EXISTS name TEXT,
+  ADD COLUMN IF NOT EXISTS image TEXT,
+  ADD COLUMN IF NOT EXISTS "emailVerified" TIMESTAMPTZ,
+  ALTER COLUMN username DROP NOT NULL;
+
+-- Auth.js accounts table (OAuth tokens per provider)
+CREATE TABLE IF NOT EXISTS accounts (
+  id                  TEXT PRIMARY KEY,
+  "userId"            TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  type                TEXT NOT NULL,
+  provider            TEXT NOT NULL,
+  "providerAccountId" TEXT NOT NULL,
+  refresh_token       TEXT,
+  access_token        TEXT,
+  expires_at          BIGINT,
+  token_type          TEXT,
+  scope               TEXT,
+  id_token            TEXT,
+  session_state       TEXT,
+  UNIQUE(provider, "providerAccountId")
+);
+
+-- Auth.js sessions table
+CREATE TABLE IF NOT EXISTS sessions (
+  id             TEXT PRIMARY KEY,
+  "sessionToken" TEXT UNIQUE NOT NULL,
+  "userId"       TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires        TIMESTAMPTZ NOT NULL
+);
+
+-- Auth.js verification tokens (for email magic links)
+CREATE TABLE IF NOT EXISTS verification_tokens (
+  identifier TEXT NOT NULL,
+  token      TEXT NOT NULL,
+  expires    TIMESTAMPTZ NOT NULL,
+  UNIQUE(identifier, token)
+);
+
+-- ── Fixes for Auth.js pg-adapter compatibility ────────────────────────────────
+-- 2026-05-27: pg-adapter generates the user row without supplying an id — the DB
+--             must generate it. Also login_provider is unknown to the adapter so
+--             it must be nullable (populate it via the signIn callback if needed).
+ALTER TABLE users ALTER COLUMN id SET DEFAULT gen_random_uuid();
+ALTER TABLE users ALTER COLUMN login_provider DROP NOT NULL;
+ALTER TABLE accounts ALTER COLUMN id SET DEFAULT gen_random_uuid();

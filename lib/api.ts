@@ -206,6 +206,13 @@ export async function isInWishlist(userId: string, carId: string): Promise<boole
   return rows.length > 0;
 }
 
+export async function getWishlistCount(carId: string): Promise<number> {
+  const rows = await sql`
+    SELECT COUNT(*) AS count FROM wishlist_cars WHERE car_id = ${carId}
+  `;
+  return Number(rows[0]?.count ?? 0);
+}
+
 export async function deleteUserAccount(userId: string): Promise<void> {
   // Cascade deletes wishlist_cars + accounts + sessions automatically via FK constraints
   await sql`DELETE FROM users WHERE id = ${userId}`;

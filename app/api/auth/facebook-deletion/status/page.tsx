@@ -8,7 +8,9 @@ export const metadata: Metadata = {
 export default function FacebookDeletionStatusPage() {
   return (
     <main className="mx-auto max-w-lg px-4 py-20 text-center">
-      <span className="text-5xl" aria-hidden>✅</span>
+      <span className="text-5xl" aria-hidden>
+        ✅
+      </span>
       <h1 className="mt-4 text-2xl font-bold text-white">
         Your data has been deleted
       </h1>

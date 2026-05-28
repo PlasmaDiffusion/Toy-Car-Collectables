@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { deleteAccount } from "@/app/account/actions";
+import { signOut } from "next-auth/react";
 
 interface Props {
   username: string;
@@ -10,15 +11,16 @@ interface Props {
 export default function DeleteAccountModal({ username }: Props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const confirmPhrase = `delete ${username}`;
   const isMatch = value.trim().toLowerCase() === confirmPhrase.toLowerCase();
 
-  function handleDelete() {
-    startTransition(async () => {
-      await deleteAccount();
-    });
+  async function handleDelete() {
+    setIsPending(true);
+    await deleteAccount();
+    // Use next-auth/react signOut to properly clear the client session
+    await signOut({ callbackUrl: "/" });
   }
 
   return (

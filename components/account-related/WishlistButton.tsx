@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toggleWishlist } from "@/app/account/actions";
+import { trackEvent } from "@/lib/analytics";
 
 interface Props {
   carId: string;
@@ -25,7 +26,8 @@ export default function WishlistButton({
     e.stopPropagation();
     startTransition(async () => {
       await toggleWishlist(carId, initialWishlisted);
-      router.refresh(); // re-fetch server component to get updated state
+      trackEvent(initialWishlisted ? "wishlist_remove" : "wishlist_add", { carId });
+      router.refresh();
     });
   }
 

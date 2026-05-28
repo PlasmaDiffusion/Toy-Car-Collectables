@@ -44,6 +44,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <Analytics />
         </Providers>
       </body>
     </html>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 
 function useDebounce<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -56,6 +57,7 @@ export default function SearchBar() {
 
   const navigate = useCallback(
     (value: string) => {
+      trackEvent("search", { query: value.trim() });
       setQuery(value);
       setOpen(false);
       setSuggestions([]);
@@ -113,7 +115,7 @@ export default function SearchBar() {
       {open && suggestions.length > 0 && (
         <ul
           role="listbox"
-          className="absolute left-0 top-full z-50 mt-1 w-full overflow-hidden bg-slate-700 rounded-md border border-surface-border bg-surface-card shadow-xl"
+          className="absolute left-0 top-full z-50 mt-1 w-full overflow-hidden rounded-md border border-surface-border bg-surface-card shadow-xl"
         >
           {suggestions.map((s, i) => (
             <li

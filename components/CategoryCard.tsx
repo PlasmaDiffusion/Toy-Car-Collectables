@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Category } from "@/types";
+import TrackClick from "@/components/TrackClick";
 
 const typeLabel: Record<string, string> = {
   era:         "Era",
@@ -17,10 +18,11 @@ interface Props {
 
 export default function CategoryCard({ category }: Props) {
   return (
-    <Link
-      href={`/category/${category.slug}`}
-      className="group relative flex h-40 flex-col justify-end overflow-hidden rounded-xl border border-surface-border bg-surface-card transition-all hover:border-brand-600"
-    >
+    <TrackClick event="category_click" payload={{ slug: category.slug, name: category.name }}>
+      <Link
+        href={`/category/${category.slug}`}
+        className="group relative flex h-40 flex-col justify-end overflow-hidden rounded-xl border border-surface-border bg-surface-card transition-all hover:border-brand-600"
+      >
       {/* Background image */}
       <Image
         src={category.imageUrl}
@@ -44,7 +46,7 @@ export default function CategoryCard({ category }: Props) {
         <div className="text-[11px] text-gray-400">
           {category.count} listing{category.count !== 1 ? "s" : ""}
         </div>
-      </div>
-    </Link>
+      </div>      </Link>
+    </TrackClick>
   );
 }

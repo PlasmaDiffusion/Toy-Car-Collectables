@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Providers from "@/components/Providers";
+import Providers from "@/components/account-related/Providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://diecastvault.com"),

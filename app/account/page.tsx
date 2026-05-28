@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { auth } from "@/auth";
 import { getWishlistCars } from "@/lib/api";
 import CarCard from "@/components/CarCard";
-import DeleteAccountModal from "@/components/DeleteAccountModal";
+import DeleteAccountModal from "@/components/account-related/DeleteAccountModal";
 
 export const metadata: Metadata = {
   title: "My Account — DieCast Vault",

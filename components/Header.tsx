@@ -2,20 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import AuthButton from "@/components/AuthButton";
+import AuthButton from "@/components/account-related/AuthButton";
+import SearchBar from "@/components/search-related/SearchBar";
 
 export default function Header() {
-  const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const router = useRouter();
-
-  function handleSearch(e: React.FormEvent) {
-    e.preventDefault();
-    if (query.trim()) {
-      router.push(`/shop?q=${encodeURIComponent(query.trim())}`);
-    }
-  }
 
   return (
     <header className="bg-surface sticky top-0 z-50 border-b border-surface-border">
@@ -33,21 +24,7 @@ export default function Header() {
           </Link>
 
           {/* Search */}
-          <form onSubmit={handleSearch} className="flex flex-1 items-center">
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search toy cars, brands, years…"
-              className="w-full rounded-l-md border border-surface-border bg-surface-card px-4 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-brand-500"
-            />
-            <button
-              type="submit"
-              className="rounded-r-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-500"
-            >
-              Search
-            </button>
-          </form>
+          <SearchBar />
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm font-medium text-gray-300 md:flex">

@@ -4,7 +4,7 @@ import { getCars, getWishlistCars } from "@/lib/api";
 import { auth } from "@/auth";
 import type { FilterState, Scale, Condition, VehicleType, Material } from "@/types";
 import CarCard from "@/components/CarCard";
-import FilterSidebar from "@/components/FilterSidebar";
+import FilterSidebar from "@/components/search-related/FilterSidebar";
 
 // SSR: renders fresh on every request (reflects URL filter params immediately).
 

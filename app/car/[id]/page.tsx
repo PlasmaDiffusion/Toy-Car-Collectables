@@ -5,7 +5,7 @@ import { getCarById, getCars, getWishlistCount } from "@/lib/api";
 import { getWishlistStatus } from "@/app/account/actions";
 import CarCard from "@/components/CarCard";
 import ImagePanel from "@/components/ImagePanel";
-import WishlistButton from "@/components/WishlistButton";
+import WishlistButton from "@/components/account-related/WishlistButton";
 
 // app/car/[id]/page.tsx  — listings rarely change so use ISR with a 5-minute revalidation time to reduce Neon query load while keeping data reasonably fresh. If a listing is updated on Facebook Marketplace, it will be reflected here within 5 minutes.
 export const revalidate = 300;
@@ -151,7 +151,8 @@ export default async function CarDetailPage({ params }: Props) {
           />
           {wishlistCount > 0 && (
             <p className="text-xs text-gray-500">
-              {wishlistCount} {wishlistCount === 1 ? "person has" : "people have"} saved this
+              {wishlistCount}{" "}
+              {wishlistCount === 1 ? "person has" : "people have"} saved this
             </p>
           )}
 

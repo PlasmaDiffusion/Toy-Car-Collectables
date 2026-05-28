@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ToyCarProduct } from "@/types";
-import WishlistButton from "@/components/WishlistButton";
+import WishlistButton from "@/components/account-related/WishlistButton";
 
 const conditionColors: Record<string, string> = {
   "Mint in Box": "bg-emerald-900 text-emerald-300",

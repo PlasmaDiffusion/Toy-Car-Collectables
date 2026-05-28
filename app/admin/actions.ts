@@ -1,0 +1,71 @@
+"use server";
+
+import { auth } from "@/auth";
+import { sql } from "@/lib/db";
+import { revalidatePath } from "next/cache";
+
+export type AddCarState =
+  | { status: "idle" }
+  | { status: "success"; id: string }
+  | { status: "error"; message: string };
+
+export async function addCar(
+  _prev: AddCarState,
+  formData: FormData
+): Promise<AddCarState> {
+  const session = await auth();
+  // @ts-expect-error — isAdmin is custom
+  if (!session?.user?.isAdmin) return { status: "error", message: "Forbidden" };
+
+  const name = formData.get("name") as string;
+  const brand = formData.get("brand") as string;
+  const price = formData.get("price") as string;
+  const condition = formData.get("condition") as string;
+  const scale = formData.get("scale") as string;
+  const vehicleType = formData.get("vehicleType") as string;
+  const material = formData.get("material") as string;
+  const productionYear = formData.get("productionYear") as string;
+  const modelYear = formData.get("modelYear") as string;
+  const description = formData.get("description") as string;
+  const facebookUrl = (formData.get("facebookUrl") as string).trim() || null;
+  const featured = formData.get("featured") === "on";
+  const imagesRaw = (formData.get("images") as string).trim();
+  const tagsRaw = (formData.get("tags") as string).trim();
+
+  if (!name || !brand || !condition || !scale || !vehicleType || !material || !productionYear || !modelYear) {
+    return { status: "error", message: "Please fill in all required fields." };
+  }
+
+  const images = imagesRaw
+    ? imagesRaw.split("\n").map((s) => s.trim()).filter(Boolean)
+    : [];
+  const tags = tagsRaw
+    ? tagsRaw.split(",").map((s) => s.trim()).filter(Boolean)
+    : [];
+
+  try {
+    const rows = await sql`
+      INSERT INTO cars (
+        name, brand, price, condition, scale, vehicle_type, material,
+        production_year, model_year, description,
+        facebook_marketplace_url, featured, images, tags
+      ) VALUES (
+        ${name}, ${brand},
+        ${price ? Number(price) : null},
+        ${condition}, ${scale}, ${vehicleType}, ${material},
+        ${Number(productionYear)}, ${Number(modelYear)},
+        ${description || ""},
+        ${facebookUrl}, ${featured},
+        ${images}, ${tags}
+      )
+      RETURNING id
+    `;
+
+    revalidatePath("/");
+    revalidatePath("/shop");
+    return { status: "success", id: rows[0].id };
+  } catch (err) {
+    console.error("addCar error:", err);
+    return { status: "error", message: "Database error — check server logs." };
+  }
+}

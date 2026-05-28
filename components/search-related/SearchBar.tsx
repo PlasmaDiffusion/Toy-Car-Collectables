@@ -21,7 +21,7 @@ export default function SearchBar() {
   const router = useRouter();
   const debouncedQuery = useDebounce(query, 250);
 
-  // Fetch suggestions when debounced query changes
+  // Fetch suggestions when debounced query changes (and when at least 2 characters)
   useEffect(() => {
     if (debouncedQuery.trim().length < 2) {
       setSuggestions([]);

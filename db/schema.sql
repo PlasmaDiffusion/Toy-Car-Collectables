@@ -127,3 +127,7 @@ CREATE TABLE IF NOT EXISTS verification_tokens (
 ALTER TABLE users ALTER COLUMN id SET DEFAULT gen_random_uuid();
 ALTER TABLE users ALTER COLUMN login_provider DROP NOT NULL;
 ALTER TABLE accounts ALTER COLUMN id SET DEFAULT gen_random_uuid();
+
+-- 2026-05-28: is_admin was defined in the original CREATE TABLE but never
+--             applied to the live DB via migration. Add it explicitly.
+ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE;

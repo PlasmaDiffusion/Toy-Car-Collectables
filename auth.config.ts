@@ -28,8 +28,10 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isAccountRoute = nextUrl.pathname.startsWith("/account");
-      if (isAccountRoute) return isLoggedIn;
+      const isProtected =
+        nextUrl.pathname.startsWith("/account") ||
+        nextUrl.pathname.startsWith("/admin");
+      if (isProtected) return isLoggedIn;
       return true;
     },
   },

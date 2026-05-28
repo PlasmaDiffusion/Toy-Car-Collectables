@@ -31,10 +31,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     // Expose id + is_admin on the JWT → session
     async jwt({ token, user }) {
-      if (user) {
+      if (user?.id) {
         token.id = user.id;
-        // @ts-expect-error — is_admin comes from our custom users table
-        token.isAdmin = user.is_admin ?? false;
+        // The pg adapter only returns standard fields — query is_admin directly
+        const result = await pool.query(
+          "SELECT is_admin FROM users WHERE id = $1",
+          [user.id]
+        );
+        token.isAdmin = result.rows[0]?.is_admin ?? false;
       }
       return token;
     },

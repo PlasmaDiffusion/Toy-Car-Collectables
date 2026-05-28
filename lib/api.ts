@@ -155,9 +155,67 @@ export async function getCategories(type?: string): Promise<Category[]> {
   return rows.map(rowToCategory);
 }
 
-export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+export async function getCategoryBySlug(
+  slug: string
+): Promise<Category | null> {
   const rows = await sql`SELECT * FROM categories WHERE slug = ${slug} LIMIT 1`;
   return rows.length > 0 ? rowToCategory(rows[0]) : null;
+}
+
+// ---------------------------------------------------------------------------
+// Search suggestions
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// Wishlist
+// ---------------------------------------------------------------------------
+
+export async function getWishlistCars(
+  userId: string
+): Promise<ToyCarProduct[]> {
+  const rows = await sql`
+    SELECT
+      c.*,
+      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+    FROM wishlist_cars w
+    JOIN cars c ON c.id = w.car_id
+    LEFT JOIN car_categories cc ON cc.car_id = c.id
+    WHERE w.user_id = ${userId}
+    GROUP BY c.id, w.added_at
+    ORDER BY w.added_at DESC
+  `;
+  return rows.map(rowToCar);
+}
+
+export async function addToWishlist(userId: string, carId: string): Promise<void> {
+  await sql`
+    INSERT INTO wishlist_cars (user_id, car_id)
+    VALUES (${userId}, ${carId})
+    ON CONFLICT DO NOTHING
+  `;
+}
+
+export async function removeFromWishlist(userId: string, carId: string): Promise<void> {
+  await sql`DELETE FROM wishlist_cars WHERE user_id = ${userId} AND car_id = ${carId}`;
+}
+
+export async function isInWishlist(userId: string, carId: string): Promise<boolean> {
+  const rows = await sql`
+    SELECT 1 FROM wishlist_cars WHERE user_id = ${userId} AND car_id = ${carId} LIMIT 1
+  `;
+  return rows.length > 0;
+}
+
+export async function getWishlistCount(carId: string): Promise<number> {
+  const rows = await sql`
+    SELECT COUNT(*) AS count FROM wishlist_cars WHERE car_id = ${carId}
+  `;
+  return Number(rows[0]?.count ?? 0);
+}
+
+export async function deleteUserAccount(userId: string): Promise<void> {
+  // Cascade deletes wishlist_cars + accounts + sessions automatically via FK constraints
+  await sql`DELETE FROM users WHERE id = ${userId}`;
 }
 
 // ---------------------------------------------------------------------------

@@ -1,22 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ToyCarProduct } from "@/types";
+import WishlistButton from "@/components/WishlistButton";
 
 const conditionColors: Record<string, string> = {
-  "Mint in Box":  "bg-emerald-900 text-emerald-300",
-  "Near Mint":    "bg-sky-900 text-sky-300",
-  "Excellent":    "bg-violet-900 text-violet-300",
-  "Good":         "bg-amber-900 text-amber-300",
-  "Fair":         "bg-gray-700 text-gray-300",
+  "Mint in Box": "bg-emerald-900 text-emerald-300",
+  "Near Mint": "bg-sky-900 text-sky-300",
+  Excellent: "bg-violet-900 text-violet-300",
+  Good: "bg-amber-900 text-amber-300",
+  Fair: "bg-gray-700 text-gray-300",
 };
 
 interface Props {
   car: ToyCarProduct;
   /** Show a more compact layout when rendering inside a category list. */
   compact?: boolean;
+  /** Whether this car is already in the current user's wishlist. Omit if user is not signed in. */
+  wishlisted?: boolean;
 }
 
-export default function CarCard({ car, compact = false }: Props) {
+export default function CarCard({ car, compact = false, wishlisted }: Props) {
   const isAvailable = car.facebookMarketplaceUrl !== null;
 
   return (
@@ -25,7 +28,11 @@ export default function CarCard({ car, compact = false }: Props) {
       className="group flex flex-col overflow-hidden rounded-xl border border-surface-border bg-surface-card transition-all hover:border-brand-600 hover:shadow-lg hover:shadow-brand-900/40"
     >
       {/* Image */}
-      <div className={`relative w-full overflow-hidden bg-surface ${compact ? "h-36" : "h-48"}`}>
+      <div
+        className={`relative w-full overflow-hidden bg-surface ${
+          compact ? "h-36" : "h-48"
+        }`}
+      >
         <Image
           src={car.images[0]}
           alt={car.name}
@@ -39,6 +46,17 @@ export default function CarCard({ car, compact = false }: Props) {
           <span className="absolute left-2 top-2 rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
             Featured
           </span>
+        )}
+
+        {/* Wishlist button */}
+        {wishlisted !== undefined && (
+          <div className="absolute bottom-2 right-2">
+            <WishlistButton
+              carId={car.id}
+              initialWishlisted={wishlisted}
+              variant="icon"
+            />
+          </div>
         )}
 
         {/* FB available indicator */}

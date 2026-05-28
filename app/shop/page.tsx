@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getCars } from "@/lib/api";
+import { getCars, getWishlistCars } from "@/lib/api";
+import { auth } from "@/auth";
 import type { FilterState, Scale, Condition, VehicleType, Material } from "@/types";
 import CarCard from "@/components/CarCard";
 import FilterSidebar from "@/components/FilterSidebar";
@@ -54,6 +55,14 @@ export default async function ShopPage({ searchParams }: Props) {
     );
   }
 
+  // Fetch wishlist for signed-in users so CarCard can show the heart badge
+  const session = await auth();
+  const wishlistSet = new Set<string>();
+  if (session?.user?.id) {
+    const wishlistCars = await getWishlistCars(session.user.id);
+    wishlistCars.forEach((c) => wishlistSet.add(c.id));
+  }
+
   const activeLabel =
     filters.brand ??
     filters.vehicleType ??
@@ -85,7 +94,11 @@ export default async function ShopPage({ searchParams }: Props) {
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {cars.map((car) => (
-                <CarCard key={car.id} car={car} />
+                <CarCard
+                  key={car.id}
+                  car={car}
+                  wishlisted={session?.user ? wishlistSet.has(car.id) : undefined}
+                />
               ))}
             </div>
           )}

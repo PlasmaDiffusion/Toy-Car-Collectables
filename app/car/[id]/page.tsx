@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCarById, getCars } from "@/lib/api";
+import { getCarById, getCars, getWishlistCount } from "@/lib/api";
+import { getWishlistStatus } from "@/app/account/actions";
 import CarCard from "@/components/CarCard";
 import ImagePanel from "@/components/ImagePanel";
-
+import WishlistButton from "@/components/WishlistButton";
 
 // app/car/[id]/page.tsx  — listings rarely change so use ISR with a 5-minute revalidation time to reduce Neon query load while keeping data reasonably fresh. If a listing is updated on Facebook Marketplace, it will be reflected here within 5 minutes.
 export const revalidate = 300;
-
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -48,6 +48,12 @@ export default async function CarDetailPage({ params }: Props) {
   // Related: same vehicleType, exclude self
   const allCars = await getCars({ vehicleType: car.vehicleType });
   const related = allCars.filter((c) => c.id !== car.id).slice(0, 4);
+
+  // Show if the user or other people wishlist this, and count it in parallel to optimize load time
+  const [wishlisted, wishlistCount] = await Promise.all([
+    getWishlistStatus(car.id),
+    getWishlistCount(car.id),
+  ]);
 
   const isAvailable = car.facebookMarketplaceUrl !== null;
 
@@ -135,6 +141,18 @@ export default async function CarDetailPage({ params }: Props) {
                 similar cars below.
               </p>
             </div>
+          )}
+
+          {/* Wishlist */}
+          <WishlistButton
+            carId={car.id}
+            initialWishlisted={wishlisted}
+            variant="full"
+          />
+          {wishlistCount > 0 && (
+            <p className="text-xs text-gray-500">
+              {wishlistCount} {wishlistCount === 1 ? "person has" : "people have"} saved this
+            </p>
           )}
 
           {/* Spec table */}

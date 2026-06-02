@@ -101,7 +101,7 @@ export default function AddCarForm() {
         </Field>
 
         <Field
-          label="Price (USD)"
+          label="Price (CAD)"
           hint="Leave blank to show 'Price on Request'"
         >
           <input

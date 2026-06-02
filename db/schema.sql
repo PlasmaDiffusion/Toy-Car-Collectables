@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 CREATE TABLE IF NOT EXISTS cars (
-  id                    TEXT PRIMARY KEY,
+  id                    TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
   name                  TEXT NOT NULL,
   brand                 TEXT NOT NULL,
   description           TEXT NOT NULL DEFAULT '',
@@ -143,3 +143,7 @@ ALTER TABLE cars
   ALTER COLUMN material      DROP NOT NULL,
   ALTER COLUMN production_year DROP NOT NULL,
   ALTER COLUMN model_year    DROP NOT NULL;
+
+-- 2026-06-02: cars.id was TEXT PRIMARY KEY with no default — INSERT without
+--             supplying an id would fail. Added UUID auto-generation.
+ALTER TABLE cars ALTER COLUMN id SET DEFAULT gen_random_uuid()::text;

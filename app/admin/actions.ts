@@ -74,6 +74,8 @@ export async function addCar(
     return { status: "success", id: rows[0].id };
   } catch (err) {
     console.error("addCar error:", err);
-    return { status: "error", message: "Database error — check server logs." };
+    const message =
+      err instanceof Error ? err.message : "Unknown database error";
+    return { status: "error", message: `Database error: ${message}` };
   }
 }

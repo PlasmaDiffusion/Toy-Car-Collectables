@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.fbcdn.net",
       },
+      {
+        // UploadThing CDN
+        protocol: "https",
+        hostname: "*.ufs.sh",
+      },
+      {
+        // UploadThing legacy CDN
+        protocol: "https",
+        hostname: "utfs.io",
+      },
     ],
   },
 };

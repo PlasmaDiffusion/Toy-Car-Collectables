@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { addCar, type AddCarState } from "@/app/admin/actions";
 import Link from "next/link";
+import CarImageUploader from "./CarImageUploader";
 
 const CONDITIONS = ["Mint in Box", "Near Mint", "Excellent", "Good", "Fair"];
 const SCALES: { value: string; label: string }[] = [
@@ -56,6 +57,7 @@ const selectClass = inputClass;
 
 export default function AddCarForm() {
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [state, action, isPending] = useActionState<AddCarState, FormData>(
     addCar,
     { status: "idle" }
@@ -121,13 +123,10 @@ export default function AddCarForm() {
           </select>
         </Field>
 
-        <Field label="Images" hint="One URL per line">
-          <textarea
-            name="images"
-            rows={3}
-            placeholder={`https://example.com/car-front.jpg\nhttps://example.com/car-side.jpg`}
-            className={inputClass}
-          />
+        <Field label="Images" hint="Upload up to 8 images (max 4 MB each)">
+          <CarImageUploader urls={imageUrls} onChange={setImageUrls} />
+          {/* Hidden input so the server action receives the URLs as newline-separated text */}
+          <input type="hidden" name="images" value={imageUrls.join("\n")} />
         </Field>
 
         <Field label="Tags" hint="Comma-separated, e.g. redline, treasure hunt">

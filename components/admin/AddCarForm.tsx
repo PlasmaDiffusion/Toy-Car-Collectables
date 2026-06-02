@@ -112,16 +112,9 @@ export default function AddCarForm() {
           />
         </Field>
 
-        <Field label="Condition" required>
-          <select
-            name="condition"
-            required
-            defaultValue=""
-            className={selectClass}
-          >
-            <option value="" disabled>
-              Select condition…
-            </option>
+        <Field label="Condition">
+          <select name="condition" defaultValue="" className={selectClass}>
+            <option value="">Select condition…</option>
             {CONDITIONS.map((c) => (
               <option key={c}>{c}</option>
             ))}
@@ -209,71 +202,50 @@ export default function AddCarForm() {
 
         {showAdvanced && (
           <div className="mt-4 grid gap-5 rounded-xl border border-surface-border bg-surface-card/50 p-5 sm:grid-cols-2">
-            <Field label="Brand" required>
+            <Field label="Brand">
               <input
                 name="brand"
-                required
                 placeholder="e.g. Hot Wheels"
                 className={inputClass}
               />
             </Field>
 
-            <Field label="Scale" required>
-              <select
-                name="scale"
-                required
-                defaultValue=""
-                className={selectClass}
-              >
-                <option value="" disabled>
-                  Select scale…
-                </option>
+            <Field label="Scale" hint="Used for AR to-scale preview">
+              <select name="scale" defaultValue="" className={selectClass}>
+                <option value="">Select scale…</option>
                 {SCALES.map((s) => (
-                  <option key={s.value} value={s.value}>{s.label}</option>
+                  <option key={s.value} value={s.value}>
+                    {s.label}
+                  </option>
                 ))}
               </select>
             </Field>
 
-            <Field label="Vehicle Type" required>
+            <Field label="Vehicle Type">
               <select
                 name="vehicleType"
-                required
                 defaultValue=""
                 className={selectClass}
               >
-                <option value="" disabled>
-                  Select type…
-                </option>
+                <option value="">Select type…</option>
                 {VEHICLE_TYPES.map((t) => (
                   <option key={t}>{t}</option>
                 ))}
               </select>
             </Field>
 
-            <Field label="Material" required>
-              <select
-                name="material"
-                required
-                defaultValue=""
-                className={selectClass}
-              >
-                <option value="" disabled>
-                  Select material…
-                </option>
+            <Field label="Material">
+              <select name="material" defaultValue="" className={selectClass}>
+                <option value="">Select material…</option>
                 {MATERIALS.map((m) => (
                   <option key={m}>{m}</option>
                 ))}
               </select>
             </Field>
 
-            <Field
-              label="Production Year"
-              required
-              hint="Year this toy was made"
-            >
+            <Field label="Production Year" hint="Year this toy was made">
               <input
                 name="productionYear"
-                required
                 type="number"
                 min="1940"
                 max={currentYear}
@@ -282,10 +254,9 @@ export default function AddCarForm() {
               />
             </Field>
 
-            <Field label="Model Year" required hint="Year of the real vehicle">
+            <Field label="Model Year" hint="Year of the real vehicle">
               <input
                 name="modelYear"
-                required
                 type="number"
                 min="1900"
                 max={currentYear}

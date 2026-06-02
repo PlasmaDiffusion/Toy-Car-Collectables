@@ -131,3 +131,15 @@ ALTER TABLE accounts ALTER COLUMN id SET DEFAULT gen_random_uuid();
 -- 2026-05-28: is_admin was defined in the original CREATE TABLE but never
 --             applied to the live DB via migration. Add it explicitly.
 ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE;
+
+-- 2026-06-02: Make all cars columns except name optional so listings can be
+--             added quickly with just a name and filled in later.
+ALTER TABLE cars
+  ALTER COLUMN brand         SET DEFAULT '',
+  ALTER COLUMN description   SET DEFAULT '',
+  ALTER COLUMN condition     DROP NOT NULL,
+  ALTER COLUMN scale         DROP NOT NULL,
+  ALTER COLUMN vehicle_type  DROP NOT NULL,
+  ALTER COLUMN material      DROP NOT NULL,
+  ALTER COLUMN production_year DROP NOT NULL,
+  ALTER COLUMN model_year    DROP NOT NULL;

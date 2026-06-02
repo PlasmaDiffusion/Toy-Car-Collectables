@@ -6,6 +6,7 @@ import { getWishlistStatus } from "@/app/account/actions";
 import CarCard from "@/components/CarCard";
 import ImagePanel from "@/components/ImagePanel";
 import WishlistButton from "@/components/account-related/WishlistButton";
+import AdminEditButton from "@/components/admin/AdminEditButton";
 
 // app/car/[id]/page.tsx  — listings rarely change so use ISR with a 5-minute revalidation time to reduce Neon query load while keeping data reasonably fresh. If a listing is updated on Facebook Marketplace, it will be reflected here within 5 minutes.
 export const revalidate = 300;
@@ -60,16 +61,19 @@ export default async function CarDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <Link href="/" className="hover:text-white">
-          Home
-        </Link>
-        <span>/</span>
-        <Link href="/shop" className="hover:text-white">
-          Shop
-        </Link>
-        <span>/</span>
-        <span className="text-gray-300 truncate max-w-xs">{car.name}</span>
+      <nav className="mb-6 flex items-center justify-between gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="hover:text-white">
+            Home
+          </Link>
+          <span>/</span>
+          <Link href="/shop" className="hover:text-white">
+            Shop
+          </Link>
+          <span>/</span>
+          <span className="text-gray-300 truncate max-w-xs">{car.name}</span>
+        </div>
+        <AdminEditButton carId={car.id} />
       </nav>
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">

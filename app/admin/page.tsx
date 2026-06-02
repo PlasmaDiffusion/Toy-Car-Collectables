@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import AddCarForm from "@/components/admin/AddCarForm";
+import CarForm from "@/components/admin/CarForm";
 
-export const metadata = { title: "Admin" };
+export const metadata = { title: "Admin — Add Collectable" };
 
 export default async function AdminPage() {
   const session = await auth();
@@ -16,7 +16,7 @@ export default async function AdminPage() {
       </div>
 
       <div className="rounded-xl border border-surface-border bg-surface-card p-6">
-        <AddCarForm />
+        <CarForm mode="add" />
       </div>
     </div>
   );

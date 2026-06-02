@@ -5,7 +5,14 @@ import { addCar, type AddCarState } from "@/app/admin/actions";
 import Link from "next/link";
 
 const CONDITIONS = ["Mint in Box", "Near Mint", "Excellent", "Good", "Fair"];
-const SCALES = ["1:18", "1:24", "1:43", "1:64", "1:87", "Other"];
+const SCALES: { value: string; label: string }[] = [
+  { value: "1:18", label: "1:18 (25 cm)" },
+  { value: "1:24", label: "1:24 (18.8 cm)" },
+  { value: "1:43", label: "1:43 (10.5 cm)" },
+  { value: "1:64", label: "1:64 (7 cm) — Hot Wheels standard" },
+  { value: "1:87", label: "1:87 (5.2 cm)" },
+  { value: "Other", label: "Other (~8 cm)" },
+];
 const VEHICLE_TYPES = [
   "Muscle Car",
   "Sports Car",
@@ -222,7 +229,7 @@ export default function AddCarForm() {
                   Select scale…
                 </option>
                 {SCALES.map((s) => (
-                  <option key={s}>{s}</option>
+                  <option key={s.value} value={s.value}>{s.label}</option>
                 ))}
               </select>
             </Field>

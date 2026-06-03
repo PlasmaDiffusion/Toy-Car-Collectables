@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — LaSalle Collectibles",
@@ -41,10 +42,10 @@ export default function PrivacyPolicyPage() {
         <p>
           For any further questions, email{" "}
           <a
-            href="mailto:MarkECooperJ2@hotmail.com"
+            href={`mailto:${CONTACT_EMAIL}`}
             className="text-brand-500 hover:underline"
           >
-            MarkECooperJ2@hotmail.com
+            {CONTACT_EMAIL}
           </a>.
         </p>
       </div>

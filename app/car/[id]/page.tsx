@@ -7,6 +7,7 @@ import CarCard from "@/components/CarCard";
 import ImagePanel from "@/components/ImagePanel";
 import WishlistButton from "@/components/account-related/WishlistButton";
 import AdminEditButton from "@/components/admin/AdminEditButton";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 // app/car/[id]/page.tsx  — listings rarely change so use ISR with a 5-minute revalidation time to reduce Neon query load while keeping data reasonably fresh. If a listing is updated on Facebook Marketplace, it will be reflected here within 5 minutes.
 export const revalidate = 300;
@@ -143,6 +144,15 @@ export default async function CarDetailPage({ params }: Props) {
               <p className="text-xs text-gray-500">
                 This listing is being prepared. Check back soon or browse
                 similar cars below.
+              </p>
+              <p className="text-xs text-gray-500">
+                Really interested in this listing?{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-gray-300 underline hover:text-white"
+                >
+                  Contact {CONTACT_EMAIL}
+                </a>
               </p>
             </div>
           )}

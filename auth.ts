@@ -17,6 +17,7 @@
 import NextAuth from "next-auth";
 import PostgresAdapter from "@auth/pg-adapter";
 import { Pool } from "pg";
+import { PostHog } from "posthog-node";
 import { authConfig } from "@/auth.config";
 
 // Re-use a single Pool across invocations (important for serverless)
@@ -64,6 +65,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         `UPDATE users SET username = $1 WHERE id = $2 AND (username IS NULL OR username = '')`,
         [base, user.id]
       );
+
+      const ph = new PostHog(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+        host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com",
+      });
+      ph.capture({ distinctId: user.id!, event: "sign_up" });
+      await ph.shutdown();
     },
   },
 });

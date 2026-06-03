@@ -18,6 +18,7 @@ interface Props {
 export default function ImagePanel({ car }: Props) {
   const [tab, setTab] = useState<"photos" | "3d">("photos");
   const [arOpen, setArOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(car.images[0]);
   const scale: Scale = car.scale ?? DEFAULT_SCALE;
 
   return (
@@ -78,7 +79,7 @@ export default function ImagePanel({ car }: Props) {
           {/* Primary image */}
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-surface-border bg-surface-card">
             <Image
-              src={car.images[0]}
+              src={selectedImage}
               alt={car.name}
               fill
               priority
@@ -91,9 +92,14 @@ export default function ImagePanel({ car }: Props) {
           {car.images.length > 1 && (
             <div className="flex gap-3">
               {car.images.map((img, i) => (
-                <div
+                <button
                   key={i}
-                  className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-surface-border bg-surface-card"
+                  onClick={() => setSelectedImage(img)}
+                  className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border bg-surface-card transition ${
+                    selectedImage === img
+                      ? "border-brand-500 ring-1 ring-brand-500"
+                      : "border-surface-border hover:border-gray-500"
+                  }`}
                 >
                   <Image
                     src={img}
@@ -102,7 +108,7 @@ export default function ImagePanel({ car }: Props) {
                     className="object-contain p-2"
                     sizes="80px"
                   />
-                </div>
+                </button>
               ))}
             </div>
           )}

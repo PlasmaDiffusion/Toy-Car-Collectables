@@ -17,7 +17,7 @@ export default function AdminOnlyNotice({ message }: Props) {
         ⚠
       </span>
       <p className="text-xs text-amber-300">
-        <span className="font-semibold">Admin only — </span>
+        <span className="font-semibold">Admin only notice — </span>
         {message}
       </p>
     </div>

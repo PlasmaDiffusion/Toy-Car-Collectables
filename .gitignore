@@ -5,5 +5,8 @@
 .env*.local
 .env
 
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+
 # Claude Code worktrees
 .claude/worktrees/

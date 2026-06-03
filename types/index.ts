@@ -1,4 +1,9 @@
-export type Condition = "Mint in Box" | "Near Mint" | "Excellent" | "Good" | "Fair";
+export type Condition =
+  | "Mint in Box"
+  | "Near Mint"
+  | "Excellent"
+  | "Good"
+  | "Fair";
 
 export type Scale = "1:18" | "1:24" | "1:43" | "1:64" | "1:87" | "Other";
 
@@ -34,7 +39,7 @@ export interface ToyCarProduct {
   condition: Condition;
   vehicleType: VehicleType;
   material: Material;
-  /** Asking price in USD; null if price on request */
+  /** Asking price in CAD; null if price on request */
   price: number | null;
   images: string[];
   description: string;

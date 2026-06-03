@@ -9,6 +9,15 @@ import SliderScale from "@/components/SliderScale";
 
 // Real-world approximate length in metres for each scale,
 // assuming a "standard" car body ~4.5 m long.
+export const SCALE_LENGTHS_CM: Record<Scale, number> = {
+  "1:18": 25,
+  "1:24": 18.8,
+  "1:43": 10.5,
+  "1:64": 7,
+  "1:87": 5.2,
+  Other: 8,
+};
+
 const SCALE_LENGTHS_M: Record<Scale, number> = {
   "1:18": 0.25,
   "1:24": 0.188,

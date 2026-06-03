@@ -6,6 +6,8 @@ import { getWishlistStatus } from "@/app/account/actions";
 import CarCard from "@/components/CarCard";
 import ImagePanel from "@/components/ImagePanel";
 import WishlistButton from "@/components/account-related/WishlistButton";
+import AdminEditButton from "@/components/admin/AdminEditButton";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 // app/car/[id]/page.tsx  — listings rarely change so use ISR with a 5-minute revalidation time to reduce Neon query load while keeping data reasonably fresh. If a listing is updated on Facebook Marketplace, it will be reflected here within 5 minutes.
 export const revalidate = 300;
@@ -60,16 +62,19 @@ export default async function CarDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <Link href="/" className="hover:text-white">
-          Home
-        </Link>
-        <span>/</span>
-        <Link href="/shop" className="hover:text-white">
-          Shop
-        </Link>
-        <span>/</span>
-        <span className="text-gray-300 truncate max-w-xs">{car.name}</span>
+      <nav className="mb-6 flex items-center justify-between gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="hover:text-white">
+            Home
+          </Link>
+          <span>/</span>
+          <Link href="/shop" className="hover:text-white">
+            Shop
+          </Link>
+          <span>/</span>
+          <span className="text-gray-300 truncate max-w-xs">{car.name}</span>
+        </div>
+        <AdminEditButton carId={car.id} />
       </nav>
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
@@ -140,6 +145,15 @@ export default async function CarDetailPage({ params }: Props) {
                 This listing is being prepared. Check back soon or browse
                 similar cars below.
               </p>
+              <p className="text-xs text-gray-500">
+                Really interested in this listing?{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-gray-300 underline hover:text-white"
+                >
+                  Contact {CONTACT_EMAIL}
+                </a>
+              </p>
             </div>
           )}
 
@@ -209,7 +223,7 @@ export default async function CarDetailPage({ params }: Props) {
       {related.length > 0 && (
         <section className="mt-16">
           <h2 className="mb-6 text-xl font-bold text-white">
-            More {car.vehicleType}s
+            {car.vehicleType ? ` More ${car.vehicleType}s` : "More Cars"}
           </h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((c) => (

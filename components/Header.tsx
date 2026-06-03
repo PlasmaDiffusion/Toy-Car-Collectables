@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import AuthButton from "@/components/account-related/AuthButton";
+import AdminLink from "@/components/account-related/AdminLink";
 import SearchBar from "@/components/search-related/SearchBar";
 
 export default function Header() {
@@ -40,6 +41,7 @@ export default function Header() {
             <Link href="/category/type-movie-tv" className="hover:text-white">
               Movie Cars
             </Link>
+            <AdminLink />
           </nav>
 
           {/* Auth */}

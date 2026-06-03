@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 CREATE TABLE IF NOT EXISTS cars (
-  id                    TEXT PRIMARY KEY,
+  id                    TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
   name                  TEXT NOT NULL,
   brand                 TEXT NOT NULL,
   description           TEXT NOT NULL DEFAULT '',
@@ -127,3 +127,23 @@ CREATE TABLE IF NOT EXISTS verification_tokens (
 ALTER TABLE users ALTER COLUMN id SET DEFAULT gen_random_uuid();
 ALTER TABLE users ALTER COLUMN login_provider DROP NOT NULL;
 ALTER TABLE accounts ALTER COLUMN id SET DEFAULT gen_random_uuid();
+
+-- 2026-05-28: is_admin was defined in the original CREATE TABLE but never
+--             applied to the live DB via migration. Add it explicitly.
+ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE;
+
+-- 2026-06-02: Make all cars columns except name optional so listings can be
+--             added quickly with just a name and filled in later.
+ALTER TABLE cars
+  ALTER COLUMN brand         SET DEFAULT '',
+  ALTER COLUMN description   SET DEFAULT '',
+  ALTER COLUMN condition     DROP NOT NULL,
+  ALTER COLUMN scale         DROP NOT NULL,
+  ALTER COLUMN vehicle_type  DROP NOT NULL,
+  ALTER COLUMN material      DROP NOT NULL,
+  ALTER COLUMN production_year DROP NOT NULL,
+  ALTER COLUMN model_year    DROP NOT NULL;
+
+-- 2026-06-02: cars.id was TEXT PRIMARY KEY with no default — INSERT without
+--             supplying an id would fail. Added UUID auto-generation.
+ALTER TABLE cars ALTER COLUMN id SET DEFAULT gen_random_uuid()::text;

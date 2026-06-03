@@ -21,7 +21,7 @@ Be careful with `DROP COLUMN` or `DROP TABLE` statements!
 
 # Other Notable Things About Neon
 
-Neon has DB branching. You can create a branch and test your schema changes there, then apply it to main.
+Neon has DB branching. Test any schema or database changes there via the staging branch, then apply it to the production branch.
 
 Neon does not have a build in migration system. In the event this project greatly grew in complexity, look into hooking Neon up with Drizzle ORM.
 

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import CarBox3D from "@/components/CarBox3D";
+import CarBox3D, { SCALE_LENGTHS_CM } from "@/components/CarBox3D";
 import ARPreview from "@/components/ARPreview";
 import type { ToyCarProduct, Scale } from "@/types";
 import AdminOnlyNotice from "@/components/admin/AdminOnlyNotice";
 
 const DEFAULT_SCALE: Scale = "1:64";
+
+const DEFAULT_SCALE_CM = SCALE_LENGTHS_CM[DEFAULT_SCALE];
 
 interface Props {
   car: ToyCarProduct;
@@ -30,7 +32,8 @@ export default function ImagePanel({ car }: Props) {
 
       {!car.scale && (
         <AdminOnlyNotice
-          message={`Scale isn't set for this listing — the 3D and AR preview will default to ${DEFAULT_SCALE} (Hot Wheels standard). Set it in the advanced fields to get accurate real-world sizing.`}
+          message={`Scale isn't set for this listing — the 3D and AR preview will default to ${DEFAULT_SCALE} (≈${DEFAULT_SCALE_CM} cm).
+            \nFor reference a standard hot wheels car is about 7cm. Set scale in the form's advanced fields to get accurate real-world sizing.`}
         />
       )}
 

@@ -1,5 +1,4 @@
 "use client";
-
 import { useSession } from "next-auth/react";
 
 interface Props {
@@ -17,8 +16,14 @@ export default function AdminOnlyNotice({ message }: Props) {
         ⚠
       </span>
       <p className="text-xs text-amber-300">
-        <span className="font-semibold">Admin only notice — </span>
-        {message}
+        <span className="font-semibold">Admin Only Notice</span>
+        <br/>
+        {message.split("\n").map((line, i) => (
+          <span key={i}>
+            {i > 0 && <br />}
+            {line}
+          </span>
+        ))}
       </p>
     </div>
   );

@@ -4,3 +4,6 @@
 # Local env files — contain secrets, never commit
 .env*.local
 .env
+
+# Claude Code worktrees
+.claude/worktrees/

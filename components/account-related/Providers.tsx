@@ -1,6 +1,6 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import posthog from "posthog-js";
 import { PostHogProvider, usePostHog } from "posthog-js/react";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -20,11 +20,17 @@ function PageviewTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const ph = usePostHog();
+  const session = useSession();
 
   useEffect(() => {
     const url = pathname + (searchParams.toString() ? `?${searchParams}` : "");
     ph?.capture("$pageview", { $current_url: url });
   }, [pathname, searchParams, ph]);
+
+  useEffect(() => {
+    const id = session.data?.user?.id;
+    if (id) ph?.identify(id);
+  }, [session.data?.user?.id, ph]);
 
   return null;
 }

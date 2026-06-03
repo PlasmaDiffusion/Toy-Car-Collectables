@@ -10,16 +10,22 @@ import type { ToyCarProduct } from "@/types";
 
 const CONDITIONS = ["Mint in Box", "Near Mint", "Excellent", "Good", "Fair"];
 const SCALES: { value: string; label: string }[] = [
-  { value: "1:18",  label: "1:18 (25 cm)" },
-  { value: "1:24",  label: "1:24 (18.8 cm)" },
-  { value: "1:43",  label: "1:43 (10.5 cm)" },
-  { value: "1:64",  label: "1:64 (7 cm) — Hot Wheels standard" },
-  { value: "1:87",  label: "1:87 (5.2 cm)" },
+  { value: "1:18", label: "1:18 (25 cm)" },
+  { value: "1:24", label: "1:24 (18.8 cm)" },
+  { value: "1:43", label: "1:43 (10.5 cm)" },
+  { value: "1:64", label: "1:64 (7 cm) — Hot Wheels standard" },
+  { value: "1:87", label: "1:87 (5.2 cm)" },
   { value: "Other", label: "Other (~8 cm)" },
 ];
 const VEHICLE_TYPES = [
-  "Muscle Car", "Sports Car", "Race Car", "Movie & TV",
-  "Truck & Van", "Emergency Vehicle", "Motorcycle", "Classic",
+  "Muscle Car",
+  "Sports Car",
+  "Race Car",
+  "Movie & TV",
+  "Truck & Van",
+  "Emergency Vehicle",
+  "Motorcycle",
+  "Classic",
 ];
 const MATERIALS = ["Diecast", "Plastic", "Tin", "Resin"];
 
@@ -74,7 +80,7 @@ export default function CarForm({ mode, initialData }: Props) {
   const isEditing = mode === "edit";
   const action = isEditing ? updateCar : addCar;
 
-  const [showAdvanced, setShowAdvanced] = useState(isEditing);
+  const [showExtra, setShowExtra] = useState(isEditing);
   const [imageUrls, setImageUrls] = useState<string[]>(
     initialData?.images ?? []
   );
@@ -114,9 +120,7 @@ export default function CarForm({ mode, initialData }: Props) {
   return (
     <form action={formAction} className="flex flex-col gap-6">
       {/* Hidden id field for edit mode */}
-      {isEditing && (
-        <input type="hidden" name="id" value={initialData.id} />
-      )}
+      {isEditing && <input type="hidden" name="id" value={initialData.id} />}
 
       {/* ── Core fields ───────────────────────────────────────────────────── */}
       <div className="grid gap-5 sm:grid-cols-2">
@@ -130,7 +134,10 @@ export default function CarForm({ mode, initialData }: Props) {
           />
         </Field>
 
-        <Field label="Price (CAD)" hint="Leave blank to show 'Price on Request'">
+        <Field
+          label="Price (CAD)"
+          hint="Leave blank to show 'Price on Request'"
+        >
           <input
             name="price"
             type="number"
@@ -155,18 +162,24 @@ export default function CarForm({ mode, initialData }: Props) {
           </select>
         </Field>
 
+        <Field label="Scale" hint="Used for AR to-scale preview">
+          <select
+            name="scale"
+            defaultValue={initialData?.scale ?? ""}
+            className={selectClass}
+          >
+            <option value="">Select scale…</option>
+            {SCALES.map((s) => (
+              <option key={s.value} value={s.value}>
+                {s.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+
         <Field label="Images" hint="Upload up to 8 images (max 4 MB each)">
           <CarImageUploader urls={imageUrls} onChange={setImageUrls} />
           <input type="hidden" name="images" value={imageUrls.join("\n")} />
-        </Field>
-
-        <Field label="Tags" hint="Comma-separated, e.g. redline, treasure hunt">
-          <input
-            name="tags"
-            defaultValue={initialData?.tags.join(", ")}
-            placeholder="redline, treasure hunt, blister pack"
-            className={inputClass}
-          />
         </Field>
 
         <Field
@@ -200,31 +213,41 @@ export default function CarForm({ mode, initialData }: Props) {
             defaultChecked={initialData?.featured ?? false}
             className="h-4 w-4 rounded border-surface-border accent-brand-500"
           />
-          <label htmlFor="featured" className="text-sm font-medium text-gray-300">
+          <label
+            htmlFor="featured"
+            className="text-sm font-medium text-gray-300"
+          >
             Feature this listing on the homepage
           </label>
         </div>
       </div>
 
-      {/* ── Advanced toggle ───────────────────────────────────────────────── */}
+      {/* ── Extra toggle ───────────────────────────────────────────────── */}
       <div>
         <button
           type="button"
-          onClick={() => setShowAdvanced((v) => !v)}
+          onClick={() => setShowExtra((v) => !v)}
           className="flex items-center gap-2 text-sm font-medium text-brand-400 hover:text-brand-300"
         >
           <svg
-            className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-90" : ""}`}
+            className={`h-4 w-4 transition-transform ${
+              showExtra ? "rotate-90" : ""
+            }`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
-          {showAdvanced ? "Hide" : "Show"} advanced fields
+          {showExtra ? "Hide" : "Show"} Extra fields
         </button>
 
-        {showAdvanced && (
+        {showExtra && (
           <div className="mt-4 grid gap-5 rounded-xl border border-surface-border bg-surface-card/50 p-5 sm:grid-cols-2">
             <Field label="Brand">
               <input
@@ -235,17 +258,16 @@ export default function CarForm({ mode, initialData }: Props) {
               />
             </Field>
 
-            <Field label="Scale" hint="Used for AR to-scale preview">
-              <select
-                name="scale"
-                defaultValue={initialData?.scale ?? ""}
-                className={selectClass}
-              >
-                <option value="">Select scale…</option>
-                {SCALES.map((s) => (
-                  <option key={s.value} value={s.value}>{s.label}</option>
-                ))}
-              </select>
+            <Field
+              label="Tags"
+              hint="For searching. Comma-separated, e.g. redline, treasure hunt"
+            >
+              <input
+                name="tags"
+                defaultValue={initialData?.tags.join(", ")}
+                placeholder="redline, treasure hunt, blister pack"
+                className={inputClass}
+              />
             </Field>
 
             <Field label="Vehicle Type">
@@ -324,8 +346,12 @@ export default function CarForm({ mode, initialData }: Props) {
           className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 disabled:opacity-50"
         >
           {isPending
-            ? isEditing ? "Saving…" : "Adding…"
-            : isEditing ? "Save Changes" : "Add Collectable"}
+            ? isEditing
+              ? "Saving…"
+              : "Adding…"
+            : isEditing
+            ? "Save Changes"
+            : "Add Collectable"}
         </button>
       </div>
     </form>

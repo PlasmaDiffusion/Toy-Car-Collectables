@@ -33,7 +33,7 @@ export default function ImagePanel({ car }: Props) {
       {!car.scale && (
         <AdminOnlyNotice
           message={`Scale isn't set for this listing — the 3D and AR preview will default to ${DEFAULT_SCALE} (≈${DEFAULT_SCALE_CM} cm).
-            \nFor reference a standard hot wheels car is about 7cm. Set scale in the form's advanced fields to get accurate real-world sizing.`}
+            \nFor reference a standard hot wheels car is about 7cm. Set the Scale field in the form to get accurate real-world sizing.`}
         />
       )}
 

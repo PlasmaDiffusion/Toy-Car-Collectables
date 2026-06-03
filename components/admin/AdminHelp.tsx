@@ -37,8 +37,7 @@ const PAGES = [
         <p className="text-brand-400">
           Remember to always enter the marketplace URL in the field when it's
           ready and put on the facebook marketplace. If it's not ready yet, an
-          edit button will appear on the car's page to add the link in
-          later.
+          edit button will appear on the car's page to add the link in later.
         </p>
       </div>
     ),
@@ -82,23 +81,23 @@ const PAGES = [
     ),
   },
   {
-    title: "Advanced Fields & AR Scale",
+    title: "Scale & Extra Fields",
     icon: "⚙️",
     content: (
       <div className="flex flex-col gap-3 text-sm text-gray-300 leading-relaxed">
         <p>
+          <span className="font-semibold text-white">Scale</span> is a core
+          field — always visible in the form. It powers the AR to-scale preview,
+          so set it for every listing. A 1:64 Hot Wheels is ~7 cm; a 1:18 is ~25
+          cm.
+        </p>
+        <p>
           The{" "}
-          <span className="font-semibold text-white">Show advanced fields</span>{" "}
-          toggle reveals extra metadata that improves the listing and powers
-          certain features:
+          <span className="font-semibold text-white">Show Extra fields</span>{" "}
+          toggle reveals extra metadata:
         </p>
         <ul className="flex flex-col gap-2 pl-4">
           {[
-            {
-              label: "Scale",
-              detail:
-                "Critical for the AR preview — this determines the real-world size of the 3D model shown to the buyer. A 1:64 Hot Wheels car is ~7 cm; a 1:18 is ~25 cm. Pick the closest match.",
-            },
             {
               label: "Brand",
               detail: "e.g. Hot Wheels, Matchbox, Corgi — used for filtering.",
@@ -147,8 +146,8 @@ const PAGES = [
           Clicking it opens the same form pre-filled with the car's current
           data. Make your changes and hit{" "}
           <span className="font-semibold text-white">Save Changes</span>. The
-          listing updates immediately. Buyers should see
-          the new version within seconds.
+          listing updates immediately. Buyers should see the new version within
+          seconds.
         </p>
         <p className="rounded-md border border-amber-800/50 bg-amber-900/20 px-3 py-2 text-amber-300">
           💡 Tip — if you need to swap out a photo, remove the old thumbnail

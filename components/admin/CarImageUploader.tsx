@@ -168,14 +168,14 @@ export default function CarImageUploader({ onChange, urls }: Props) {
             setUploading(false);
             console.error("Upload error:", err);
           }}
+          config={{ mode: "auto" }}
           appearance={{
             container:
               "border border-dashed border-surface-border rounded-md bg-surface p-4 cursor-pointer hover:border-brand-500 transition-colors ut-uploading:opacity-60",
             label: "text-sm text-gray-400",
             allowedContent: "text-xs text-gray-500",
             uploadIcon: "text-gray-500",
-            button:
-              "bg-brand-600 text-white text-sm rounded-md px-4 py-1.5 hover:bg-brand-500 transition ut-readying:bg-brand-800",
+            button: "hidden",
           }}
           content={{
             label: uploading

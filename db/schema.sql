@@ -147,3 +147,14 @@ ALTER TABLE cars
 -- 2026-06-02: cars.id was TEXT PRIMARY KEY with no default — INSERT without
 --             supplying an id would fail. Added UUID auto-generation.
 ALTER TABLE cars ALTER COLUMN id SET DEFAULT gen_random_uuid()::text;
+
+-- ── Feature Flags ─────────────────────────────────────────────────────────────
+-- Single-row table; the CHECK constraint enforces only one record exists.
+
+CREATE TABLE IF NOT EXISTS feature_flags (
+  id            BOOLEAN PRIMARY KEY DEFAULT TRUE CHECK (id), -- Always true, ensures only one row can exist
+  google_login  BOOLEAN NOT NULL DEFAULT TRUE,
+  facebook_login BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+INSERT INTO feature_flags (id) VALUES (TRUE) ON CONFLICT DO NOTHING;

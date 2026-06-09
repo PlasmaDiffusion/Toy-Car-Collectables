@@ -13,7 +13,7 @@ export const ourFileRouter = {
     .middleware(async () => {
       const session = await auth();
       // isAdmin is augmented onto the session in auth.ts
-      const user = session?.user as (typeof session)["user"] & {
+      const user = session?.user as NonNullable<typeof session>["user"] & {
         isAdmin?: boolean;
       };
       if (!user?.isAdmin) throw new Error("Unauthorized");

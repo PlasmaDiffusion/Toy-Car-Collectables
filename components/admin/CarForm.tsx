@@ -136,7 +136,7 @@ export default function CarForm({ mode, initialData }: Props) {
 
         <Field
           label="Price (CAD)"
-          hint="Leave blank to show 'Price on Request'"
+          hint="Leave blank to show 'Price on Request' · Set to 0 to mark as Sold"
         >
           <input
             name="price"

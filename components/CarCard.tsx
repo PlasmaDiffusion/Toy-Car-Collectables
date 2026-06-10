@@ -33,13 +33,15 @@ export default function CarCard({ car, compact = false, wishlisted }: Props) {
           compact ? "h-36" : "h-48"
         }`}
       >
-        <Image
-          src={car.images[0]}
-          alt={car.name}
-          fill
-          className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+        {car.images?.length > 0 && (
+          <Image
+            src={car.images[0]}
+            alt={car.name}
+            fill
+            className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        )}
 
         {/* Featured badge */}
         {car.featured && (
@@ -98,11 +100,11 @@ export default function CarCard({ car, compact = false, wishlisted }: Props) {
 
         {/* Price + CTA */}
         <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="text-base font-bold text-white">
-            {car.price !== null ? `$${car.price.toLocaleString()}` : "POR"}
+          <span className={`text-base font-bold ${car.price === 0 ? "text-red-500" : "text-white"}`}>
+            {car.price === 0 ? "SOLD" : car.price !== null ? `$${car.price.toLocaleString()}` : "POR"}
           </span>
 
-          {isAvailable ? (
+          {car.price === 0 ? null : isAvailable ? (
             <span className="rounded-md bg-[#1877f2] px-3 py-1 text-[11px] font-semibold text-white">
               View on Facebook
             </span>

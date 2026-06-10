@@ -22,7 +22,7 @@ const PAGES = [
         <ul className="flex flex-col gap-1.5 pl-4">
           {[
             "Name — the full model name",
-            "Price — leave blank to show 'Price on Request'",
+            "Price — leave blank to show 'Price on Request', set to 0 to mark as Sold",
             "Condition — buyers rely on this heavily",
             "Photos — ideally all 5 sides (see next page)",
             "Facebook Marketplace URL — key to enter when the listing is live on the marketplace for customers to buy",

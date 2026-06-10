@@ -29,7 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: car.name,
       description: car.description,
-      images: [{ url: car.images[0], width: 400, height: 200, alt: car.name }],
+      ...(car.images?.length > 0 && {
+        images: [{ url: car.images[0], width: 400, height: 200, alt: car.name }],
+      }),
     },
   };
 }
@@ -79,7 +81,7 @@ export default async function CarDetailPage({ params }: Props) {
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
         {/* ── Images / 3-D Preview ───────────────────────────── */}
-        <ImagePanel car={car} />
+        {car.images?.length > 0 && <ImagePanel car={car} />}
 
         {/* ── Details ────────────────────────────────────────── */}
         <div className="flex flex-col gap-5">
@@ -110,11 +112,17 @@ export default async function CarDetailPage({ params }: Props) {
 
           {/* Price */}
           <div className="flex items-baseline gap-3">
-            <span className="text-4xl font-extrabold text-white">
-              {car.price !== null ? `$${car.price.toLocaleString()}` : "POR"}
-            </span>
-            {car.price === null && (
-              <span className="text-sm text-gray-500">Price on request</span>
+            {car.price === 0 ? (
+              <span className="text-4xl font-extrabold text-red-500">SOLD</span>
+            ) : car.price !== null ? (
+              <span className="text-4xl font-extrabold text-white">
+                ${car.price.toLocaleString()}
+              </span>
+            ) : (
+              <>
+                <span className="text-4xl font-extrabold text-white">POR</span>
+                <span className="text-sm text-gray-500">Price on request</span>
+              </>
             )}
           </div>
 

@@ -45,17 +45,24 @@ function CarMesh({ images, scale, hitMatrix, multipliers }: CarMeshProps) {
     hitMatrixRef.current = hitMatrix;
   }, [hitMatrix]);
 
-  // Load all 6 textures, falling back to first image
+  // Load all 6 textures, falling back to first image.
+  // Order must match BoxGeometry face order: +X (right), -X (left), +Y (top), -Y (bottom), +Z (front), -Z (back)
+  // Indexes must match buildFaces() in CarBox3D.tsx.
   const get = (i: number) => images[i] ?? images[0];
   const textures = useLoader(TextureLoader, [
-    get(4),
-    get(5),
-    get(2),
-    get(3),
-    get(0),
-    get(1),
-    // right, left, top, bottom, front, back
+    get(3), // right
+    get(1), // left
+    get(4), // top
+    get(5), // bottom
+    get(0), // front
+    get(2), // back
   ]);
+
+  // Top (index 2) and bottom (index 3) need 90° rotation — same correction as CarBox3D.
+  textures[2].rotation = Math.PI / -2;
+  textures[2].center.set(0.5, 0.5);
+  textures[3].rotation = Math.PI / -2;
+  textures[3].center.set(0.5, 0.5);
 
   useFrame(() => {
     if (!ref.current) return;

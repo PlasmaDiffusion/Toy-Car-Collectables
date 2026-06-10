@@ -12,6 +12,7 @@ const PHOTO_ORDER = [
   "3 — Right side",
   "4 — Back",
   "5 — Top",
+  "6 - Bottom",
 ];
 
 interface Props {

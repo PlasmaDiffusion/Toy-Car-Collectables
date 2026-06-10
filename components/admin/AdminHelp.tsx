@@ -60,7 +60,7 @@ const PAGES = [
           order is:
         </p>
         <ol className="flex flex-col gap-1.5 pl-4">
-          {["Left side", "Front", "Right side", "Back", "Top"].map(
+          {["Left side", "Front", "Right side", "Back", "Top", "Bottom"].map(
             (side, i) => (
               <li key={side} className="flex items-center gap-2">
                 <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-900 text-[10px] font-bold text-brand-300">
@@ -77,6 +77,24 @@ const PAGES = [
           to rearrange them. Each thumbnail shows its current slot label at the
           bottom so you can see at a glance whether the order is correct.
         </p>
+        <div className="rounded-md border border-amber-800/50 bg-amber-900/20 px-3 py-2 text-amber-300">
+          <b className="text-amber-300">Best Practices:</b>
+          <br />
+          <p className="text-amber-300">
+            {" "}
+            Note that it's best to have the car take up as much of the photo as
+            possible, otherwise the preview's 3d rectangle might show a lot of
+            the background on certain faces.
+          </p>
+          <br />
+          <p className="text-amber-300">
+            {" "}
+            It's also nice to make sure the top and bottom face photos of the
+            car <i>have the front of the car near the top of the image</i>,
+            otherwise the face will be flipped in the wrong direction in the
+            preview.
+          </p>
+        </div>
       </div>
     ),
   },

@@ -7,12 +7,12 @@ import type { OurFileRouter } from "@/app/api/uploadthing/core";
 const UploadDropzone = generateUploadDropzone<OurFileRouter>();
 
 const PHOTO_ORDER = [
-  "1 — Left side",
-  "2 — Front",
-  "3 — Right side",
-  "4 — Back",
-  "5 — Top",
-  "6 — Bottom",
+  { label: "1 — Left side",  hint: null },
+  { label: "2 — Front",      hint: null },
+  { label: "3 — Right side", hint: null },
+  { label: "4 — Back",       hint: null },
+  { label: "5 — Top",        hint: "front of car at top of photo" },
+  { label: "6 — Bottom",     hint: "front of car at top of photo" },
 ];
 
 interface Props {
@@ -78,9 +78,10 @@ export default function CarImageUploader({ onChange, urls }: Props) {
           Recommended photo order for AR preview
         </p>
         <ol className="flex flex-wrap gap-x-4 gap-y-1">
-          {PHOTO_ORDER.map((label) => (
+          {PHOTO_ORDER.map(({ label, hint }) => (
             <li key={label} className="text-xs text-gray-400">
               {label}
+              {hint && <span className="ml-1 text-gray-500">({hint})</span>}
             </li>
           ))}
         </ol>
@@ -110,14 +111,14 @@ export default function CarImageUploader({ onChange, urls }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={url}
-                  alt={PHOTO_ORDER[i] ?? `Image ${i + 1}`}
+                  alt={PHOTO_ORDER[i]?.label ?? `Image ${i + 1}`}
                   draggable={false}
                   className="h-full w-full rounded-md border border-surface-border object-cover"
                 />
 
                 {/* Position label */}
                 <span className="absolute bottom-0 left-0 right-0 rounded-b-md bg-black/70 px-1 py-0.5 text-center text-[9px] leading-tight text-gray-300">
-                  {PHOTO_ORDER[i] ? PHOTO_ORDER[i].split(" — ")[1] : `#${i + 1}`}
+                  {PHOTO_ORDER[i] ? PHOTO_ORDER[i].label.split(" — ")[1] : `#${i + 1}`}
                 </span>
 
                 {/* Drag handle icon — top-left */}
@@ -146,13 +147,13 @@ export default function CarImageUploader({ onChange, urls }: Props) {
       {urls.length > 0 && urls.length < PHOTO_ORDER.length && (
         <p className="text-xs text-gray-500">
           Next upload will be slot{" "}
-          <span className="text-brand-400">{PHOTO_ORDER[urls.length]}</span>
+          <span className="text-brand-400">{PHOTO_ORDER[urls.length]?.label}</span>
           {" "}— drag thumbnails to reorder
         </p>
       )}
       {urls.length === 0 && (
         <p className="text-xs text-gray-500">
-          Upload photos in order: Left side → Front → Right side → Back → Top
+          Upload photos in order: Left side → Front → Right side → Back → Top → Bottom
         </p>
       )}
 

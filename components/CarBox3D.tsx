@@ -67,6 +67,13 @@ function CarBoxMesh({ faces, scale, multipliers }: CarBoxMeshProps) {
     faces.back,
   ]);
 
+  // Three.js UV mapping for top (index 2) and bottom (index 3) is rotated
+  // 90° relative to the side faces — correct it so the car nose points forward.
+  textures[2].rotation = Math.PI / 2;
+  textures[2].center.set(0.5, 0.5);
+  textures[3].rotation = Math.PI / 2;
+  textures[3].center.set(0.5, 0.5);
+
   const { w, h, d } = getDimensions(scale, 1);
   const [fw, fh, fd] = [
     w * multipliers.x,
@@ -91,16 +98,18 @@ interface CarBox3DProps {
   className?: string;
 }
 
-/** Map whatever images we have to the 6 box faces, falling back gracefully. */
+/** Map whatever images we have to the 6 box faces, falling back gracefully.
+ * Make sure the order of the indexes matches the array in CarImageUploader for best results.
+*/
 function buildFaces(images: string[]): BoxFaces {
   const get = (i: number) => images[i] ?? images[0];
   return {
+    left: get(1),
     front: get(0),
-    back: get(1) ?? get(0),
-    top: get(2) ?? get(0),
-    bottom: get(3) ?? get(0),
-    right: get(4) ?? get(0),
-    left: get(5) ?? get(0),
+    right: get(3),
+    back: get(2),
+    top: get(4),
+    bottom: get(5),
   };
 }
 

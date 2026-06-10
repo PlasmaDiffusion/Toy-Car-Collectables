@@ -26,6 +26,7 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   adapter: PostgresAdapter(pool),
+  trustHost: true, // Needed to ensure correct callback URLs on Netlify and Vercel
 
   session: { strategy: "jwt" },
 

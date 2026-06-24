@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import type { WebGLRenderer } from "three";
 import type { Scale } from "@/types";
-import SliderScale from "@/components/SliderScale";
+import SliderScale from "@/components/car-previews/SliderScale";
 import ARScene, {
   type ScaleMultipliers,
 } from "@/components/car-previews/ARScene";
@@ -179,6 +179,7 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
             scale={scale}
             multipliers={multipliers}
             onChange={setMultipliers}
+            locked
           />
         </div>
         {error && <p className="text-sm text-red-400">{error}</p>}

@@ -18,6 +18,7 @@ interface SliderScaleProps {
   scale: Scale;
   multipliers: ScaleMultipliers;
   onChange: (multipliers: ScaleMultipliers) => void;
+  locked?: boolean;
 }
 
 // Real-world approximate length in metres for each scale
@@ -40,6 +41,7 @@ export default function SliderScale({
   scale,
   multipliers,
   onChange,
+  locked = false,
 }: SliderScaleProps) {
   const [uniform, setUniform] = useState(1);
   const [separate, setSeparate] = useState(false);
@@ -50,6 +52,18 @@ export default function SliderScale({
     width: toDim(base * 0.55 * multipliers.z),
     height: toDim(base * 0.4 * multipliers.y),
   };
+
+  if (locked)
+    return (
+      <div className="rounded-lg border border-surface-border bg-surface-card px-4 py-3 space-y-3">
+        <div className="mb-1 flex items-center justify-between text-xs text-gray-400">
+          <span className="font-medium text-white">Size</span>
+          <span className="font-mono text-brand-400">
+            {dims.length.cm} cm&nbsp;/&nbsp;{dims.length.inches}&Prime; long
+          </span>
+        </div>
+      </div>
+    );
 
   // Sync uniform → all axes
   useEffect(() => {
@@ -63,7 +77,8 @@ export default function SliderScale({
   };
 
   const handleAxis =
-    (axis: keyof ScaleMultipliers) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    (axis: keyof ScaleMultipliers) =>
+    (e: React.ChangeEvent<HTMLInputElement>) =>
       onChange({ ...multipliers, [axis]: parseFloat(e.target.value) });
 
   const handleSeparate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +87,11 @@ export default function SliderScale({
     if (!checked) onChange({ x: uniform, y: uniform, z: uniform });
   };
 
-  const axisSliders: { axis: keyof ScaleMultipliers; label: string; dim: Dims }[] = [
+  const axisSliders: {
+    axis: keyof ScaleMultipliers;
+    label: string;
+    dim: Dims;
+  }[] = [
     { axis: "x", label: "Length", dim: dims.length },
     { axis: "z", label: "Width", dim: dims.width },
     { axis: "y", label: "Height", dim: dims.height },

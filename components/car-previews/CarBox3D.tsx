@@ -5,7 +5,7 @@ import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
 import { TextureLoader } from "three";
 import { Suspense, useState } from "react";
 import type { Scale } from "@/types";
-import SliderScale from "@/components/SliderScale";
+import SliderScale from "@/components/car-previews/SliderScale";
 
 // Real-world approximate length in metres for each scale,
 // assuming a "standard" car body ~4.5 m long.
@@ -100,7 +100,7 @@ interface CarBox3DProps {
 
 /** Map whatever images we have to the 6 box faces, falling back gracefully.
  * Make sure the order of the indexes matches the array in CarImageUploader for best results.
-*/
+ */
 function buildFaces(images: string[]): BoxFaces {
   const get = (i: number) => images[i] ?? images[0];
   return {

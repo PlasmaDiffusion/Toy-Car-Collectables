@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy — LaSalle Collectibles",
 };
 
-// Page for outlining the privacy policy of DieCast Vault, especially regarding data collection from Facebook login via AuthJS.
+// Page for outlining the privacy policy of Lasalle Collectibles, especially regarding data collection from Facebook login via AuthJS.
 export default function PrivacyPolicyPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
@@ -15,9 +15,9 @@ export default function PrivacyPolicyPage() {
 
       <div className="mt-8 space-y-6 text-sm leading-relaxed text-gray-400">
         <p>
-          LaSalle Collectibles ("we", "us", "our") operates the DieCast Vault
-          website. This policy explains what personal data we collect, how we
-          use it, and your rights regarding that data.
+          LaSalle Collectibles ("we", "us", "our") operates the Lasalle
+          Collectibles website. This policy explains what personal data we
+          collect, how we use it, and your rights regarding that data.
         </p>
         <p>
           We collect your name, email address, and profile picture when you sign
@@ -37,7 +37,9 @@ export default function PrivacyPolicyPage() {
           facilitate sales directly — all listings link to Facebook Marketplace.
         </p>
         <p>
-          To delete your account, when you're signed in, click account in the top right, then hit the delete button at the bottom of the page and follow the instructions.
+          To delete your account, when you're signed in, click account in the
+          top right, then hit the delete button at the bottom of the page and
+          follow the instructions.
         </p>
         <p>
           For any further questions, email{" "}
@@ -46,7 +48,8 @@ export default function PrivacyPolicyPage() {
             className="text-brand-500 hover:underline"
           >
             {CONTACT_EMAIL}
-          </a>.
+          </a>
+          .
         </p>
       </div>
     </main>

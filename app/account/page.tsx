@@ -7,7 +7,7 @@ import CarCard from "@/components/CarCard";
 import DeleteAccountModal from "@/components/account-related/DeleteAccountModal";
 
 export const metadata: Metadata = {
-  title: "My Account — DieCast Vault",
+  title: "My Account — Lasalle Collectibles",
 };
 
 export default async function AccountPage() {

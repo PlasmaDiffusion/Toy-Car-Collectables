@@ -22,7 +22,8 @@ export default async function SignInPage({
   const { error } = await searchParams;
   const errorMessage = error ? AUTH_ERRORS[error] ?? AUTH_ERRORS.Default : null;
 
-  const [flags] = await sql`SELECT google_login, facebook_login FROM feature_flags`;
+  const [flags] =
+    await sql`SELECT google_login, facebook_login FROM feature_flags`;
   const showGoogle = flags?.google_login ?? true;
   const showFacebook = flags?.facebook_login ?? false;
 
@@ -33,7 +34,7 @@ export default async function SignInPage({
           🏎
         </span>
         <h1 className="mt-3 text-xl font-extrabold text-white">
-          Sign in to DieCast Vault
+          Sign in to Lasalle Collectibles
         </h1>
         <p className="mt-1 text-sm text-gray-500">
           Save cars to your wishlist and track listings.

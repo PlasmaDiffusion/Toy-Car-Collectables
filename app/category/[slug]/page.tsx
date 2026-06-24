@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return { title: "Not Found" };
 
   return {
-    title: `${category.name} Die-Cast Cars — DieCast Vault`,
+    title: `${category.name} Die-Cast Cars — Lasalle Collectibles`,
     description: category.description,
   };
 }

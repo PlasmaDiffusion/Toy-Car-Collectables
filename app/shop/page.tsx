@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getCars, getWishlistCars } from "@/lib/api";
 import { auth } from "@/auth";
-import type { FilterState, Scale, Condition, VehicleType, Material } from "@/types";
+import type {
+  FilterState,
+  Scale,
+  Condition,
+  VehicleType,
+  Material,
+} from "@/types";
 import CarCard from "@/components/CarCard";
 import FilterSidebar from "@/components/search-related/FilterSidebar";
 
@@ -12,7 +18,9 @@ interface Props {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
   const sp = await searchParams;
   const brand = typeof sp.brand === "string" ? sp.brand : undefined;
   const q = typeof sp.q === "string" ? sp.q : undefined;
@@ -25,33 +33,43 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
   return {
     title,
-    description: `Browse ${title.toLowerCase()} on DieCast Vault — die-cast collectibles linked directly to Facebook Marketplace.`,
+    description: `Browse ${title.toLowerCase()} on Lasalle Collectibles — die-cast collectibles linked directly to Facebook Marketplace.`,
   };
 }
 
-function buildFilters(sp: Record<string, string | string[] | undefined>): FilterState {
-  const s = (key: string) => (typeof sp[key] === "string" ? (sp[key] as string) : undefined);
+function buildFilters(
+  sp: Record<string, string | string[] | undefined>
+): FilterState {
+  const s = (key: string) =>
+    typeof sp[key] === "string" ? (sp[key] as string) : undefined;
   return {
-    query:       s("q"),
-    brand:       s("brand"),
-    era:         s("era"),
-    scale:       s("scale") as Scale | undefined,
-    condition:   s("condition") as Condition | undefined,
+    query: s("q"),
+    brand: s("brand"),
+    era: s("era"),
+    scale: s("scale") as Scale | undefined,
+    condition: s("condition") as Condition | undefined,
     vehicleType: s("vehicleType") as VehicleType | undefined,
-    material:    s("material") as Material | undefined,
+    material: s("material") as Material | undefined,
   };
 }
 
 export default async function ShopPage({ searchParams }: Props) {
   const sp = await searchParams;
   const filters = buildFilters(sp);
-  const available = sp.available === "true" ? true : sp.available === "false" ? false : undefined;
+  const available =
+    sp.available === "true"
+      ? true
+      : sp.available === "false"
+      ? false
+      : undefined;
 
   let cars = await getCars(filters);
 
   if (available !== undefined) {
     cars = cars.filter((c) =>
-      available ? c.facebookMarketplaceUrl !== null : c.facebookMarketplaceUrl === null
+      available
+        ? c.facebookMarketplaceUrl !== null
+        : c.facebookMarketplaceUrl === null
     );
   }
 
@@ -97,7 +115,9 @@ export default async function ShopPage({ searchParams }: Props) {
                 <CarCard
                   key={car.id}
                   car={car}
-                  wishlisted={session?.user ? wishlistSet.has(car.id) : undefined}
+                  wishlisted={
+                    session?.user ? wishlistSet.has(car.id) : undefined
+                  }
                 />
               ))}
             </div>
@@ -111,9 +131,15 @@ export default async function ShopPage({ searchParams }: Props) {
 function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-surface-border bg-surface-card py-20 text-center">
-      <span className="text-5xl" aria-hidden>🔍</span>
-      <h2 className="mt-4 text-lg font-semibold text-white">No listings match these filters</h2>
-      <p className="mt-1 text-sm text-gray-500">Try removing some filters or broadening your search.</p>
+      <span className="text-5xl" aria-hidden>
+        🔍
+      </span>
+      <h2 className="mt-4 text-lg font-semibold text-white">
+        No listings match these filters
+      </h2>
+      <p className="mt-1 text-sm text-gray-500">
+        Try removing some filters or broadening your search.
+      </p>
     </div>
   );
 }

@@ -7,8 +7,8 @@ import Providers from "@/components/account-related/Providers";
 export const metadata: Metadata = {
   metadataBase: new URL("https://diecastvault.com"),
   title: {
-    default: "DieCast Vault — Toy Car Collectibles Marketplace",
-    template: "%s | DieCast Vault",
+    default: "Lasalle Collectibles — Toy Car Collectibles Marketplace",
+    template: "%s | Lasalle Collectibles",
   },
   description:
     "Browse vintage and modern toy car die-casts: Hot Wheels Redlines, Matchbox Lesney, Corgi, Johnny Lightning, and more. Each listing links directly to Facebook Marketplace.",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "DieCast Vault",
+    siteName: "Lasalle Collectibles",
   },
   robots: {
     index: true,

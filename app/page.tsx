@@ -8,7 +8,7 @@ import CategoryCard from "@/components/CategoryCard";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "DieCast Vault — Toy Car Collectibles Marketplace",
+  title: "Lasalle Collectibles — Toy Car Collectibles Marketplace",
 };
 
 export default async function HomePage() {
@@ -146,7 +146,7 @@ export default async function HomePage() {
       <section className="border-t border-surface-border bg-surface-card">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-extrabold text-white">
-            How DieCast Vault Works
+            How Lasalle Collectibles Works
           </h2>
           <p className="mt-2 text-sm text-gray-500">
             We curate — Facebook Marketplace handles the sale.

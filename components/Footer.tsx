@@ -92,12 +92,13 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-surface-border pt-6 text-center text-xs text-gray-600">
           <p>
-            DieCast Vault links to Facebook Marketplace listings but does not
-            facilitate sales directly. All product images are placeholder
+            Lasalle Collectibles links to Facebook Marketplace listings but does
+            not facilitate sales directly. All product images are placeholder
             illustrations.
           </p>
           <p className="mt-1">
-            © {new Date().getFullYear()} DieCast Vault. Collector-made with ❤️
+            © {new Date().getFullYear()} Lasalle Collectibles. Collector-made
+            with ❤️
           </p>
           {/* Link to privacy policy page for facebook login with AuthJS */}
           <p className="mt-2">

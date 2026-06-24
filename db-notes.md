@@ -1,8 +1,8 @@
-# Database Options for DieCast Vault — Production Notes
+# Database Options for Lasalle Collectibles — Production Notes
 
 ## Context
 
-DieCast Vault is a **commercial business** with the following profile:
+Lasalle Collectibles is a **commercial business** with the following profile:
 
 - Low transaction volume (collectibles — probably < 200 orders/month at scale)
 - Needs to be **legally licensed for commercial use**

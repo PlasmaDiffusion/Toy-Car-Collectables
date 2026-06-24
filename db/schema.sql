@@ -1,4 +1,4 @@
--- DieCast Vault — Neon PostgreSQL schema
+-- Lasalle Collectibles — Neon PostgreSQL schema
 -- Run once: npx tsx db/migrate.ts
 
 CREATE TYPE scale_enum AS ENUM ('1:18','1:24','1:43','1:64','1:87','Other');

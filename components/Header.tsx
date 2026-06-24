@@ -20,7 +20,7 @@ export default function Header() {
               🏎
             </span>
             <span className="hidden font-bold tracking-tight text-white sm:block">
-              Die<span className="text-brand-500">Cast</span> Vault
+              Lasalle<span className="text-brand-500">Collectibles </span>
             </span>
           </Link>
 

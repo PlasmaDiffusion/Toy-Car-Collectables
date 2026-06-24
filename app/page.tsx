@@ -45,10 +45,9 @@ export default async function HomePage() {
             </div>
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
               The collector&apos;s vault for{" "}
-              <span className="text-brand-500">die-cast cars</span>
+              <span className="text-brand-500">toy cars</span>
             </h1>
             <p className="mt-5 text-base leading-relaxed text-gray-400 sm:text-lg">
-              Hot Wheels Redlines. Matchbox Lesney. Corgi. Johnny Lightning.
               Browse curated vintage and modern toy car listings — each linked
               directly to Facebook Marketplace.
             </p>
@@ -78,13 +77,13 @@ export default async function HomePage() {
               { stat: "18+", label: "Curated listings" },
               { stat: "6", label: "Iconic brands" },
               { stat: "1950s", label: "Oldest era covered" },
-              { stat: "Free", label: "Facebook Marketplace links" },
+              { stat: "Wishlist", label: "Save listings yet to be on the Facebook Marketplace" },
             ].map(({ stat, label }) => (
               <div key={label} className="px-6 py-5 text-center">
                 <dt className="text-xl font-extrabold text-white sm:text-2xl">
                   {stat}
                 </dt>
-                <dd className="mt-0.5 text-xs text-gray-500">{label}</dd>
+                <dd className="mt-0.5 text-xs text-gray-400">{label}</dd>
               </div>
             ))}
           </dl>
@@ -161,7 +160,7 @@ export default async function HomePage() {
               {
                 icon: "📋",
                 title: "Read the Details",
-                body: "Every listing has a full description, condition grade, and photos.",
+                body: "Every listing has a full description, condition grade, photos, and even AR previews.",
               },
               {
                 icon: "📘",

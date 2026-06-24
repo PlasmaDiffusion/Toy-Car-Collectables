@@ -11,7 +11,7 @@ export default function Footer() {
                 🏎
               </span>
               <span className="font-bold text-white">
-                Die<span className="text-brand-500">Cast</span> Vault
+                Lasalle<span className="text-brand-500">Collectibles</span>
               </span>
             </Link>
             <p className="mt-3 text-xs leading-relaxed text-gray-500">

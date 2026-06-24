@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import CarBox3D, { SCALE_LENGTHS_CM } from "@/components/CarBox3D";
-import ARPreview from "@/components/ARPreview";
+import CarBox3D, { SCALE_LENGTHS_CM } from "@/components/car-previews/CarBox3D";
+import ARPreview from "@/components/car-previews/ARPreview";
 import type { ToyCarProduct, Scale } from "@/types";
 import AdminOnlyNotice from "@/components/admin/AdminOnlyNotice";
 
@@ -114,22 +114,28 @@ export default function ImagePanel({ car }: Props) {
           )}
         </>
       ) : (
-        <>      {car.images.length < 5 && (
-        <AdminOnlyNotice
-          message={`The 3D and AR preview might look off because this listing only has ${car.images.length} photo(s). For best results, upload photos from at least the front, back, sides, and top.`}
-        />
-      )}
-        <div className="overflow-hidden rounded-2xl border border-surface-border bg-surface-card">
-          <CarBox3D images={car.images} scale={scale} className="h-80 w-full" />
-          <div className="border-t border-surface-border bg-surface my-80">
-            <p className="text-xs leading-relaxed text-gray-500">
-              <span className="font-semibold text-gray-300">Note: </span>
-              The 3D box is built from this listing&apos;s photos mapped onto
-              each face. Scale is approximate based on{" "}
-              {car.scale ?? `${DEFAULT_SCALE} (default)`}.
-            </p>
+        <>
+          {" "}
+          {car.images.length < 5 && (
+            <AdminOnlyNotice
+              message={`The 3D and AR preview might look off because this listing only has ${car.images.length} photo(s). For best results, upload photos from at least the front, back, sides, and top.`}
+            />
+          )}
+          <div className="overflow-hidden rounded-2xl border border-surface-border bg-surface-card">
+            <CarBox3D
+              images={car.images}
+              scale={scale}
+              className="h-80 w-full"
+            />
+            <div className="border-t border-surface-border bg-surface my-80">
+              <p className="text-xs leading-relaxed text-gray-500">
+                <span className="font-semibold text-gray-300">Note: </span>
+                The 3D box is built from this listing&apos;s photos mapped onto
+                each face. Scale is approximate based on{" "}
+                {car.scale ?? `${DEFAULT_SCALE} (default)`}.
+              </p>
+            </div>
           </div>
-        </div>
         </>
       )}
     </div>

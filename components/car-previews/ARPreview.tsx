@@ -5,7 +5,9 @@ import { Canvas } from "@react-three/fiber";
 import type { WebGLRenderer } from "three";
 import type { Scale } from "@/types";
 import SliderScale from "@/components/SliderScale";
-import ARScene, { type ScaleMultipliers } from "@/components/ARScene";
+import ARScene, {
+  type ScaleMultipliers,
+} from "@/components/car-previews/ARScene";
 
 interface ARPreviewProps {
   images: string[];

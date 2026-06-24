@@ -149,17 +149,17 @@ export default async function CarDetailPage({ params }: Props) {
                 <span className="h-2 w-2 rounded-full bg-amber-400" />
                 Coming Soon to Facebook Marketplace
               </div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-400">
                 This listing is being prepared. Check back soon or browse
                 similar cars below.
               </p>
-              <p className="text-xs text-gray-500">
-                Really interested in this listing?{" "}
+              <p className="text-xs text-gray-400">
+                Really interested in this listing?{" "} Contact {" "}
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
                   className="text-gray-300 underline hover:text-white"
                 >
-                  Contact {CONTACT_EMAIL}
+                  {CONTACT_EMAIL}
                 </a>
               </p>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Canvas } from "@react-three/fiber";
 import type { WebGLRenderer } from "three";
 import type { Scale } from "@/types";
@@ -79,21 +80,33 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
   if (supported === false) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6">
-        <div className="max-w-sm rounded-2xl border border-surface-border bg-surface-card p-6 text-center space-y-4">
-          <div className="text-4xl">📱</div>
-          <h2 className="text-lg font-bold text-white">AR Not Available</h2>
-          <p className="text-sm text-gray-400">
-            WebXR AR requires{" "}
-            <strong className="text-white">Android Chrome</strong> or{" "}
-            <strong className="text-white">iOS WebXR Viewer</strong> on a device
-            with ARCore / ARKit support.
-          </p>
-          <p className="text-xs text-gray-500">
-            Try opening this page on your phone.
+        <div className="max-w-sm w-full rounded-2xl border border-surface-border bg-surface-card p-6 text-center space-y-4">
+          <div>
+            <h2 className="text-lg font-bold text-white">Real Life AR Preview</h2>
+            <p className="mt-1 text-sm text-gray-400">
+              See how this car fits on your shelf — compare it against everyday objects nearby.
+            </p>
+          </div>
+          <div className="relative mx-auto w-full aspect-video rounded-lg overflow-hidden bg-black">
+            <Image
+              src="/images/shelf-preview.png"
+              alt="Shelf size reference"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <SliderScale
+            scale={scale}
+            multipliers={multipliers}
+            onChange={setMultipliers}
+            locked
+          />
+          <p className="text-xs text-gray-400">
+            To use this preview, open this page on an Android or iOS device.
           </p>
           <button
             onClick={onClose}
-            className="mt-2 rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-500"
+            className="rounded-lg bg-brand-600 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-500"
           >
             Close
           </button>
@@ -170,7 +183,7 @@ export default function ARPreview({ images, scale, onClose }: ARPreviewProps) {
             Real Life AR Preview
           </h2>
           <p className="mt-2 text-sm text-gray-400">
-            Point your camera at a flat surface — the car will appear at true{" "}
+            Point your camera at a flat surface — after several seconds the car will appear at true{" "}
             <span className="text-brand-400">{scale}</span> scale.
           </p>
         </div>

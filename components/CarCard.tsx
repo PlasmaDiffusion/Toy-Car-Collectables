@@ -103,16 +103,6 @@ export default function CarCard({ car, compact = false, wishlisted }: Props) {
           <span className={`text-base font-bold ${car.price === 0 ? "text-red-500" : "text-white"}`}>
             {car.price === 0 ? "SOLD" : car.price !== null ? `$${car.price.toLocaleString()}` : "POR"}
           </span>
-
-          {car.price === 0 ? null : isAvailable ? (
-            <span className="rounded-md bg-[#1877f2] px-3 py-1 text-[11px] font-semibold text-white">
-              View on Facebook
-            </span>
-          ) : (
-            <span className="rounded-md border border-surface-border px-3 py-1 text-[11px] text-gray-500">
-              Coming Soon
-            </span>
-          )}
         </div>
       </div>
     </Link>

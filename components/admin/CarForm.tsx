@@ -296,7 +296,7 @@ export default function CarForm({ mode, initialData }: Props) {
               </select>
             </Field>
 
-            <Field label="Production Year" hint="Year this toy was made">
+            <Field label="Toy Production Year" hint="Year this toy was made">
               <input
                 name="productionYear"
                 type="number"
@@ -308,7 +308,7 @@ export default function CarForm({ mode, initialData }: Props) {
               />
             </Field>
 
-            <Field label="Model Year" hint="Year of the real vehicle">
+            <Field label="Real Car Model Year" hint="Year of the real vehicle">
               <input
                 name="modelYear"
                 type="number"

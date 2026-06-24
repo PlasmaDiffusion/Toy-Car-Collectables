@@ -184,8 +184,8 @@ export default async function CarDetailPage({ params }: Props) {
               <tbody className="divide-y divide-surface-border">
                 {[
                   { label: "Brand", value: car.brand },
-                  { label: "Production Year", value: car.productionYear },
-                  { label: "Model Year", value: car.modelYear },
+                  { label: "Toy's Production Year", value: car.productionYear },
+                  { label: "Real Car's Model Year", value: car.modelYear },
                   { label: "Scale", value: car.scale },
                   { label: "Vehicle Type", value: car.vehicleType },
                   { label: "Material", value: car.material },

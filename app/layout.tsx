@@ -3,6 +3,9 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Providers from "@/components/account-related/Providers";
+import DbStatusBanner from "@/components/DbStatusBanner";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import { isDatabaseOnline } from "@/lib/db-status";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://diecastvault.com"),
@@ -32,15 +35,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const online = await isDatabaseOnline();
+
   return (
     <html lang="en">
       <body className="min-h-screen bg-surface text-white">
+        <ServiceWorkerRegister />
         <Providers>
+          {!online && <DbStatusBanner />}
           <Header />
           <main>{children}</main>
           <Footer />

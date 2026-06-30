@@ -8,6 +8,22 @@
 
 import { sql } from "@/lib/db";
 import type { ToyCarProduct, Category, FilterState } from "@/types";
+import offlineBackup from "@/data/offline-backup.json";
+
+// ---------------------------------------------------------------------------
+// Offline backup — used whenever a live Neon query throws (DB unreachable,
+// connection limit, etc.) so the site degrades to read-only cached data
+// instead of erroring out or rendering empty. Refresh the snapshot with
+// `npx tsx scripts/backup-db.ts`.
+// ---------------------------------------------------------------------------
+
+function getOfflineCars(): ToyCarProduct[] {
+  return offlineBackup.cars as ToyCarProduct[];
+}
+
+function getOfflineCategories(): Category[] {
+  return offlineBackup.categories as Category[];
+}
 
 // ---------------------------------------------------------------------------
 // Row → TypeScript mappers
@@ -52,21 +68,12 @@ function rowToCategory(row: any): Category {
 // Cars
 // ---------------------------------------------------------------------------
 
-export async function getCars(filters?: FilterState): Promise<ToyCarProduct[]> {
-  // Pull cars + their category IDs in one query via array_agg
-  const rows = await sql`
-    SELECT
-      c.*,
-      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
-    FROM cars c
-    LEFT JOIN car_categories cc ON cc.car_id = c.id
-    GROUP BY c.id
-    ORDER BY c.name
-  `;
+function applyFilters(
+  cars: ToyCarProduct[],
+  filters?: FilterState
+): ToyCarProduct[] {
+  let results = cars;
 
-  let results = rows.map(rowToCar);
-
-  // Apply filters in JS (dataset is small — avoids complex dynamic SQL)
   if (filters?.query) {
     const q = filters.query.toLowerCase();
     results = results.filter(
@@ -101,47 +108,81 @@ export async function getCars(filters?: FilterState): Promise<ToyCarProduct[]> {
   return results;
 }
 
+export async function getCars(filters?: FilterState): Promise<ToyCarProduct[]> {
+  try {
+    // Pull cars + their category IDs in one query via array_agg
+    const rows = await sql`
+      SELECT
+        c.*,
+        COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+      FROM cars c
+      LEFT JOIN car_categories cc ON cc.car_id = c.id
+      GROUP BY c.id
+      ORDER BY c.name
+    `;
+    return applyFilters(rows.map(rowToCar), filters);
+  } catch (err) {
+    console.error("getCars: Neon query failed, using offline backup", err);
+    return applyFilters(getOfflineCars(), filters);
+  }
+}
+
 export async function getFeaturedCars(): Promise<ToyCarProduct[]> {
-  const rows = await sql`
-    SELECT
-      c.*,
-      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
-    FROM cars c
-    LEFT JOIN car_categories cc ON cc.car_id = c.id
-    WHERE c.featured = TRUE
-    GROUP BY c.id
-    ORDER BY c.name
-  `;
-  return rows.map(rowToCar);
+  try {
+    const rows = await sql`
+      SELECT
+        c.*,
+        COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+      FROM cars c
+      LEFT JOIN car_categories cc ON cc.car_id = c.id
+      WHERE c.featured = TRUE
+      GROUP BY c.id
+      ORDER BY c.name
+    `;
+    return rows.map(rowToCar);
+  } catch (err) {
+    console.error("getFeaturedCars: Neon query failed, using offline backup", err);
+    return getOfflineCars().filter((c) => c.featured);
+  }
 }
 
 export async function getCarById(id: string): Promise<ToyCarProduct | null> {
-  const rows = await sql`
-    SELECT
-      c.*,
-      COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
-    FROM cars c
-    LEFT JOIN car_categories cc ON cc.car_id = c.id
-    WHERE c.id = ${id}
-    GROUP BY c.id
-  `;
-  return rows.length > 0 ? rowToCar(rows[0]) : null;
+  try {
+    const rows = await sql`
+      SELECT
+        c.*,
+        COALESCE(array_agg(cc.category_id) FILTER (WHERE cc.category_id IS NOT NULL), '{}') AS category_ids
+      FROM cars c
+      LEFT JOIN car_categories cc ON cc.car_id = c.id
+      WHERE c.id = ${id}
+      GROUP BY c.id
+    `;
+    return rows.length > 0 ? rowToCar(rows[0]) : null;
+  } catch (err) {
+    console.error("getCarById: Neon query failed, using offline backup", err);
+    return getOfflineCars().find((c) => c.id === id) ?? null;
+  }
 }
 
 export async function getCarsByCategory(
   categoryId: string
 ): Promise<ToyCarProduct[]> {
-  const rows = await sql`
-    SELECT
-      c.*,
-      COALESCE(array_agg(cc2.category_id) FILTER (WHERE cc2.category_id IS NOT NULL), '{}') AS category_ids
-    FROM cars c
-    JOIN car_categories cc  ON cc.car_id  = c.id AND cc.category_id = ${categoryId}
-    LEFT JOIN car_categories cc2 ON cc2.car_id = c.id
-    GROUP BY c.id
-    ORDER BY c.name
-  `;
-  return rows.map(rowToCar);
+  try {
+    const rows = await sql`
+      SELECT
+        c.*,
+        COALESCE(array_agg(cc2.category_id) FILTER (WHERE cc2.category_id IS NOT NULL), '{}') AS category_ids
+      FROM cars c
+      JOIN car_categories cc  ON cc.car_id  = c.id AND cc.category_id = ${categoryId}
+      LEFT JOIN car_categories cc2 ON cc2.car_id = c.id
+      GROUP BY c.id
+      ORDER BY c.name
+    `;
+    return rows.map(rowToCar);
+  } catch (err) {
+    console.error("getCarsByCategory: Neon query failed, using offline backup", err);
+    return getOfflineCars().filter((c) => c.categoryIds.includes(categoryId));
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -149,17 +190,28 @@ export async function getCarsByCategory(
 // ---------------------------------------------------------------------------
 
 export async function getCategories(type?: string): Promise<Category[]> {
-  const rows = type
-    ? await sql`SELECT * FROM categories WHERE type = ${type} ORDER BY name`
-    : await sql`SELECT * FROM categories ORDER BY name`;
-  return rows.map(rowToCategory);
+  try {
+    const rows = type
+      ? await sql`SELECT * FROM categories WHERE type = ${type} ORDER BY name`
+      : await sql`SELECT * FROM categories ORDER BY name`;
+    return rows.map(rowToCategory);
+  } catch (err) {
+    console.error("getCategories: Neon query failed, using offline backup", err);
+    const categories = getOfflineCategories();
+    return type ? categories.filter((c) => c.type === type) : categories;
+  }
 }
 
 export async function getCategoryBySlug(
   slug: string
 ): Promise<Category | null> {
-  const rows = await sql`SELECT * FROM categories WHERE slug = ${slug} LIMIT 1`;
-  return rows.length > 0 ? rowToCategory(rows[0]) : null;
+  try {
+    const rows = await sql`SELECT * FROM categories WHERE slug = ${slug} LIMIT 1`;
+    return rows.length > 0 ? rowToCategory(rows[0]) : null;
+  } catch (err) {
+    console.error("getCategoryBySlug: Neon query failed, using offline backup", err);
+    return getOfflineCategories().find((c) => c.slug === slug) ?? null;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -225,11 +277,23 @@ export async function deleteUserAccount(userId: string): Promise<void> {
 export async function getSearchSuggestions(query: string): Promise<string[]> {
   if (!query || query.length < 2) return [];
   const q = `%${query.toLowerCase()}%`;
-  const rows = await sql`
-    SELECT DISTINCT name AS suggestion FROM cars WHERE LOWER(name) LIKE ${q}
-    UNION
-    SELECT DISTINCT brand FROM cars WHERE LOWER(brand) LIKE ${q}
-    LIMIT 8
-  `;
-  return rows.map((r) => r.suggestion as string);
+  try {
+    const rows = await sql`
+      SELECT DISTINCT name AS suggestion FROM cars WHERE LOWER(name) LIKE ${q}
+      UNION
+      SELECT DISTINCT brand FROM cars WHERE LOWER(brand) LIKE ${q}
+      LIMIT 8
+    `;
+    return rows.map((r) => r.suggestion as string);
+  } catch (err) {
+    console.error("getSearchSuggestions: Neon query failed, using offline backup", err);
+    const needle = query.toLowerCase();
+    const suggestions = new Set<string>();
+    for (const car of getOfflineCars()) {
+      if (car.name.toLowerCase().includes(needle)) suggestions.add(car.name);
+      if (car.brand.toLowerCase().includes(needle)) suggestions.add(car.brand);
+      if (suggestions.size >= 8) break;
+    }
+    return Array.from(suggestions).slice(0, 8);
+  }
 }

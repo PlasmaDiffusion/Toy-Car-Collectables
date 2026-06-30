@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:seed": "npx tsx db/seed.ts"
+    "db:seed": "npx tsx db/seed.ts",
+    "db:backup": "npx tsx scripts/backup-db.ts"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.11.2",

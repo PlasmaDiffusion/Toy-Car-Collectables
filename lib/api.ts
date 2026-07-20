@@ -219,6 +219,35 @@ export async function deleteUserAccount(userId: string): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
+// Homepage stats
+// ---------------------------------------------------------------------------
+
+export interface HomePageStats {
+  carCount: number;
+  brandCount: number;
+  oldestYear: number;
+}
+
+export async function getHomePageStats(): Promise<HomePageStats> {
+  try {
+    const [carResults, brandResults, yearResults] = await Promise.all([
+      sql`SELECT COUNT(*) as count FROM cars`,
+      sql`SELECT COUNT(DISTINCT brand) as count FROM cars WHERE brand IS NOT NULL AND brand != ''`,
+      sql`SELECT MIN(production_year) as year FROM cars WHERE production_year IS NOT NULL`,
+    ]);
+
+    return {
+      carCount: Number(carResults[0]?.count ?? 0),
+      brandCount: Number(brandResults[0]?.count ?? 0),
+      oldestYear: Number(yearResults[0]?.year ?? 1950),
+    };
+  } catch (err) {
+    console.error("getHomePageStats: Failed to fetch stats, using fallback", err);
+    return { carCount: 18, brandCount: 6, oldestYear: 1950 };
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Search suggestions
 // ---------------------------------------------------------------------------
 

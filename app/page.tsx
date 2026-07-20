@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getFeaturedCars, getCategories } from "@/lib/api";
+import { getFeaturedCars, getCategories, getHomePageStats } from "@/lib/api";
 import CarCard from "@/components/CarCard";
 import CategoryCard from "@/components/CategoryCard";
 
@@ -12,10 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [featured, eraCategories, typeCategories] = await Promise.all([
+  const [featured, eraCategories, typeCategories, stats] = await Promise.all([
     getFeaturedCars(),
     getCategories("era"),
     getCategories("vehicleType"),
+    getHomePageStats(),
   ]);
 
   return (
@@ -48,8 +49,8 @@ export default async function HomePage() {
               <span className="text-brand-500">toy cars</span>
             </h1>
             <p className="mt-5 text-base leading-relaxed text-gray-400 sm:text-lg">
-              Browse curated vintage and modern toy car listings — each linked
-              directly to Facebook Marketplace.
+              Browse curated vintage and modern toy car listings. Contact the
+              seller for what you're interested in.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -74,12 +75,12 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <dl className="grid grid-cols-2 divide-x divide-surface-border md:grid-cols-4">
             {[
-              { stat: "18+", label: "Curated listings" },
-              { stat: "6", label: "Iconic brands" },
-              { stat: "1950s", label: "Oldest era covered" },
+              { stat: `${stats.carCount}`, label: "Curated listings" },
+              { stat: `${stats.brandCount}`, label: "Iconic brands" },
+              { stat: `${stats.oldestYear}`, label: "Oldest year covered" },
               {
                 stat: "Wishlist",
-                label: "Save listings yet to be on the Facebook Marketplace",
+                label: "Save a list of cars you'd like to buy",
               },
             ].map(({ stat, label }) => (
               <div key={label} className="px-6 py-5 text-center">
@@ -151,7 +152,8 @@ export default async function HomePage() {
             How Lasalle Collectibles Works
           </h2>
           <p className="mt-2 text-sm text-gray-400">
-            We curate — Facebook Marketplace handles the sale.
+            Browse our curated listings, read the details, contact the seller,
+            and meet up to buy it.
           </p>
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
             {[

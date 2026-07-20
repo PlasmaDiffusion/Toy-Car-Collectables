@@ -15,7 +15,7 @@ const SCALES: { value: string; label: string }[] = [
   { value: "1:18", label: "1:18 (25 cm)" },
   { value: "1:24", label: "1:24 (18.8 cm)" },
   { value: "1:43", label: "1:43 (10.5 cm)" },
-  { value: "1:64", label: "1:64 (7 cm) — Hot Wheels standard" },
+  { value: "1:64", label: "1:64 (7 cm)" },
   { value: "1:87", label: "1:87 (5.2 cm)" },
   { value: "Other", label: "Other (~8 cm)" },
 ];

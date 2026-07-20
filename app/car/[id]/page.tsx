@@ -63,7 +63,7 @@ export default async function CarDetailPage({ params }: Props) {
     getWishlistCount(car.id),
   ]);
 
-  const isAvailable = car.facebookMarketplaceUrl !== null;
+  const isAvailableOnFacebookMarketplace = car.facebookMarketplaceUrl !== null;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -131,7 +131,7 @@ export default async function CarDetailPage({ params }: Props) {
           </div>
 
           {/* Availability CTA */}
-          {isAvailable ? (
+          {isAvailableOnFacebookMarketplace && (
             <a
               href={car.facebookMarketplaceUrl!}
               target="_blank"
@@ -147,29 +147,29 @@ export default async function CarDetailPage({ params }: Props) {
               </svg>
               View on Facebook Marketplace
             </a>
-          ) : (
-            <div className="flex flex-col gap-2 rounded-xl border border-surface-border bg-surface-card px-6 py-4">
-              <div className="flex items-center gap-2 text-sm font-semibold text-gray-300">
-                <span className="h-2 w-2 rounded-full bg-amber-400" />
-                Not Yet On Facebook Marketplace
-              </div>
-              <p className="text-sm text-gray-400">
-                Interested in this listing? Contact{" "}
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-gray-300 underline hover:text-white"
-                >
-                  {CONTACT_EMAIL}
-                </a>
-              </p>
-              {isOnlyForInPersonPurchases && (
-                <p className="text-sm text-gray-400">
-                  Note that all purchases are to be made in person, and it is
-                  preferred you meet up somewhere publicly in Oshawa.
-                </p>
-              )}
-            </div>
           )}
+
+          <div className="flex flex-col gap-2 rounded-xl border border-surface-border bg-surface-card px-6 py-4">
+            <div className="flex items-center gap-2 text-sm font-semibold text-gray-300">
+              <span className="h-2 w-2 rounded-full bg-amber-400" />
+              How To Purchase
+            </div>
+            <p className="text-sm text-gray-400">
+              Interested in this listing? Contact{" "}
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-gray-300 underline hover:text-white"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </p>
+            {isOnlyForInPersonPurchases && (
+              <p className="text-sm text-gray-400">
+                Note that all purchases are to be made in person, and it is
+                preferred you meet up somewhere publicly in Oshawa.
+              </p>
+            )}
+          </div>
 
           {/* Wishlist */}
           <WishlistButton

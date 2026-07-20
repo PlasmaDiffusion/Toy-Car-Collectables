@@ -62,15 +62,11 @@ export default function CarCard({ car, compact = false, wishlisted }: Props) {
         )}
 
         {/* FB available indicator */}
-        <span
-          className={`absolute right-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-            isAvailable
-              ? "bg-blue-700 text-blue-100"
-              : "bg-gray-700 text-gray-400"
-          }`}
-        >
-          {isAvailable ? "On FB Marketplace" : "Coming Soon"}
-        </span>
+        {isAvailable && (
+          <span className="absolute right-2 top-2 rounded-full bg-blue-700 px-2 py-0.5 text-[10px] font-semibold text-blue-100">
+            On FB Marketplace
+          </span>
+        )}
       </div>
 
       {/* Content */}

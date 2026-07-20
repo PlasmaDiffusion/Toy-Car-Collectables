@@ -19,7 +19,7 @@ export default function FacebookDeletionStatusPage() {
         permanently removed from our systems in response to your request via
         Facebook.
       </p>
-      <p className="mt-4 text-sm text-gray-500">
+      <p className="mt-4 text-sm text-gray-400">
         If you have any questions, email{" "}
         <a
           href="mailto:ScottCooperDeveloper@gmail.com"

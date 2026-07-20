@@ -76,7 +76,7 @@ export default function CarCard({ car, compact = false, wishlisted }: Props) {
       {/* Content */}
       <div className="flex flex-1 flex-col gap-1 p-3">
         {/* Brand + year */}
-        <div className="flex items-center gap-1.5 text-[11px] text-gray-500">
+        <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
           <span>{car.brand}</span>
           <span aria-hidden>·</span>
           <span>{car.productionYear}</span>
@@ -100,8 +100,16 @@ export default function CarCard({ car, compact = false, wishlisted }: Props) {
 
         {/* Price + CTA */}
         <div className="mt-auto flex items-center justify-between pt-2">
-          <span className={`text-base font-bold ${car.price === 0 ? "text-red-500" : "text-white"}`}>
-            {car.price === 0 ? "SOLD" : car.price !== null ? `$${car.price.toLocaleString()}` : "POR"}
+          <span
+            className={`text-base font-bold ${
+              car.price === 0 ? "text-red-500" : "text-white"
+            }`}
+          >
+            {car.price === 0
+              ? "SOLD"
+              : car.price !== null
+              ? `$${car.price.toLocaleString()}`
+              : "POR"}
           </span>
         </div>
       </div>

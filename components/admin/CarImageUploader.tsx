@@ -7,12 +7,12 @@ import type { OurFileRouter } from "@/app/api/uploadthing/core";
 const UploadDropzone = generateUploadDropzone<OurFileRouter>();
 
 const PHOTO_ORDER = [
-  { label: "1 — Left side",  hint: null },
-  { label: "2 — Front",      hint: null },
+  { label: "1 — Left side", hint: null },
+  { label: "2 — Front", hint: null },
   { label: "3 — Right side", hint: null },
-  { label: "4 — Back",       hint: null },
-  { label: "5 — Top",        hint: "front of car at top of photo" },
-  { label: "6 — Bottom",     hint: "front of car at top of photo" },
+  { label: "4 — Back", hint: null },
+  { label: "5 — Top", hint: "front of car at top of photo" },
+  { label: "6 — Bottom", hint: "front of car at top of photo" },
 ];
 
 interface Props {
@@ -81,7 +81,7 @@ export default function CarImageUploader({ onChange, urls }: Props) {
           {PHOTO_ORDER.map(({ label, hint }) => (
             <li key={label} className="text-xs text-gray-400">
               {label}
-              {hint && <span className="ml-1 text-gray-500">({hint})</span>}
+              {hint && <span className="ml-1 text-gray-400">({hint})</span>}
             </li>
           ))}
         </ol>
@@ -104,8 +104,12 @@ export default function CarImageUploader({ onChange, urls }: Props) {
                 onDragEnd={handleDragEnd}
                 className={[
                   "group relative h-20 w-20 shrink-0 cursor-grab select-none rounded-md transition-all",
-                  isBeingDragged ? "opacity-40 scale-95" : "opacity-100 scale-100",
-                  isDropTarget ? "ring-2 ring-brand-400 ring-offset-1 ring-offset-surface" : "",
+                  isBeingDragged
+                    ? "opacity-40 scale-95"
+                    : "opacity-100 scale-100",
+                  isDropTarget
+                    ? "ring-2 ring-brand-400 ring-offset-1 ring-offset-surface"
+                    : "",
                 ].join(" ")}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -118,12 +122,19 @@ export default function CarImageUploader({ onChange, urls }: Props) {
 
                 {/* Position label */}
                 <span className="absolute bottom-0 left-0 right-0 rounded-b-md bg-black/70 px-1 py-0.5 text-center text-[9px] leading-tight text-gray-300">
-                  {PHOTO_ORDER[i] ? PHOTO_ORDER[i].label.split(" — ")[1] : `#${i + 1}`}
+                  {PHOTO_ORDER[i]
+                    ? PHOTO_ORDER[i].label.split(" — ")[1]
+                    : `#${i + 1}`}
                 </span>
 
                 {/* Drag handle icon — top-left */}
                 <span className="absolute left-1 top-1 rounded bg-black/50 p-0.5 opacity-0 transition group-hover:opacity-100">
-                  <svg className="h-3 w-3 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <svg
+                    className="h-3 w-3 text-gray-300"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden
+                  >
                     <path d="M8.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM15.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM8.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM15.5 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM8.5 21a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM15.5 21a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
                   </svg>
                 </span>
@@ -145,15 +156,18 @@ export default function CarImageUploader({ onChange, urls }: Props) {
 
       {/* Next expected position hint */}
       {urls.length > 0 && urls.length < PHOTO_ORDER.length && (
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-400">
           Next upload will be slot{" "}
-          <span className="text-brand-400">{PHOTO_ORDER[urls.length]?.label}</span>
-          {" "}— drag thumbnails to reorder
+          <span className="text-brand-400">
+            {PHOTO_ORDER[urls.length]?.label}
+          </span>{" "}
+          — drag thumbnails to reorder
         </p>
       )}
       {urls.length === 0 && (
-        <p className="text-xs text-gray-500">
-          Upload photos in order: Left side → Front → Right side → Back → Top → Bottom
+        <p className="text-xs text-gray-400">
+          Upload photos in order: Left side → Front → Right side → Back → Top →
+          Bottom
         </p>
       )}
 
@@ -175,16 +189,16 @@ export default function CarImageUploader({ onChange, urls }: Props) {
             container:
               "border border-dashed border-surface-border rounded-md bg-surface p-4 cursor-pointer hover:border-brand-500 transition-colors ut-uploading:opacity-60",
             label: "text-sm text-gray-400",
-            allowedContent: "text-xs text-gray-500",
-            uploadIcon: "text-gray-500",
+            allowedContent: "text-xs text-gray-400",
+            uploadIcon: "text-gray-400",
             button: "hidden",
           }}
           content={{
             label: uploading
               ? "Uploading…"
               : urls.length === 0
-                ? "Drag & drop or click to upload images"
-                : `Add more (${urls.length}/8)`,
+              ? "Drag & drop or click to upload images"
+              : `Add more (${urls.length}/8)`,
           }}
         />
       )}

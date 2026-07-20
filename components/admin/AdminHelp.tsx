@@ -228,7 +228,7 @@ export default function AdminHelp() {
               <button
                 type="button"
                 onClick={close}
-                className="flex h-7 w-7 items-center justify-center rounded-full text-gray-500 transition hover:bg-surface hover:text-white"
+                className="flex h-7 w-7 items-center justify-center rounded-full text-gray-400 transition hover:bg-surface hover:text-white"
                 aria-label="Close"
               >
                 ✕

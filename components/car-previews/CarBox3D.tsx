@@ -163,7 +163,7 @@ export default function CarBox3D({ images, scale, className }: CarBox3DProps) {
         />
       </div>
 
-      <p className="mt-2 text-center text-[11px] text-gray-500">
+      <p className="mt-2 text-center text-[11px] text-gray-400">
         Drag to rotate · Scroll to zoom
       </p>
     </div>

@@ -77,7 +77,10 @@ export default async function HomePage() {
               { stat: "18+", label: "Curated listings" },
               { stat: "6", label: "Iconic brands" },
               { stat: "1950s", label: "Oldest era covered" },
-              { stat: "Wishlist", label: "Save listings yet to be on the Facebook Marketplace" },
+              {
+                stat: "Wishlist",
+                label: "Save listings yet to be on the Facebook Marketplace",
+              },
             ].map(({ stat, label }) => (
               <div key={label} className="px-6 py-5 text-center">
                 <dt className="text-xl font-extrabold text-white sm:text-2xl">
@@ -97,7 +100,7 @@ export default async function HomePage() {
             <h2 className="text-2xl font-extrabold text-white">
               Featured Listings
             </h2>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-400">
               Hand-picked collector highlights
             </p>
           </div>
@@ -147,7 +150,7 @@ export default async function HomePage() {
           <h2 className="text-2xl font-extrabold text-white">
             How Lasalle Collectibles Works
           </h2>
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-gray-400">
             We curate — Facebook Marketplace handles the sale.
           </p>
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
@@ -176,7 +179,7 @@ export default async function HomePage() {
                   {step.icon}
                 </span>
                 <h3 className="font-semibold text-white">{step.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-500">
+                <p className="text-sm leading-relaxed text-gray-400">
                   {step.body}
                 </p>
               </div>

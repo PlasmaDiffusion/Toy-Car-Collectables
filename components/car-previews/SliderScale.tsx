@@ -150,7 +150,7 @@ export default function SliderScale({
           onChange={handleSeparate}
           className="accent-brand-500 h-3.5 w-3.5"
         />
-        <span className="text-[11px] text-gray-500">
+        <span className="text-[11px] text-gray-400">
           Scale length, width &amp; height separately
         </span>
       </label>

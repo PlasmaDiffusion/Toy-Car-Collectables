@@ -94,7 +94,7 @@ export default async function ShopPage({ searchParams }: Props) {
         <h1 className="text-3xl font-extrabold text-white">
           {activeLabel ? activeLabel : "Shop All Cars"}
         </h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-400">
           {cars.length} listing{cars.length !== 1 ? "s" : ""} found
         </p>
       </div>
@@ -137,7 +137,7 @@ function EmptyState() {
       <h2 className="mt-4 text-lg font-semibold text-white">
         No listings match these filters
       </h2>
-      <p className="mt-1 text-sm text-gray-500">
+      <p className="mt-1 text-sm text-gray-400">
         Try removing some filters or broadening your search.
       </p>
     </div>

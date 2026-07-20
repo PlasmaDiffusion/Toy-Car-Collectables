@@ -30,7 +30,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: car.name,
       description: car.description,
       ...(car.images?.length > 0 && {
-        images: [{ url: car.images[0], width: 400, height: 200, alt: car.name }],
+        images: [
+          { url: car.images[0], width: 400, height: 200, alt: car.name },
+        ],
       }),
     },
   };
@@ -64,7 +66,7 @@ export default async function CarDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center justify-between gap-2 text-sm text-gray-500">
+      <nav className="mb-6 flex items-center justify-between gap-2 text-sm text-gray-400">
         <div className="flex items-center gap-2">
           <Link href="/" className="hover:text-white">
             Home
@@ -121,7 +123,7 @@ export default async function CarDetailPage({ params }: Props) {
             ) : (
               <>
                 <span className="text-4xl font-extrabold text-white">POR</span>
-                <span className="text-sm text-gray-500">Price on request</span>
+                <span className="text-sm text-gray-400">Price on request</span>
               </>
             )}
           </div>
@@ -154,7 +156,7 @@ export default async function CarDetailPage({ params }: Props) {
                 similar cars below.
               </p>
               <p className="text-xs text-gray-400">
-                Really interested in this listing?{" "} Contact {" "}
+                Really interested in this listing? Contact{" "}
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
                   className="text-gray-300 underline hover:text-white"
@@ -172,7 +174,7 @@ export default async function CarDetailPage({ params }: Props) {
             variant="full"
           />
           {wishlistCount > 0 && (
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-400">
               {wishlistCount}{" "}
               {wishlistCount === 1 ? "person has" : "people have"} saved this
             </p>
@@ -192,7 +194,7 @@ export default async function CarDetailPage({ params }: Props) {
                   { label: "Condition", value: car.condition },
                 ].map(({ label, value }) => (
                   <tr key={label} className="bg-surface-card even:bg-surface">
-                    <td className="px-4 py-2.5 font-medium text-gray-500">
+                    <td className="px-4 py-2.5 font-medium text-gray-400">
                       {label}
                     </td>
                     <td className="px-4 py-2.5 text-white">{value}</td>
@@ -218,7 +220,7 @@ export default async function CarDetailPage({ params }: Props) {
               <Link
                 key={tag}
                 href={`/shop?q=${encodeURIComponent(tag)}`}
-                className="rounded-full border border-surface-border bg-surface-card px-2.5 py-0.5 text-[11px] text-gray-500 hover:border-gray-500 hover:text-white"
+                className="rounded-full border border-surface-border bg-surface-card px-2.5 py-0.5 text-[11px] text-gray-400 hover:border-gray-500 hover:text-white"
               >
                 {tag}
               </Link>

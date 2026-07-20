@@ -128,7 +128,7 @@ export default function ImagePanel({ car }: Props) {
               className="h-80 w-full"
             />
             <div className="border-t border-surface-border bg-surface my-80">
-              <p className="text-xs leading-relaxed text-gray-500">
+              <p className="text-xs leading-relaxed text-gray-400">
                 <span className="font-semibold text-gray-300">Note: </span>
                 The 3D box is built from this listing&apos;s photos mapped onto
                 each face. Scale is approximate based on{" "}

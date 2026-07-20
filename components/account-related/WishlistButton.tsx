@@ -26,7 +26,9 @@ export default function WishlistButton({
     e.stopPropagation();
     startTransition(async () => {
       await toggleWishlist(carId, initialWishlisted);
-      trackEvent(initialWishlisted ? "wishlist_remove" : "wishlist_add", { carId });
+      trackEvent(initialWishlisted ? "wishlist_remove" : "wishlist_add", {
+        carId,
+      });
       router.refresh();
     });
   }
@@ -57,13 +59,11 @@ export default function WishlistButton({
       <button
         onClick={handleClick}
         disabled={isPending}
-        aria-label={
-          initialWishlisted ? "un-wishlist" : "Wish list"
-        }
+        aria-label={initialWishlisted ? "un-wishlist" : "Wish list"}
         className={`flex h-7 w-7 items-center justify-center rounded-full border transition disabled:opacity-50 ${
           initialWishlisted
             ? "border-brand-600 bg-brand-900/60 text-brand-400"
-            : "border-surface-border bg-surface-card/80 text-gray-500 hover:border-brand-600 hover:text-brand-400"
+            : "border-surface-border bg-surface-card/80 text-gray-400 hover:border-brand-600 hover:text-brand-400"
         }`}
       >
         <HeartIcon filled={initialWishlisted} className="h-3.5 w-3.5" />

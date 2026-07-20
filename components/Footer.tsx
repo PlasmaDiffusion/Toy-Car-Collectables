@@ -14,7 +14,7 @@ export default function Footer() {
                 Lasalle<span className="text-brand-500">Collectibles</span>
               </span>
             </Link>
-            <p className="mt-3 text-xs leading-relaxed text-gray-500">
+            <p className="mt-3 text-xs leading-relaxed text-gray-400">
               The collector&apos;s destination for vintage and modern toy car
               die-casts. All listings link to Facebook Marketplace.
             </p>
@@ -24,7 +24,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
               Shop by Brand
             </h3>
-            <ul className="mt-3 space-y-2 text-sm text-gray-500">
+            <ul className="mt-3 space-y-2 text-sm text-gray-400">
               {[
                 "Hot Wheels",
                 "Matchbox",
@@ -48,7 +48,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
               Shop by Era
             </h3>
-            <ul className="mt-3 space-y-2 text-sm text-gray-500">
+            <ul className="mt-3 space-y-2 text-sm text-gray-400">
               {[
                 { label: "1950s & 1960s", slug: "era-1950s-60s" },
                 { label: "1970s", slug: "era-1970s" },
@@ -72,7 +72,7 @@ export default function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
               Browse
             </h3>
-            <ul className="mt-3 space-y-2 text-sm text-gray-500">
+            <ul className="mt-3 space-y-2 text-sm text-gray-400">
               {[
                 { label: "Muscle Cars", href: "/shop?vehicleType=Muscle+Car" },
                 { label: "Sports Cars", href: "/shop?vehicleType=Sports+Car" },

@@ -45,7 +45,7 @@ export default async function AccountPage() {
           <h1 className="text-2xl font-extrabold text-white">
             {user.name ?? username}
           </h1>
-          <p className="text-sm text-gray-500">{user.email}</p>
+          <p className="text-sm text-gray-400">{user.email}</p>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ export default async function AccountPage() {
       <section>
         <h2 className="mb-4 text-xl font-bold text-white">
           My Wishlist
-          <span className="ml-2 text-base font-normal text-gray-500">
+          <span className="ml-2 text-base font-normal text-gray-400">
             ({wishlist.length} {wishlist.length === 1 ? "item" : "items"})
           </span>
         </h2>
@@ -66,7 +66,7 @@ export default async function AccountPage() {
             <h3 className="mt-4 text-lg font-semibold text-white">
               Your wishlist is empty
             </h3>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-400">
               Browse the shop and save cars you&apos;re interested in.
             </p>
             <a
@@ -88,7 +88,7 @@ export default async function AccountPage() {
       {/* Danger zone */}
       <section className="mt-16 rounded-xl border border-red-500/20 bg-red-500/5 p-6">
         <h2 className="text-base font-bold text-red-400">Danger zone</h2>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-400">
           Permanently delete your account and all saved wishlist data. This
           cannot be undone.
         </p>

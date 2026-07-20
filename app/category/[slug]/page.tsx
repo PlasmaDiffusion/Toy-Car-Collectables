@@ -42,7 +42,7 @@ export default async function CategoryPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
+      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-400">
         <Link href="/" className="hover:text-white">
           Home
         </Link>
@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: Props) {
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-gray-400">
             {category.description}
           </p>
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-3 text-sm text-gray-400">
             {cars.length} listing{cars.length !== 1 ? "s" : ""}
           </p>
         </div>
@@ -106,7 +106,7 @@ function EmptyState({ categoryName }: { categoryName: string }) {
       <h2 className="mt-4 text-lg font-semibold text-white">
         No listings in {categoryName} yet
       </h2>
-      <p className="mt-1 text-sm text-gray-500">
+      <p className="mt-1 text-sm text-gray-400">
         Check back soon, or browse all cars.
       </p>
       <Link

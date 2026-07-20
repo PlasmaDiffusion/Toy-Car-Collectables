@@ -1,9 +1,11 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { addCar, updateCar, type CarFormState } from "@/app/admin/actions";
+import { addCar, updateCar, deleteCar, type CarFormState } from "@/app/admin/actions";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CarImageUploader from "./CarImageUploader";
+import GenericModal from "@/components/common-components/GenericModal";
 import type { ToyCarProduct } from "@/types";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -51,7 +53,7 @@ function Field({
         {required && <span className="ml-1 text-brand-400">*</span>}
       </label>
       {children}
-      {hint && <p className="text-xs text-gray-500">{hint}</p>}
+      {hint && <p className="text-xs text-gray-400">{hint}</p>}
     </div>
   );
 }
@@ -79,15 +81,30 @@ type Props = AddProps | EditProps;
 export default function CarForm({ mode, initialData }: Props) {
   const isEditing = mode === "edit";
   const action = isEditing ? updateCar : addCar;
+  const router = useRouter();
 
   const [showExtra, setShowExtra] = useState(isEditing);
   const [imageUrls, setImageUrls] = useState<string[]>(
     initialData?.images ?? []
   );
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [state, formAction, isPending] = useActionState<CarFormState, FormData>(
     action,
     { status: "idle" }
   );
+
+  const handleDelete = async () => {
+    if (!initialData?.id) return;
+    setIsDeleting(true);
+    const result = await deleteCar(initialData.id);
+    if (result.status === "success") {
+      router.push("/admin");
+    } else {
+      setIsDeleting(false);
+      setDeleteModalOpen(false);
+    }
+  };
 
   // ── Success screen ────────────────────────────────────────────────────────
   if (state.status === "success") {
@@ -118,7 +135,32 @@ export default function CarForm({ mode, initialData }: Props) {
 
   // ── Form ──────────────────────────────────────────────────────────────────
   return (
-    <form action={formAction} className="flex flex-col gap-6">
+    <>
+      <GenericModal
+        open={deleteModalOpen}
+        title="Delete Collectable?"
+        message={`Are you sure you want to permanently delete "${initialData?.name}"? This cannot be undone.`}
+        yesButtonText="Delete"
+        noButtonText="Cancel"
+        isDangerous
+        confirmTaps={3}
+        confirmationText="Deleting..."
+        onYes={handleDelete}
+        onNo={() => setDeleteModalOpen(false)}
+      />
+      <form action={formAction} className="flex flex-col gap-6">
+      {/* Delete button for edit mode */}
+      {isEditing && (
+        <button
+          type="button"
+          onClick={() => setDeleteModalOpen(true)}
+          disabled={isDeleting}
+          className="self-start rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-400 transition hover:bg-red-500/20 hover:border-red-500 disabled:opacity-50"
+        >
+          {isDeleting ? "Deleting…" : "Delete Toy Car"}
+        </button>
+      )}
+
       {/* Hidden id field for edit mode */}
       {isEditing && <input type="hidden" name="id" value={initialData.id} />}
 
@@ -355,5 +397,6 @@ export default function CarForm({ mode, initialData }: Props) {
         </button>
       </div>
     </form>
+    </>
   );
 }

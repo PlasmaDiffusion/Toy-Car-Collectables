@@ -159,3 +159,28 @@ export async function updateCar(
     return { status: "error", message: `Database error: ${message}` };
   }
 }
+
+export async function deleteCar(
+  id: string
+): Promise<CarFormState> {
+  const session = await auth();
+  // @ts-expect-error — isAdmin is custom
+  if (!session?.user?.isAdmin) return { status: "error", message: "Forbidden" };
+
+  if (!id?.trim()) {
+    return { status: "error", message: "Missing car ID." };
+  }
+
+  try {
+    await sql`DELETE FROM cars WHERE id = ${id}`;
+
+    revalidatePath("/");
+    revalidatePath("/shop");
+    return { status: "success", id };
+  } catch (err) {
+    console.error("deleteCar error:", err);
+    const message =
+      err instanceof Error ? err.message : "Unknown database error";
+    return { status: "error", message: `Database error: ${message}` };
+  }
+}

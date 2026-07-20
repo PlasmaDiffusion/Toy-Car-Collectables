@@ -51,6 +51,8 @@ export default async function CarDetailPage({ params }: Props) {
   const car = await getCarById(id);
   if (!car) notFound();
 
+  const isOnlyForInPersonPurchases = true; // Todo: change to feature flag for the entire website
+
   // Related: same vehicleType, exclude self
   const allCars = await getCars({ vehicleType: car.vehicleType });
   const related = allCars.filter((c) => c.id !== car.id).slice(0, 4);
@@ -149,14 +151,10 @@ export default async function CarDetailPage({ params }: Props) {
             <div className="flex flex-col gap-2 rounded-xl border border-surface-border bg-surface-card px-6 py-4">
               <div className="flex items-center gap-2 text-sm font-semibold text-gray-300">
                 <span className="h-2 w-2 rounded-full bg-amber-400" />
-                Coming Soon to Facebook Marketplace
+                Not Yet On Facebook Marketplace
               </div>
-              <p className="text-xs text-gray-400">
-                This listing is being prepared. Check back soon or browse
-                similar cars below.
-              </p>
-              <p className="text-xs text-gray-400">
-                Really interested in this listing? Contact{" "}
+              <p className="text-sm text-gray-400">
+                Interested in this listing? Contact{" "}
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
                   className="text-gray-300 underline hover:text-white"
@@ -164,6 +162,12 @@ export default async function CarDetailPage({ params }: Props) {
                   {CONTACT_EMAIL}
                 </a>
               </p>
+              {isOnlyForInPersonPurchases && (
+                <p className="text-sm text-gray-400">
+                  Note that all purchases are to be made in person, and it is
+                  preferred you meet up somewhere publicly in Oshawa.
+                </p>
+              )}
             </div>
           )}
 

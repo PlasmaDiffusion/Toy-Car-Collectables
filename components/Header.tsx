@@ -30,7 +30,7 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 text-sm font-medium text-gray-300 md:flex">
             <Link href="/shop" className="hover:text-white">
-              Shop
+              Browse All
             </Link>
             <Link
               href="/shop?condition=Mint+in+Box"

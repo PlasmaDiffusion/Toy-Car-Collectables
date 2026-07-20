@@ -167,8 +167,8 @@ export default async function HomePage() {
               },
               {
                 icon: "📘",
-                title: "Buy on Facebook",
-                body: "Click 'View on Facebook' to go directly to the Marketplace listing.",
+                title: "Contact the Seller",
+                body: "Click on an item to see how to buy it.",
               },
             ].map((step) => (
               <div

@@ -226,7 +226,7 @@ export default function CarForm({ mode, initialData }: Props) {
 
         <Field
           label="Facebook Marketplace URL"
-          hint="Leave blank if the listing isn't live yet — it will show as 'Coming Soon'"
+          hint="Leave blank if the listing isn't on marketplace yet"
         >
           <input
             name="facebookUrl"

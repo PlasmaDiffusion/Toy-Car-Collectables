@@ -18,6 +18,7 @@ interface Props {
 export default function ImagePanel({ car }: Props) {
   const [tab, setTab] = useState<"photos" | "3d">("photos");
   const [arOpen, setArOpen] = useState(false);
+  const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(car.images[0]);
   const scale: Scale = car.scale ?? DEFAULT_SCALE;
 
@@ -86,11 +87,122 @@ export default function ImagePanel({ car }: Props) {
               className="object-contain p-6"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
+            <button
+              onClick={() => setFullscreenOpen(true)}
+              className="absolute bottom-3 right-3 p-2 rounded-lg bg-black/40 hover:bg-black/60 transition text-white"
+              title="View fullscreen"
+            >
+              <svg
+                width="16px"
+                height="16px"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="bi bi-fullscreen"
+              >
+                <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z" />
+              </svg>
+            </button>
           </div>
+
+          {/* Fullscreen modal */}
+          {fullscreenOpen && (
+            <div
+              className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+              onClick={() => setFullscreenOpen(false)}
+            >
+              <div
+                className="relative w-full h-full max-w-4xl max-h-[90vh] flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={selectedImage}
+                  alt={car.name}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                />
+
+                {/* Left arrow */}
+                {car.images.length > 1 && (
+                  <button
+                    onClick={() => {
+                      const currentIndex = car.images.indexOf(selectedImage);
+                      const nextIndex =
+                        currentIndex > 0
+                          ? currentIndex - 1
+                          : car.images.length - 1;
+                      setSelectedImage(car.images[nextIndex]);
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-black/60 hover:bg-black/80 transition text-white"
+                    title="Previous image"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6 fill-none stroke-current stroke-[2]"
+                      aria-hidden
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Right arrow */}
+                {car.images.length > 1 && (
+                  <button
+                    onClick={() => {
+                      const currentIndex = car.images.indexOf(selectedImage);
+                      const nextIndex =
+                        currentIndex < car.images.length - 1
+                          ? currentIndex + 1
+                          : 0;
+                      setSelectedImage(car.images[nextIndex]);
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-black/60 hover:bg-black/80 transition text-white"
+                    title="Next image"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6 fill-none stroke-current stroke-[2]"
+                      aria-hidden
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                )}
+
+                <button
+                  onClick={() => setFullscreenOpen(false)}
+                  className="absolute top-4 right-4 p-2 rounded-lg bg-black/60 hover:bg-black/80 transition text-white"
+                  title="Close fullscreen"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6 fill-none stroke-current stroke-[2]"
+                    aria-hidden
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Thumbnail strip */}
           {car.images.length > 1 && (
-            <div className="flex gap-3">
+            <div className="flex gap-3 overflow-x-auto overflow-y-hidden">
               {car.images.map((img, i) => (
                 <button
                   key={i}

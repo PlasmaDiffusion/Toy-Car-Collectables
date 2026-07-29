@@ -3,12 +3,13 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Providers from "@/components/account-related/Providers";
+import { SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://diecastvault.com"),
+  metadataBase: new URL("https://lasallecollectibles.ca"),
   title: {
-    default: "Lasalle Collectibles — Toy Car Collectibles Marketplace",
-    template: "%s | Lasalle Collectibles",
+    default: `${SITE_NAME} — Toy Car Collectibles Marketplace`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     "Browse vintage and modern toy car die-casts: Hot Wheels Redlines, Matchbox Lesney, Corgi, Johnny Lightning, and more. Each listing links directly to Facebook Marketplace.",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Lasalle Collectibles",
+    siteName: SITE_NAME,
   },
   robots: {
     index: true,

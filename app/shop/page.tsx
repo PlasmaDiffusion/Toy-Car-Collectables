@@ -11,6 +11,7 @@ import type {
 } from "@/types";
 import CarCard from "@/components/CarCard";
 import FilterSidebar from "@/components/search-related/FilterSidebar";
+import { SITE_NAME } from "@/lib/constants";
 
 // SSR: renders fresh on every request (reflects URL filter params immediately).
 
@@ -33,7 +34,7 @@ export async function generateMetadata({
 
   return {
     title,
-    description: `Browse ${title.toLowerCase()} on Lasalle Collectibles — die-cast collectibles linked directly to Facebook Marketplace.`,
+    description: `Browse ${title.toLowerCase()} on ${SITE_NAME} — die-cast collectibles linked directly to Facebook Marketplace.`,
   };
 }
 

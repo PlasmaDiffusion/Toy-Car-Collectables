@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategoryBySlug, getCarsByCategory } from "@/lib/api";
 import CarCard from "@/components/CarCard";
+import { SITE_NAME } from "@/lib/constants";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return { title: "Not Found" };
 
   return {
-    title: `${category.name}  Cars — Lasalle Collectibles`,
+    title: `${category.name}  Cars — ${SITE_NAME}`,
     description: category.description,
   };
 }

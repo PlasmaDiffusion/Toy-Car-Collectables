@@ -1,5 +1,6 @@
 import { signIn } from "@/auth";
 import { sql } from "@/lib/db";
+import { SITE_NAME } from "@/lib/constants";
 
 const AUTH_ERRORS: Record<string, string> = {
   OAuthAccountNotLinked:
@@ -34,7 +35,7 @@ export default async function SignInPage({
           🏎
         </span>
         <h1 className="mt-3 text-xl font-extrabold text-white">
-          Sign in to Lasalle Collectibles
+          Sign in to {SITE_NAME}
         </h1>
         <p className="mt-1 text-sm text-gray-400">
           Save cars to your wishlist and track listings.

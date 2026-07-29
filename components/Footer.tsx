@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_NAME } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -11,7 +12,14 @@ export default function Footer() {
                 🏎
               </span>
               <span className="font-bold text-white">
-                Lasalle<span className="text-brand-500">Collectibles</span>
+                {SITE_NAME.split(" ")[0] + " "}
+                <span className="text-brand-500">
+                  {SITE_NAME.split(" ")
+                    .slice(1)
+                    .map((title) => {
+                      return title + " ";
+                    })}
+                </span>
               </span>
             </Link>
             <p className="mt-3 text-xs leading-relaxed text-gray-400">
@@ -92,13 +100,12 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-surface-border pt-6 text-center text-xs text-gray-600">
           <p>
-            Lasalle Collectibles links to Facebook Marketplace listings but does
-            not facilitate sales directly. All product images are placeholder
+            {SITE_NAME} links to Facebook Marketplace listings but does not
+            facilitate sales directly. All product images are placeholder
             illustrations.
           </p>
           <p className="mt-1">
-            © {new Date().getFullYear()} Lasalle Collectibles. Collector-made
-            with ❤️
+            © {new Date().getFullYear()} {SITE_NAME}. Collector-made with ❤️
           </p>
           {/* Link to privacy policy page for facebook login with AuthJS */}
           <p className="mt-2">

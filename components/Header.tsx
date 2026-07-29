@@ -5,6 +5,7 @@ import { useState } from "react";
 import AuthButton from "@/components/account-related/AuthButton";
 import AdminLink from "@/components/account-related/AdminLink";
 import SearchBar from "@/components/search-related/SearchBar";
+import { SITE_NAME } from "@/lib/constants";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +21,12 @@ export default function Header() {
               🏎
             </span>
             <span className="hidden font-bold tracking-tight text-white sm:block">
-              Lasalle<span className="text-brand-500">Collectibles </span>
+              {SITE_NAME.split(" ")[0]}{" "}
+              <span className="text-brand-500">
+                {SITE_NAME.split(" ")
+                  .slice(1)
+                  .join(" ")}{" "}
+              </span>
             </span>
           </Link>
 

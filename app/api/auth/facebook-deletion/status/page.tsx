@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Data Deletion — LaSalle Collectibles",
+  title: `Data Deletion — ${SITE_NAME}`,
   robots: { index: false },
 };
 
@@ -15,7 +16,7 @@ export default function FacebookDeletionStatusPage() {
         Your data has been deleted
       </h1>
       <p className="mt-3 text-sm text-gray-400">
-        Your LaSalle Collectibles account and all associated data has been
+        Your {SITE_NAME} account and all associated data has been
         permanently removed from our systems in response to your request via
         Facebook.
       </p>

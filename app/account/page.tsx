@@ -5,9 +5,10 @@ import { auth } from "@/auth";
 import { getWishlistCars } from "@/lib/api";
 import CarCard from "@/components/CarCard";
 import DeleteAccountModal from "@/components/account-related/DeleteAccountModal";
+import { SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "My Account — Lasalle Collectibles",
+  title: `My Account — ${SITE_NAME}`,
 };
 
 export default async function AccountPage() {

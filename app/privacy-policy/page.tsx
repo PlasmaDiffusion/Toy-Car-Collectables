@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { CONTACT_EMAIL } from "@/lib/constants";
+import { CONTACT_EMAIL, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — LaSalle Collectibles",
+  title: `Privacy Policy — ${SITE_NAME}`,
 };
 
 // Page for outlining the privacy policy of Lasalle Collectibles, especially regarding data collection from Facebook login via AuthJS.
@@ -10,13 +10,12 @@ export default function PrivacyPolicyPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-white">Privacy Policy</h1>
-      <p className="mt-1 text-base text-gray-300">LaSalle Collectibles</p>
+      <p className="mt-1 text-base text-gray-300">{SITE_NAME}</p>
       <p className="mt-2 text-sm text-gray-400">Last updated: May 2026</p>
 
       <div className="mt-8 space-y-6 text-sm leading-relaxed text-gray-400">
         <p>
-          LaSalle Collectibles ("we", "us", "our") operates the Lasalle
-          Collectibles website. This policy explains what personal data we
+          {SITE_NAME} ("we", "us", "our") operates the {SITE_NAME} website. This policy explains what personal data we
           collect, how we use it, and your rights regarding that data.
         </p>
         <p>
@@ -33,7 +32,7 @@ export default function PrivacyPolicyPage() {
           States.
         </p>
         <p>
-          We do not collect payment information. LaSalle Collectibles does not
+          We do not collect payment information. {SITE_NAME} does not
           facilitate sales directly — all listings link to Facebook Marketplace.
         </p>
         <p>

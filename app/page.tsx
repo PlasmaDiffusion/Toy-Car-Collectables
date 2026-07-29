@@ -3,12 +3,13 @@ import Link from "next/link";
 import { getFeaturedCars, getCategories, getHomePageStats } from "@/lib/api";
 import CarCard from "@/components/CarCard";
 import CategoryCard from "@/components/CategoryCard";
+import { SITE_NAME } from "@/lib/constants";
 
 // ISR — revalidate every 5 minutes; Vercel serves cached HTML between rebuilds
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Lasalle Collectibles — Toy Car Collectibles Marketplace",
+  title: `${SITE_NAME} — Toy Car Collectibles Marketplace`,
 };
 
 export default async function HomePage() {
@@ -149,7 +150,7 @@ export default async function HomePage() {
       <section className="border-t border-surface-border bg-surface-card">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-extrabold text-white">
-            How Lasalle Collectibles Works
+            How {SITE_NAME} Works
           </h2>
           <p className="mt-2 text-sm text-gray-400">
             Browse our curated listings, read the details, contact the seller,

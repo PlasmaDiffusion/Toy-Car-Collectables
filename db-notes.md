@@ -2,7 +2,7 @@
 
 ## Context
 
-Lasalle Collectibles is a **commercial business** with the following profile:
+Mark's Diecast Cars is a **commercial business** with the following profile:
 
 - Low transaction volume (collectibles — probably < 200 orders/month at scale)
 - Needs to be **legally licensed for commercial use**

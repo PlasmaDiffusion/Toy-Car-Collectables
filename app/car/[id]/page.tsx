@@ -47,6 +47,8 @@ const conditionColors: Record<string, string> = {
 };
 
 export default async function CarDetailPage({ params }: Props) {
+
+  const SHOULD_BLUR_EMAIL = true;
   const { id } = await params;
   const car = await getCarById(id);
   if (!car) notFound();
@@ -158,7 +160,7 @@ export default async function CarDetailPage({ params }: Props) {
               Interested in this listing? Contact{" "}
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="text-gray-300 underline hover:text-white"
+                className={`text-gray-300 underline hover:text-white ${SHOULD_BLUR_EMAIL && "blur-sm"}`}
               >
                 {CONTACT_EMAIL}
               </a>

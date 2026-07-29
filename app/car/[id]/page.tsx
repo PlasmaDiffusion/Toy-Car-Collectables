@@ -48,7 +48,7 @@ const conditionColors: Record<string, string> = {
 
 export default async function CarDetailPage({ params }: Props) {
 
-  const SHOULD_BLUR_EMAIL = true;
+  const SHOULD_BLUR_EMAIL = false; //Blur email for videos or screenshots in case of spam.
   const { id } = await params;
   const car = await getCarById(id);
   if (!car) notFound();

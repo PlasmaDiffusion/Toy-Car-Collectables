@@ -41,10 +41,10 @@ export default async function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
           <div className="max-w-2xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-700 bg-brand-900/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-400">
+            {/* <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-700 bg-brand-900/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-400">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse" />
               New listings added regularly
-            </div>
+            </div> */}
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
               The collector&apos;s vault for{" "}
               <span className="text-brand-500">toy cars</span>

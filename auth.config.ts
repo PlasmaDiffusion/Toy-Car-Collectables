@@ -14,7 +14,7 @@ export const authConfig = {
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
       clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-      checks: ["state"], // Bypasses the PKCE code verifier cookie check
+      checks: ["none"], // Disables both PKCE and state cookie validation for Netlify
     }),
     Facebook({
       clientId: process.env.AUTH_FACEBOOK_ID!,

@@ -32,7 +32,17 @@ export const authConfig = {
         secure: process.env.NODE_ENV === "production",
       },
     },
+    state: {
+      name: "authjs.state",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
   },
+  
 
   pages: {
     signIn: "/auth/signin",

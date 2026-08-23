@@ -14,6 +14,7 @@ export const authConfig = {
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
       clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+      checks: ["state"], // Bypasses the PKCE code verifier cookie check
     }),
     Facebook({
       clientId: process.env.AUTH_FACEBOOK_ID!,

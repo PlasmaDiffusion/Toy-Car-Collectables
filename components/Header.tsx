@@ -23,9 +23,7 @@ export default function Header() {
             <span className="hidden font-bold tracking-tight text-white sm:block">
               {SITE_NAME.split(" ")[0]}{" "}
               <span className="text-brand-500">
-                {SITE_NAME.split(" ")
-                  .slice(1)
-                  .join(" ")}{" "}
+                {SITE_NAME.split(" ").slice(1).join(" ")}{" "}
               </span>
             </span>
           </Link>
@@ -137,6 +135,8 @@ export default function Header() {
             ))}
             <div className="px-6 py-4">
               <AuthButton />
+              <br/>
+              <AdminLink />
             </div>
           </nav>
         </div>

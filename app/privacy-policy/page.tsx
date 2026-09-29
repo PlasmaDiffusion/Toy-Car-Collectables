@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
         </p>
         <p>
           We do not collect payment information. {SITE_NAME} does not
-          facilitate sales directly — all listings link to Facebook Marketplace.
+          facilitate sales directly — all transactions are handled in person.
         </p>
         <p>
           To delete your account, when you're signed in, click account in the

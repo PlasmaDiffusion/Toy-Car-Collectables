@@ -100,9 +100,8 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-surface-border pt-6 text-center text-xs text-gray-600">
           <p>
-            {SITE_NAME} links to Facebook Marketplace listings but does not
-            facilitate sales directly. All product images are placeholder
-            illustrations.
+            {SITE_NAME} does not
+            facilitate sales directly. All transactions are handled in person.
           </p>
           <p className="mt-1">
             © {new Date().getFullYear()} {SITE_NAME}. Collector-made with ❤️
